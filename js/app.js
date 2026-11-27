@@ -336,7 +336,7 @@ function corregir(div, p, l) {
 function vPreguntas(cont, lista, todas) {
   if (!todas) lista = lista.filter(p => pasaOpo(p.examen));
   if (!lista.length) { cont.innerHTML = `<p class="muted">No hay preguntas de examen para la oposición seleccionada.</p>`; return; }
-  cont.innerHTML = `<p class="muted">Preguntas reales del INAP. Elige una opción y se corrige con la plantilla oficial.</p>` + lista.map((p, i) => htmlPreg(p, i)).join("");
+  cont.innerHTML = `<p class="muted">Preguntas de exámenes oficiales. Elige una opción y se corrige con la plantilla oficial.</p>` + lista.map((p, i) => htmlPreg(p, i)).join("");
   $$(".preg", cont).forEach(div => {
     const p = PMAP[div.dataset.id];
     $$(".op", div).forEach(b => b.onclick = () => corregir(div, p, b.dataset.l));
