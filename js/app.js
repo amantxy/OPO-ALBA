@@ -551,7 +551,11 @@ async function vOrden(sel) {
   sel = sel || (S.opo === "C2" ? "C2" : "C1");
   S.orden = S.orden || {};
   const DIF = { 1: ["Fácil", "dif1"], 2: ["Media", "dif2"], 3: ["Difícil", "dif3"] };
-  const enlace = (c, k) => c === "BIB" ? "#/temario/BIB" : `#/tema/${c}-${k.replace(".", "-")}`;
+  const enlace = (c, k) => {
+    if (c === "BIB") return "#/temario/BIB";
+    const [bl, n] = k.split("."); const t = IND.programa[c].find(b => b.bloque === bl)?.temas.find(x => String(x.n) === n);
+    const d = t?.ir?.[0]; return d ? (d.doc ? `#/tema/${d.doc}${d.sec ? "/" + d.sec : ""}` : `#/tema/${d.auto}`) : `#/temario/${c}`;
+  };
   const rows = O[sel], hechos = rows.filter(r => S.orden[sel + r.k]).length;
   let h = `<h1>Orden de estudio</h1><p class="sub">De fácil a difícil y, dentro de cada nivel, primero lo que más entra en los exámenes oficiales. Marca cada tema cuando lo tengas estudiado.</p>
   <div class="tabs opo-tabs">${OPOS.map(o => `<a class="${sel === o[0] ? "on" : ""} ${o[0] === "BIB" ? "t-bib" : o[0] === "C2" ? "t-c2" : "t-c1"}" href="#/orden/${o[0]}">${o[1]}</a>`).join("")}</div>
