@@ -1,0 +1,11 @@
+[
+ {"id": "C2", "nombre": "Auxiliar Administrativo del Estado (C2)", "boe": "BOE-A-2026-24839", "boe_url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-24839",
+  "fecha": null, "hora": null, "lugar": null, "provincia": "Valladolid",
+  "web": "https://sede.inap.gob.es/es/procedimientos-y-servicios/seleccion/procesos-selectivos-de-cuerpos-y-escalas-generales", "nota": "La fecha, la hora y las sedes se publican con la lista de admitidos (sede del INAP)."},
+ {"id": "C1", "nombre": "Administrativo del Estado (C1)", "boe": "BOE-A-2026-24839", "boe_url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-24839",
+  "fecha": null, "hora": null, "lugar": null, "provincia": "Valladolid",
+  "web": "https://sede.inap.gob.es/es/procedimientos-y-servicios/seleccion/procesos-selectivos-de-cuerpos-y-escalas-generales", "nota": "La fecha, la hora y las sedes se publican con la lista de admitidos (sede del INAP)."},
+ {"id": "BIB", "nombre": "Escala Auxiliar de Archivos, Bibliotecas y Museos · Sección Bibliotecas (C1, Ministerio de Cultura)", "boe": "BOE-A-2026-24535", "boe_url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-24535",
+  "fecha": null, "hora": null, "lugar": null, "provincia": null,
+  "web": "https://www.cultura.gob.es", "nota": "La fecha, la hora y el lugar se publican con la lista de admitidos (web del Ministerio de Cultura y Punto de Acceso General)."}
+]

@@ -79,9 +79,16 @@ async function vInicio() {
   const ultimos = S.simulacros.slice(-1)[0];
   const temasHechos = IND.temas.length;
   let pend = 0; Object.keys(S.leitner).forEach(k => { if (due(k)) pend++; });
+  const CONV = await json("data/convocatorias.json").catch(() => []);
   pintar(`
   <h1>Hola, Alba</h1>
   <p class="sub">Administrativo (C1) y Auxiliar (C2) del Estado · Convocatoria BOE 26/11/2026</p>
+  <div class="grid cuenta">${CONV.map(c => `<div class="card ${c.id === "C1" ? "l" : c.id === "C2" ? "m" : ""}"><h3>${esc(c.nombre)}</h3>
+    ${c.fecha ? `<div class="big" data-cuenta="${c.fecha}T${c.hora || "09:00"}:00"></div>
+      <p><b>${new Date(c.fecha + "T12:00").toLocaleDateString("es-ES", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}</b>${c.hora ? " · " + esc(c.hora) + " h" : " · hora pendiente"}</p>
+      <p>${c.lugar ? "📍 " + esc(c.lugar) : "Lugar pendiente de publicar"}</p>`
+    : `<div class="big">—</div><p class="muted">Fecha pendiente de publicar. ${esc(c.nota)}</p>`}
+    <p class="muted"><a href="${esc(c.boe_url)}" target="_blank" rel="noopener">Convocatoria ${esc(c.boe)}</a> · <a href="${esc(c.web)}" target="_blank" rel="noopener">web del proceso</a></p></div>`).join("")}</div>
   <div class="grid">
     <div class="card l link" onclick="location.hash='#/plan'"><h3>Hoy</h3>${hoy ? `<p class="just"><b>${esc(hoy.dia)}</b>: ${esc(hoy.teoria)}</p><p class="muted">${esc(hoy.test)} · ${esc(hoy.extra)}</p>
       <label class="fila"><input type="checkbox" ${S.plan[h] ? "checked" : ""} onclick="event.stopPropagation();OPO.planDia('${h}',this.checked)"> Hecho</label>` : `<p>El plan empieza el 30 de noviembre de 2026.</p>`}</div>
@@ -95,6 +102,19 @@ async function vInicio() {
     <div class="card m link" onclick="location.hash='#/examenes'"><h3>Exámenes oficiales</h3><p>Los 8 exámenes del INAP (2023-2026) para hacerlos con reloj y corrección automática.</p></div>
     <div class="card link" onclick="location.hash='#/boe'"><h3>BOE oficial</h3><p>Texto consolidado de las normas del temario, con buscador.</p></div>
   </div>`);
+  cuentas();
+}
+
+let cuentaInt = null;
+function cuentas() {
+  clearInterval(cuentaInt);
+  const tick = () => $$("[data-cuenta]").forEach(el => {
+    const ms = new Date(el.dataset.cuenta) - Date.now();
+    if (ms <= 0) { el.textContent = "¡Hoy es el examen!"; return; }
+    const d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24, m = Math.floor(ms / 6e4) % 60;
+    el.textContent = `${d} días ${h} h ${m} min`;
+  });
+  tick(); cuentaInt = setInterval(tick, 30000);
 }
 
 /* ---------- temario ---------- */
