@@ -234,3 +234,4 @@ input.busca{width:100%;padding:10px 14px;border:1.5px solid var(--lila-b);border
 .bloque.card.nar{border-color:var(--nar-b);background:var(--nar-p)}
 .bloque.card.nar h3{color:var(--nar)}
 .bloque.card.nar .tema-li .n{color:var(--nar);border-color:var(--nar-b)}
+.opo-tabs a.t-ss.on{background:var(--azul);color:#fff}.opo-tabs a.t-ss{color:var(--azul)}

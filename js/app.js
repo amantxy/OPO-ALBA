@@ -64,7 +64,12 @@ async function base() {
   }
 }
 const tema = slug => json(`data/temas/${slug}.json`);
-let PBIB;
+let PBIB, PSS;
+async function baseSS() {
+  await base();
+  if (!PSS) { PSS = await json("data/preguntas_ss.json"); PSS.forEach(p => PMAP[p.id] = p); }
+  return PSS;
+}
 async function baseBib() {
   await base();
   if (!PBIB) { PBIB = await json("data/preguntas_bib.json"); PBIB.forEach(p => PMAP[p.id] = p); }
@@ -262,7 +267,8 @@ async function vTemario(sel) {
   pintar(h);
 }
 
-async function temarioOtro(file, titulo, cls, linkTxt, linkHref) {
+async function temarioOtro(file, titulo, cls, linkTxt, linkHref, banco, ruta) {
+  const porTema = {}; (banco || []).forEach(p => { if (p.tema) porTema[p.tema] = (porTema[p.tema] || 0) + 1; });
   const B = await json(file);
   const nombres = { constitucion: "Constitución", cortes: "Cortes Generales", gobierno: "Gobierno", poder_judicial: "Poder Judicial", ccaa: "Comunidades Autónomas", local: "Administración local", age: "AGE", transparencia: "Transparencia", ue: "Unión Europea" };
   let nT = 0, nC = 0, nP = 0;
@@ -276,22 +282,35 @@ async function temarioOtro(file, titulo, cls, linkTxt, linkHref) {
       const c = t.comparte;
       const chip = c ? `<span class="chip ${c.tipo === "total" ? "comp" : "parc"}">${c.tipo === "total" ? "Compartido" : "En parte"} · ${c.C1.concat(c.C2).join(", ")}</span>${c.nota ? `<span class="muted"> ${esc(c.nota)}</span>` : ""}` : `<span class="chip nuevo-${cls}">Nuevo</span>`;
       const links = (t.ir || []).map(d => d.doc ? `<a class="btn s" href="#/tema/${d.doc}">${esc(nombres[d.doc] || d.doc)}</a>` : `<a class="btn s o" href="#/tema/${d.auto}">Tema ${d.auto.replace("C1-", "C1 ").replace(/-/g, ".")}</a>`).join(" ");
-      h += `<div class="tema-li"><div class="n">${b.bloque}.${t.n}</div><div class="t">${esc(t.titulo)}<div class="fila" style="margin-top:6px">${chip}</div><div class="fila" style="margin-top:6px">${links || '<span class="pend">En preparación</span>'}</div></div></div>`;
+      const nq = porTema[b.bloque + "." + t.n] || 0;
+      const ql = nq && ruta ? ` <a class="btn s o" href="#/${ruta}/${b.bloque}.${t.n}">★ ${nq} preguntas de examen</a>` : "";
+      h += `<div class="tema-li"><div class="n">${b.bloque}.${t.n}</div><div class="t">${esc(t.titulo)}<div class="fila" style="margin-top:6px">${chip}</div><div class="fila" style="margin-top:6px">${links || '<span class="pend">En preparación</span>'}${ql}</div></div></div>`;
     }
     h += `</div>`;
   }
   return h + (linkHref ? `<p><a class="btn ${cls}" href="${linkHref}">${esc(linkTxt)}</a></p>` : "") + `</section>`;
 }
 const temarioBib = () => temarioOtro("data/bibliotecas.json", "Bibliotecas · Ministerio de Cultura · turno libre (C1)", "nar", "Ir a Bibliotecas (simulacros y preguntas por tema)", "#/bib");
-const temarioSS = () => temarioOtro("data/seguridad_social.json", "Seguridad Social · Cuerpo Administrativo (C1)", "azul", "Ir a Seguridad Social", "#/ss");
+const temarioSS = async () => temarioOtro("data/seguridad_social.json", "Seguridad Social · Cuerpo Administrativo (C1)", "azul", "Ir a Seguridad Social (simulacros y exámenes)", "#/ss", await baseSS(), "ssp");
 
+async function vSSPreg(t) {
+  menu("ss"); await baseSS();
+  const B = await json("data/seguridad_social.json");
+  const [bl, n] = t.split(".");
+  const tit = t === "SUP" ? "Supuestos prácticos de los exámenes oficiales, con el enunciado del caso." : (B.programa.find(b => b.bloque === bl)?.temas.find(x => String(x.n) === n)?.titulo || "");
+  pintar(`<p class="muted"><a href="#/ss">← Seguridad Social</a></p><h1 class="azul-t">${t === "SUP" ? "Supuestos prácticos" : "Tema " + esc(t)} · preguntas de examen</h1><p class="sub">${esc(tit)}</p><div id="cont"></div>`);
+  vPreguntas($("#cont"), t === "SUP" ? PSS.filter(p => p.parte > 1).sort((a, b) => a.examen.localeCompare(b.examen) || a.reserva - b.reserva || a.n - b.n) : PSS.filter(p => p.tema === t), true);
+}
 async function vSS() {
-  menu("ss");
+  menu("ss"); await baseSS();
   const B = await json("data/seguridad_social.json"); const CONV = await json("data/convocatorias.json").catch(() => []);
   const c = CONV.find(x => x.id === "SS");
   pintar(`<p class="muted"><a href="#/">← Mis oposiciones</a></p><h1 class="azul-t">Seguridad Social · Administrativo (C1)</h1><p class="sub">${esc(B.nombre)}</p>
+  <h2 class="azul-t">Practicar</h2><div class="grid"><div class="card ssc"><h3>Simulacro</h3><p>70 preguntas oficiales + 1 supuesto real · 120 min · error −1/4.</p><button class="btn azul" onclick="OPO.simSS()">Empezar</button></div>
+    <div class="card ssc"><h3>Supuestos prácticos</h3><p>${PSS.filter(p => p.parte > 1).length} preguntas de supuestos oficiales con su caso.</p><a class="btn azul o" href="#/ssp/SUP">Practicar</a></div>
+    <div class="card ssc"><h3>Exámenes oficiales</h3><p>2026 (rojo y verde) y 2025 completos, con reloj.</p><a class="btn azul o" href="#/examenes/SS">Ver exámenes</a></div></div>
   <div class="grid">${c ? tarjetaCuenta(c, "ssc") : ""}<div class="card ssc"><h3>El examen (última convocatoria)</h3><ul>${B.examen.map(x => `<li>${esc(x)}</li>`).join("")}</ul><p class="muted">${esc(B.plazas)}</p><p><a href="${esc(B.boe_url)}" target="_blank" rel="noopener">Convocatoria ${esc(B.boe)}</a></p></div></div>`
-    + await temarioOtro("data/seguridad_social.json", "Temario oficial", "azul"));
+    + await temarioOtro("data/seguridad_social.json", "Temario oficial", "azul", "", "", PSS, "ssp"));
   cuentas();
 }
 
@@ -376,16 +395,20 @@ function vTarjetas(cont, cards, todas) {
   pinta();
 }
 
-const OPOS = [["C1", "AGE · Administrativo C1", "l"], ["C2", "AGE · Auxiliar C2", "m"], ["BIB", "Bibliotecas · Cultura", "bibc"]];
+const OPOS = [["C1", "AGE · Administrativo C1", "l"], ["C2", "AGE · Auxiliar C2", "m"], ["SS", "Seguridad Social", "ssc"], ["BIB", "Bibliotecas · Cultura", "bibc"]];
+const SS_DOCS = ["constitucion", "cortes", "poder_judicial", "gobierno", "age", "ccaa", "local", "ue"];
+const tabCls = k => k === "BIB" ? "t-bib" : k === "C2" ? "t-c2" : k === "SS" ? "t-ss" : k === "C1" ? "t-c1" : "";
+const btnCls = k => k === "BIB" ? "nar" : k === "C2" ? "m" : k === "SS" ? "azul" : "";
+const bancoDe = k => k === "BIB" ? (PBIB || []) : k === "SS" ? (PSS || []) : PREG;
 const BIB_DOCS = ["constitucion", "cortes", "gobierno", "poder_judicial", "ccaa", "local", "age", "transparencia"];
 function opoTabs(ruta, sel) {
-  return `<div class="tabs opo-tabs">${[["", "Las tres"]].concat(OPOS.map(o => [o[0], o[1]])).map(([k, n]) => `<a class="${(sel || "") === k ? "on" : ""} ${k === "BIB" ? "t-bib" : k === "C2" ? "t-c2" : k === "C1" ? "t-c1" : ""}" href="#/${ruta}${k ? "/" + k : ""}">${n}</a>`).join("")}</div>`;
+  return `<div class="tabs opo-tabs">${[["", "Todas"]].concat(OPOS.map(o => [o[0], o[1]])).map(([k, n]) => `<a class="${(sel || "") === k ? "on" : ""} ${tabCls(k)}" href="#/${ruta}${k ? "/" + k : ""}">${n}</a>`).join("")}</div>`;
 }
 const opoSel = sel => OPOS.filter(o => !sel || o[0] === sel);
-const tituloOpo = (o) => `<h2 class="opo-h ${o[0] === "BIB" ? "nar-t" : o[0] === "C2" ? "menta-t" : ""}">${esc(o[1])}</h2>`;
+const tituloOpo = (o) => `<h2 class="opo-h ${o[0] === "BIB" ? "nar-t" : o[0] === "C2" ? "menta-t" : o[0] === "SS" ? "azul-t" : ""}">${esc(o[1])}</h2>`;
 
 async function vRepaso(sel) {
-  menu("repaso"); await base(); await baseBib();
+  menu("repaso"); await base(); await baseBib(); await baseSS();
   let h = `<h1>Repaso</h1><p class="sub">Tarjetas de memoria con repetición espaciada (1, 3, 7, 14 y 30 días) y repaso de tus fallos, por oposición.</p>${opoTabs("repaso", sel)}`;
   const cardsDe = async (filtro) => {
     const cards = [];
@@ -397,12 +420,12 @@ async function vRepaso(sel) {
   };
   const datos = [];
   for (const o of opoSel(sel)) {
-    const filtro = o[0] === "BIB" ? (t => BIB_DOCS.includes(t.slug)) : (t => t.cubre?.[o[0]]?.length);
+    const filtro = o[0] === "BIB" ? (t => BIB_DOCS.includes(t.slug)) : o[0] === "SS" ? (t => SS_DOCS.includes(t.slug)) : (t => t.cubre?.[o[0]]?.length);
     const cards = await cardsDe(filtro);
     const pend = cards.filter(c => S.leitner[c.id] && due(c.id)).length, nuevas = cards.filter(c => !S.leitner[c.id]).length;
-    const fallos = (o[0] === "BIB" ? (PBIB || []) : PREG).filter(p => p.examen.startsWith(o[0]) && S.resp[p.id] && !S.resp[p.id].ok).length;
+    const fallos = bancoDe(o[0]).filter(p => p.examen.startsWith(o[0]) && S.resp[p.id] && !S.resp[p.id].ok).length;
     datos.push([o, cards]);
-    h += tituloOpo(o) + `<div class="grid"><div class="card ${o[2]}"><h3>Tarjetas de hoy</h3><div class="big">${pend + Math.min(nuevas, 25)}</div><p class="muted">${pend} pendientes y ${Math.min(nuevas, 25)} nuevas, de ${cards.length} tarjetas${o[0] === "BIB" ? " (de los temas compartidos con AGE; las de los temas propios de Bibliotecas se añadirán al prepararlos)" : ""}.</p><button class="btn ${o[0] === "BIB" ? "nar" : o[0] === "C2" ? "m" : ""}" onclick="OPO.repasar('${o[0]}')">Repasar</button></div>
+    h += tituloOpo(o) + `<div class="grid"><div class="card ${o[2]}"><h3>Tarjetas de hoy</h3><div class="big">${pend + Math.min(nuevas, 25)}</div><p class="muted">${pend} pendientes y ${Math.min(nuevas, 25)} nuevas, de ${cards.length} tarjetas${o[0] === "BIB" || o[0] === "SS" ? " (de los temas compartidos con AGE; las de los temas propios se añadirán al prepararlos)" : ""}.</p><button class="btn ${btnCls(o[0])}" onclick="OPO.repasar('${o[0]}')">Repasar</button></div>
       <div class="card ${o[2]}"><h3>Mis fallos</h3><div class="big">${fallos}</div><p class="muted">preguntas de examen que has fallado alguna vez.</p><button class="btn o" onclick="OPO.fallos('${o[0]}')">Repetirlas</button></div></div>`;
   }
   pintar(h + `<div id="fl"></div>`);
@@ -416,10 +439,10 @@ function repasar(k) {
   vTarjetas($("#fl"), sesion, true); $("#fl").scrollIntoView({ behavior: "smooth" });
 }
 async function fallos(k) {
-  if (k === "BIB") await baseBib();
-  const l = (k === "BIB" ? PBIB : PREG).filter(p => p.examen.startsWith(k) && S.resp[p.id] && !S.resp[p.id].ok);
+  await baseBib(); await baseSS();
+  const l = bancoDe(k).filter(p => p.examen.startsWith(k) && S.resp[p.id] && !S.resp[p.id].ok);
   if (!l.length) { alert("Todavía no has fallado ninguna pregunta de esta oposición."); return; }
-  examenCronometrado("Mis fallos · " + OPOS.find(o => o[0] === k)[1], mezclar(l).slice(0, 40), 40, "Fallos " + k, k === "BIB" ? 3 : 3);
+  examenCronometrado("Mis fallos · " + OPOS.find(o => o[0] === k)[1], mezclar(l).slice(0, 40), 40, "Fallos " + k, k === "SS" ? 4 : 3);
 }
 
 /* ---------- preguntas (práctica libre) ---------- */
@@ -484,7 +507,7 @@ function examenCronometrado(titulo, lista, minutos, tipo, pen = 3) {
 }
 
 async function vSimulacro(sel) {
-  menu("simulacro"); await base(); await baseBib();
+  menu("simulacro"); await base(); await baseBib(); await baseSS();
   const cnt = (c, cat) => PREGA.filter(p => p.examen.startsWith(c) && p.cat === cat).length;
   let h = `<h1>Simulacro</h1><p class="sub">Preguntas oficiales elegidas al azar, con reloj y corrección con la plantilla oficial.</p>${opoTabs("simulacro", sel)}`;
   for (const o of opoSel(sel)) {
@@ -495,6 +518,9 @@ async function vSimulacro(sel) {
     if (o[0] === "C2") h += `<div class="grid"><div class="card m"><h3>Simulacro C2 · teoría y ofimática</h3><p>30 de teoría (bloque I) + 50 de ofimática (bloque II). 80 minutos · error −1/3.</p><button class="btn m" onclick="OPO.sim('C2')">Empezar</button></div>
       <div class="card m"><h3>Rápido C2</h3><p>20 preguntas de teoría. 15 minutos.</p><button class="btn o" onclick="OPO.sim('rapidoC2')">Empezar</button></div></div>
       <p class="muted">Banco C2: ${cnt("C2", "teoria")} de teoría y ${cnt("C2", "ofimatica")} de ofimática. Los psicotécnicos dependen de tablas del cuadernillo y se hacen desde «Exámenes».</p>`;
+    if (o[0] === "SS") h += `<div class="grid"><div class="card ssc"><h3>Simulacro Seguridad Social</h3><p>70 preguntas oficiales + 1 supuesto práctico real de 15. 120 minutos · error −1/4.</p><button class="btn azul" onclick="OPO.simSS()">Empezar</button></div>
+      <div class="card ssc"><h3>Rápido Seguridad Social</h3><p>20 preguntas de la primera parte. 15 minutos.</p><button class="btn azul o" onclick="OPO.sim('rapidoSS')">Empezar</button></div></div>
+      <p class="muted">Banco Seguridad Social: ${PSS.filter(p => p.parte === 1 && !p.reserva).length} preguntas de la primera parte y ${PSS.filter(p => p.parte > 1 && !p.reserva).length} de supuestos prácticos.</p>`;
     if (o[0] === "BIB") h += `<div class="grid"><div class="card bibc"><h3>Simulacro Bibliotecas · turno libre</h3><p>100 preguntas + 2 supuestos prácticos reales. 150 minutos · error −1/3.</p><button class="btn nar" onclick="OPO.simBib('TL')">Empezar</button></div>
       <div class="card bibc"><h3>Rápido Bibliotecas</h3><p>20 preguntas de la primera parte. 15 minutos.</p><button class="btn nar o" onclick="OPO.sim('rapidoBIB')">Empezar</button></div></div>
       <p class="muted">Banco Bibliotecas: ${PBIB.filter(p => p.parte === 1 && !p.reserva).length} preguntas de la primera parte y ${PBIB.filter(p => p.parte > 1 && !p.reserva).length} de supuestos prácticos.</p>`;
@@ -506,16 +532,24 @@ function sim(tipo) {
   if (tipo === "C1") examenCronometrado("Simulacro C1", mezclar(pick("C1", "teoria", 40)).concat(pick("C1", "ofimatica", 30)), 60, "Simulacro C1");
   if (tipo === "C2") examenCronometrado("Simulacro C2", pick("C2", "teoria", 30).concat(pick("C2", "ofimatica", 50)), 80, "Simulacro C2");
   if (tipo === "rapidoC1" || tipo === "rapidoC2") { const c = tipo.slice(-2); examenCronometrado("Simulacro rápido " + c, mezclar(PREGA.filter(p => p.cat === "teoria" && p.examen.startsWith(c) && p.respuesta?.length === 1)).slice(0, 20), 15, "Rápido " + c); }
+  if (tipo === "rapidoSS") examenCronometrado("Simulacro rápido Seguridad Social", mezclar(PSS.filter(p => p.parte === 1 && !p.reserva && p.respuesta?.length === 1)).slice(0, 20), 15, "Rápido SS", 4);
   if (tipo === "rapidoBIB") examenCronometrado("Simulacro rápido Bibliotecas", mezclar(PBIB.filter(p => p.parte === 1 && !p.reserva && p.respuesta?.length === 1)).slice(0, 20), 15, "Rápido BIB", 3);
   if (tipo === "fallos") fallos("C1");
 }
 
 async function vExamenes(sel) {
-  menu("examenes"); await base(); await baseBib();
+  menu("examenes"); await base(); await baseBib(); await baseSS();
   let h = `<h1>Exámenes oficiales</h1><p class="sub">Haz cada examen con reloj y corrección automática, o abre el cuadernillo y la plantilla originales.</p>${opoTabs("examenes", sel)}`;
   for (const o of opoSel(sel)) {
     h += tituloOpo(o);
-    if (o[0] !== "BIB") {
+    if (o[0] === "SS") {
+      const PDF = { SS25R: ["SS25R.pdf", "plantilla_SS25.pdf"], SS25V: ["SS25V.pdf", "plantilla_SS25.pdf"], SS24: ["SS24.pdf", "plantilla_SS24.pdf"] };
+      h += `<p class="muted">Cuerpo Administrativo de la Administración de la Seguridad Social · acceso libre. En 2026 hubo dos cuestionarios distintos (rojo y verde).</p><div class="grid">${Object.keys(PDF).map(k => {
+        const l = PSS.filter(p => p.examen === k && !p.reserva), sup = l.filter(p => p.parte > 1).length;
+        return `<div class="card ssc"><h3>${esc(l[0].lab)}</h3><p class="muted">${l.length - sup} preguntas + ${sup} del supuesto práctico</p>
+          <div class="fila"><button class="btn s azul" onclick="OPO.exSS('${k}')">Hacer con reloj</button><a class="btn s o" href="examenes/ss/${PDF[k][0]}" target="_blank">Cuadernillo</a><a class="btn s o" href="examenes/ss/${PDF[k][1]}" target="_blank">Plantilla</a></div></div>`;
+      }).join("")}</div>`;
+    } else if (o[0] !== "BIB") {
       const ex = Object.entries(IND.examenes).filter(([k]) => k.startsWith(o[0]));
       h += `<p class="muted">INAP. En 2024 y 2026 hubo dos modelos (A y B): las mismas preguntas en distinto orden, cada una con su plantilla.</p><div class="grid">${ex.map(([k, n]) => {
         const l = PREG.filter(p => p.examen === k && p.cat !== "psico");
@@ -571,6 +605,7 @@ async function vOrden(sel) {
   const DIF = { 1: ["Fácil", "dif1"], 2: ["Media", "dif2"], 3: ["Difícil", "dif3"] };
   const enlace = (c, k) => {
     if (c === "BIB") return "#/temario/BIB";
+    if (c === "SS") return "#/temario/SS";
     const [bl, n] = k.split("."); const t = IND.programa[c].find(b => b.bloque === bl)?.temas.find(x => String(x.n) === n);
     const d = t?.ir?.[0]; return d ? (d.doc ? `#/tema/${d.doc}${d.sec ? "/" + d.sec : ""}` : `#/tema/${d.auto}`) : `#/temario/${c}`;
   };
@@ -679,6 +714,7 @@ async function router() {
     if (ruta === "age") return vInicio();
     if (ruta === "bib") return vBib();
     if (ruta === "ss") return vSS();
+    if (ruta === "ssp") return vSSPreg(a[0]);
     if (ruta === "bibp") return vBibPreg(a[0]);
     if (ruta === "temario") return vTemario(a[0]);
     if (ruta === "tema") return vTema(a[0], a[1], a[2]);
@@ -703,6 +739,18 @@ window.OPO = {
   orden(c, k, v) { S.orden = S.orden || {}; S.orden[c + k] = v; guardar(); },
   async entrar() { const e = $("#em").value.trim(), p = $("#pw").value; if (!e || !p) return; $("#msg").textContent = "Entrando…"; const err = await nube.entrar(e, p); $("#msg").textContent = err ? "No se ha podido entrar: " + err : "Sesión iniciada. Sincronizando…"; if (!err) setTimeout(router, 800); },
   async salir() { await nube.salir(); router(); },
+  async simSS() {
+    await baseSS();
+    const ok = PSS.filter(p => p.parte === 1 && p.respuesta && p.respuesta.length === 1 && !p.reserva);
+    const sets = {}; PSS.filter(p => p.parte > 1 && !p.reserva).forEach(p => (sets[p.examen] = sets[p.examen] || []).push(p));
+    const sup = mezclar(Object.values(sets))[0].sort((a, b) => a.n - b.n);
+    examenCronometrado("Simulacro Seguridad Social", mezclar(ok).slice(0, 70).concat(sup), 120, "Seguridad Social", 4);
+  },
+  async exSS(k) {
+    await baseSS();
+    const l = PSS.filter(p => p.examen === k && !p.reserva).sort((a, b) => a.parte - b.parte || a.n - b.n);
+    examenCronometrado(l[0].lab, l, 120, l[0].lab, 4);
+  },
   async simBib(m) {
     await baseBib();
     const ok = PBIB.filter(p => p.parte === 1 && p.respuesta && p.respuesta.length === 1 && !p.reserva);
