@@ -1,0 +1,380 @@
+[
+ {
+  "num": "01",
+  "nombre": "Constitucion Espanola",
+  "tag": "AMBAS",
+  "act": "2026-05-20",
+  "ref": "BOE-A-1978-31229",
+  "txt": "boe/01-BOE-A-1978-31229.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1978-31229"
+ },
+ {
+  "num": "02",
+  "nombre": "LO 2-1979 Tribunal Constitucional",
+  "tag": "AMBAS",
+  "act": "2024-08-02",
+  "ref": "BOE-A-1979-23709",
+  "txt": "boe/02-BOE-A-1979-23709.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1979-23709"
+ },
+ {
+  "num": "03",
+  "nombre": "LO 3-1981 Defensor del Pueblo",
+  "tag": "AMBAS",
+  "act": "2009-11-04",
+  "ref": "BOE-A-1981-10325",
+  "txt": "boe/03-BOE-A-1981-10325.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1981-10325"
+ },
+ {
+  "num": "04",
+  "nombre": "LO 4-1981 Estados alarma excepcion sitio",
+  "tag": "AMBAS",
+  "act": null,
+  "ref": "BOE-A-1981-12774",
+  "txt": "boe/04-BOE-A-1981-12774.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1981-12774"
+ },
+ {
+  "num": "05",
+  "nombre": "LO 5-1985 Regimen Electoral General",
+  "tag": "AMBAS",
+  "act": "2026-07-02",
+  "ref": "BOE-A-1985-11672",
+  "txt": "boe/05-BOE-A-1985-11672.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1985-11672"
+ },
+ {
+  "num": "06",
+  "nombre": "LO 6-1985 Poder Judicial",
+  "tag": "AMBAS",
+  "act": "2025-02-17",
+  "ref": "BOE-A-1985-12666",
+  "txt": "boe/06-BOE-A-1985-12666.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1985-12666"
+ },
+ {
+  "num": "07",
+  "nombre": "Ley 50-1997 del Gobierno",
+  "tag": "AMBAS",
+  "act": "2025-01-03",
+  "ref": "BOE-A-1997-25336",
+  "txt": "boe/07-BOE-A-1997-25336.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1997-25336"
+ },
+ {
+  "num": "08",
+  "nombre": "Ley 19-2013 Transparencia",
+  "tag": "AMBAS",
+  "act": "2022-07-09",
+  "ref": "BOE-A-2013-12887",
+  "txt": "boe/08-BOE-A-2013-12887.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2013-12887"
+ },
+ {
+  "num": "09",
+  "nombre": "Ley 40-2015 Regimen Juridico Sector Publico",
+  "tag": "AMBAS",
+  "act": "2024-08-02",
+  "ref": "BOE-A-2015-10566",
+  "txt": "boe/09-BOE-A-2015-10566.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-10566"
+ },
+ {
+  "num": "10",
+  "nombre": "RD 1009-2023 Estructura ministerios",
+  "tag": "AMBAS",
+  "act": "2026-11-13",
+  "ref": "BOE-A-2023-24842",
+  "txt": "boe/10-BOE-A-2023-24842.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2023-24842"
+ },
+ {
+  "num": "11",
+  "nombre": "Ley 7-1985 Bases Regimen Local",
+  "tag": "AMBAS",
+  "act": "2026-10-03",
+  "ref": "BOE-A-1985-5392",
+  "txt": "boe/11-BOE-A-1985-5392.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1985-5392"
+ },
+ {
+  "num": "12",
+  "nombre": "Ley 39-2015 Procedimiento Administrativo Comun",
+  "tag": "AMBAS",
+  "act": "2024-11-06",
+  "ref": "BOE-A-2015-10565",
+  "txt": "boe/12-BOE-A-2015-10565.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565"
+ },
+ {
+  "num": "13",
+  "nombre": "LO 3-2018 Proteccion de Datos",
+  "tag": "AMBAS",
+  "act": "2025-12-27",
+  "ref": "BOE-A-2018-16673",
+  "txt": "boe/13-BOE-A-2018-16673.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2018-16673"
+ },
+ {
+  "num": "14",
+  "nombre": "Ley 29-1998 Jurisdiccion Contencioso-administrativa",
+  "tag": "AMBAS",
+  "act": "2025-01-03",
+  "ref": "BOE-A-1998-16718",
+  "txt": "boe/14-BOE-A-1998-16718.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1998-16718"
+ },
+ {
+  "num": "15",
+  "nombre": "Ley 9-2017 Contratos Sector Publico",
+  "tag": "C1",
+  "act": "2026-11-21",
+  "ref": "BOE-A-2017-12902",
+  "txt": "boe/15-BOE-A-2017-12902.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2017-12902"
+ },
+ {
+  "num": "16",
+  "nombre": "LO 3-2007 Igualdad",
+  "tag": "AMBAS",
+  "act": "2024-08-02",
+  "ref": "BOE-A-2007-6115",
+  "txt": "boe/16-BOE-A-2007-6115.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-6115"
+ },
+ {
+  "num": "17",
+  "nombre": "LO 1-2004 Violencia de Genero",
+  "tag": "AMBAS",
+  "act": "2022-09-07",
+  "ref": "BOE-A-2004-21760",
+  "txt": "boe/17-BOE-A-2004-21760.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2004-21760"
+ },
+ {
+  "num": "18",
+  "nombre": "Ley 4-2023 Igualdad personas trans y LGTBI",
+  "tag": "AMBAS",
+  "act": null,
+  "ref": "BOE-A-2023-5366",
+  "txt": "boe/18-BOE-A-2023-5366.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2023-5366"
+ },
+ {
+  "num": "19",
+  "nombre": "Ley 15-2022 Igualdad de trato",
+  "tag": "AMBAS",
+  "act": null,
+  "ref": "BOE-A-2022-11589",
+  "txt": "boe/19-BOE-A-2022-11589.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-11589"
+ },
+ {
+  "num": "20",
+  "nombre": "RDLeg 1-2013 Derechos personas con discapacidad",
+  "tag": "AMBAS",
+  "act": "2026-10-03",
+  "ref": "BOE-A-2013-12632",
+  "txt": "boe/20-BOE-A-2013-12632.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2013-12632"
+ },
+ {
+  "num": "21",
+  "nombre": "Ley 39-2006 Dependencia",
+  "tag": "AMBAS",
+  "act": "2026-11-11",
+  "ref": "BOE-A-2006-21990",
+  "txt": "boe/21-BOE-A-2006-21990.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-21990"
+ },
+ {
+  "num": "22",
+  "nombre": "RDLeg 5-2015 TREBEP",
+  "tag": "AMBAS",
+  "act": "2026-11-25",
+  "ref": "BOE-A-2015-11719",
+  "txt": "boe/22-BOE-A-2015-11719.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11719"
+ },
+ {
+  "num": "23",
+  "nombre": "Ley 30-1984 Reforma Funcion Publica",
+  "tag": "AMBAS",
+  "act": "2015-10-31",
+  "ref": "BOE-A-1984-17387",
+  "txt": "boe/23-BOE-A-1984-17387.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1984-17387"
+ },
+ {
+  "num": "24",
+  "nombre": "RD 364-1995 Reglamento Ingreso y Provision",
+  "tag": "AMBAS",
+  "act": "2006-03-04",
+  "ref": "BOE-A-1995-8729",
+  "txt": "boe/24-BOE-A-1995-8729.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1995-8729"
+ },
+ {
+  "num": "25",
+  "nombre": "Ley 53-1984 Incompatibilidades",
+  "tag": "C1",
+  "act": "2026-11-21",
+  "ref": "BOE-A-1985-151",
+  "txt": "boe/25-BOE-A-1985-151.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1985-151"
+ },
+ {
+  "num": "26",
+  "nombre": "RD 33-1986 Regimen Disciplinario",
+  "tag": "AMBAS",
+  "act": "1991-12-31",
+  "ref": "BOE-A-1986-1216",
+  "txt": "boe/26-BOE-A-1986-1216.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1986-1216"
+ },
+ {
+  "num": "27",
+  "nombre": "RDLeg 4-2000 MUFACE",
+  "tag": "AMBAS",
+  "act": "2026-11-21",
+  "ref": "BOE-A-2000-12140",
+  "txt": "boe/27-BOE-A-2000-12140.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2000-12140"
+ },
+ {
+  "num": "28",
+  "nombre": "RDLeg 670-1987 Clases Pasivas",
+  "tag": "AMBAS",
+  "act": "2026-10-21",
+  "ref": "BOE-A-1987-12636",
+  "txt": "boe/28-BOE-A-1987-12636.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1987-12636"
+ },
+ {
+  "num": "29",
+  "nombre": "RDLeg 8-2015 Ley General Seguridad Social",
+  "tag": "C1",
+  "act": "2026-11-25",
+  "ref": "BOE-A-2015-11724",
+  "txt": "boe/29-BOE-A-2015-11724.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11724"
+ },
+ {
+  "num": "30",
+  "nombre": "Ley 47-2003 General Presupuestaria",
+  "tag": "AMBAS",
+  "act": "2022-12-24",
+  "ref": "BOE-A-2003-21614",
+  "txt": "boe/30-BOE-A-2003-21614.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2003-21614"
+ },
+ {
+  "num": "31",
+  "nombre": "Ley 38-2003 General de Subvenciones",
+  "tag": "C1",
+  "act": "2026-10-03",
+  "ref": "BOE-A-2003-20977",
+  "txt": "boe/31-BOE-A-2003-20977.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2003-20977"
+ },
+ {
+  "num": "32",
+  "nombre": "LO 2-1982 Tribunal de Cuentas",
+  "tag": "C1",
+  "act": "2024-08-02",
+  "ref": "BOE-A-1982-11584",
+  "txt": "boe/32-BOE-A-1982-11584.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1982-11584"
+ },
+ {
+  "num": "33",
+  "nombre": "Ley 7-1988 Funcionamiento Tribunal de Cuentas",
+  "tag": "C1",
+  "act": "2014-09-17",
+  "ref": "BOE-A-1988-8678",
+  "txt": "boe/33-BOE-A-1988-8678.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1988-8678"
+ },
+ {
+  "num": "34",
+  "nombre": "RD 951-2005 Cartas de servicios y calidad AGE",
+  "tag": "AMBAS",
+  "act": "2009-06-30",
+  "ref": "BOE-A-2005-14836",
+  "txt": "boe/34-BOE-A-2005-14836.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2005-14836"
+ },
+ {
+  "num": "35",
+  "nombre": "RD 203-2021 Reglamento actuacion por medios electronicos",
+  "tag": "AMBAS",
+  "act": "2025-04-02",
+  "ref": "BOE-A-2021-5032",
+  "txt": "boe/35-BOE-A-2021-5032.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2021-5032"
+ },
+ {
+  "num": "36",
+  "nombre": "Ley 3-2015 Alto cargo de la AGE",
+  "tag": "AMBAS",
+  "act": "2026-09-18",
+  "ref": "BOE-A-2015-3444",
+  "txt": "boe/36-BOE-A-2015-3444.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-3444"
+ },
+ {
+  "num": "37",
+  "nombre": "LO 4-2001 Derecho de peticion",
+  "tag": "AMBAS",
+  "act": "2011-07-28",
+  "ref": "BOE-A-2001-21090",
+  "txt": "boe/37-BOE-A-2001-21090.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2001-21090"
+ },
+ {
+  "num": "38",
+  "nombre": "RD 1708-2011 Sistema Espanol de Archivos",
+  "tag": "AMBAS",
+  "act": "2024-03-27",
+  "ref": "BOE-A-2011-18541",
+  "txt": "boe/38-BOE-A-2011-18541.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2011-18541"
+ },
+ {
+  "num": "39",
+  "nombre": "IV Convenio colectivo unico personal laboral AGE",
+  "tag": "C1",
+  "act": "2025-04-11",
+  "ref": "BOE-A-2019-7414",
+  "txt": "boe/39-BOE-A-2019-7414.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2019-7414"
+ },
+ {
+  "num": "40",
+  "nombre": "Reglamento UE 2016-679 RGPD",
+  "tag": "AMBAS",
+  "act": null,
+  "ref": "DOUE-L-2016-80807",
+  "txt": "boe/40-DOUE-L-2016-80807.txt",
+  "url": "https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:32016R0679"
+ },
+ {
+  "num": "41",
+  "nombre": "Tratado de la Union Europea (TUE consolidado)",
+  "tag": "AMBAS",
+  "act": "2016-06-07",
+  "ref": "UE-TUE",
+  "txt": "boe/41-UE-TUE.txt",
+  "url": "https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:12016M/TXT"
+ },
+ {
+  "num": "42",
+  "nombre": "Tratado de Funcionamiento de la UE (TFUE consolidado)",
+  "tag": "AMBAS",
+  "act": "2016-06-07",
+  "ref": "UE-TFUE",
+  "txt": "boe/42-UE-TFUE.txt",
+  "url": "https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:12016E/TXT"
+ }
+]
