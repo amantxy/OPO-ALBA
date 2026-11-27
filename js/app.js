@@ -28,6 +28,12 @@ async function base() {
   }
 }
 const tema = slug => json(`data/temas/${slug}.json`);
+let PBIB;
+async function baseBib() {
+  await base();
+  if (!PBIB) { PBIB = await json("data/preguntas_bib.json"); PBIB.forEach(p => PMAP[p.id] = p); }
+  return PBIB;
+}
 
 /* ---------------- utilidades de interfaz ---------------- */
 function star(ex) {
@@ -148,7 +154,9 @@ async function vPortada() {
 }
 
 async function vBib() {
-  menu("bib"); await base();
+  menu("bib"); await baseBib();
+  const porTema = {}; PBIB.forEach(p => { if (p.tema) porTema[p.tema] = (porTema[p.tema] || 0) + 1; });
+  const exB = [...new Set(PBIB.map(p => p.examen))].map(k => [k, PBIB.find(p => p.examen === k).lab]);
   const B = await json("data/bibliotecas.json");
   const CONV = await json("data/convocatorias.json").catch(() => []);
   const c = CONV.find(x => x.id === "BIB");
@@ -158,17 +166,35 @@ async function vBib() {
     ${B.modalidades.map((m, i) => `<div class="card ${i ? "m" : "l"}"><h3>${esc(m.nombre)} · ${esc(m.grupo)}</h3><p class="muted">${esc(m.para)}</p><p>${esc(m.plazas)}</p><ul>${m.examen.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("")}
     <div class="card"><h3>Plazas y solicitudes</h3><p>${esc(B.plazas)}</p><p class="muted">${esc(B.solicitudes)}</p><p><a href="${esc(B.boe_url)}" target="_blank" rel="noopener">Convocatoria ${esc(B.boe)}</a></p></div></div>
   <div class="aviso">${esc(B.nota_grupos)}</div>
+  <h2 style="margin-top:18px">Practicar</h2>
+  <div class="grid">
+    <div class="card l"><h3>Simulacro turno libre</h3><p>100 preguntas reales al azar · 150 min · error −1/3.</p><button class="btn" onclick="OPO.simBib('TL')">Empezar</button></div>
+    <div class="card m"><h3>Simulacro promoción interna</h3><p>75 preguntas reales al azar · 120 min · error −1/4.</p><button class="btn m" onclick="OPO.simBib('PI')">Empezar</button></div>
+    ${exB.map(([k, n]) => `<div class="card"><h3>${esc(n)}</h3><p>Examen oficial completo con su plantilla.</p><button class="btn o" onclick="OPO.exBib('${k}')">Hacer con reloj</button></div>`).join("")}
+  </div>
+  <p class="fila"><a class="btn s o" href="examenes/bib/BIB_2019.pdf" target="_blank">Cuadernillo 2021</a><a class="btn s o" href="examenes/bib/supuestos_BIB_2019.pdf" target="_blank">Supuestos 2021</a><a class="btn s o" href="examenes/bib/BIB_2017.pdf" target="_blank">Cuadernillo 2017</a><a class="btn s o" href="examenes/bib/supuestos_BIB_2017.pdf" target="_blank">Supuestos 2017</a><a class="btn s o" href="examenes/bib/plantilla_BIB_2024_A.pdf" target="_blank">Plantilla 2024</a><a class="btn s o" href="examenes/bib/plantillas_BIB_2025.pdf" target="_blank">Plantillas 2025</a><a class="btn s o" href="examenes/bib/criterios_catalogacion_2025.pdf" target="_blank">Criterios de catalogación del tribunal (2025)</a></p>
+  <p class="muted">Banco: ${PBIB.length} preguntas reales de la Sección Bibliotecas (turno libre) con la respuesta oficial. La clasificación por tema es orientativa. Los cuadernillos de 2024 y 2025 se añadirán en cuanto estén.</p>
   <h2 style="margin-top:20px">Temario oficial · Sección Bibliotecas (turno libre y promoción interna)</h2>
   <div class="aviso">Los temas de legislación que comparte con AGE ya enlazan al material completo. El resto del temario se está preparando con el mismo formato (resumen, esquema, Cornell y tarjetas).</div>`;
   for (const b of B.programa) {
     h += `<div class="bloque card"><h3>Bloque ${b.bloque}. ${esc(b.nombre)}</h3>`;
     for (const t of b.temas) {
       const links = t.ir.map(d => d.doc ? `<a class="btn s" href="#/tema/${d.doc}">${esc(nombres[d.doc] || d.doc)}</a>` : `<a class="btn s o" href="#/tema/${d.auto}">Tema ${d.auto.replace("C1-", "C1 ").replace(/-/g, ".")}</a>`).join(" ");
-      h += `<div class="tema-li"><div class="n">${b.bloque}.${t.n}</div><div class="t">${esc(t.titulo)}<div class="fila" style="margin-top:6px">${links || '<span class="pend">En preparación</span>'}</div></div></div>`;
+      const nq = porTema[b.bloque + "." + t.n] || 0;
+      const qlink = nq ? `<a class="btn s o" href="#/bibp/${b.bloque}.${t.n}">★ ${nq} preguntas de examen</a>` : "";
+      h += `<div class="tema-li"><div class="n">${b.bloque}.${t.n}</div><div class="t">${esc(t.titulo)}<div class="fila" style="margin-top:6px">${links || '<span class="pend">En preparación</span>'} ${qlink}</div></div></div>`;
     }
     h += `</div>`;
   }
   pintar(h); cuentas();
+}
+async function vBibPreg(t) {
+  menu("bib"); await baseBib();
+  const B = await json("data/bibliotecas.json");
+  const [bl, n] = t.split(".");
+  const tit = B.programa.find(b => b.bloque === bl)?.temas.find(x => String(x.n) === n)?.titulo || "";
+  pintar(`<p class="muted"><a href="#/bib">← Bibliotecas</a></p><h1>Tema ${esc(t)} · preguntas de examen</h1><p class="sub">${esc(tit)}</p><div id="cont"></div>`);
+  vPreguntas($("#cont"), PBIB.filter(p => p.tema === t), true);
 }
 
 /* ---------- temario ---------- */
@@ -307,8 +333,8 @@ function corregir(div, p, l) {
     S.resp[p.id] = { ok, l, fecha: hoyISO() }; guardar();
   } else { r.textContent = "Pregunta anulada en la plantilla oficial."; }
 }
-function vPreguntas(cont, lista) {
-  lista = lista.filter(p => pasaOpo(p.examen));
+function vPreguntas(cont, lista, todas) {
+  if (!todas) lista = lista.filter(p => pasaOpo(p.examen));
   if (!lista.length) { cont.innerHTML = `<p class="muted">No hay preguntas de examen para la oposición seleccionada.</p>`; return; }
   cont.innerHTML = `<p class="muted">Preguntas reales del INAP. Elige una opción y se corrige con la plantilla oficial.</p>` + lista.map((p, i) => htmlPreg(p, i)).join("");
   $$(".preg", cont).forEach(div => {
@@ -319,11 +345,11 @@ function vPreguntas(cont, lista) {
 
 /* ---------- simulacro y exámenes con reloj ---------- */
 let reloj = null;
-function examenCronometrado(titulo, lista, minutos, tipo) {
+function examenCronometrado(titulo, lista, minutos, tipo, pen = 3) {
   clearInterval(reloj);
   const fin = Date.now() + minutos * 60000;
   const marc = {};
-  pintar(`<h1>${esc(titulo)}</h1><p class="sub">${lista.length} preguntas · ${minutos} minutos · cada error resta 1/3 de acierto; en blanco no resta.</p>
+  pintar(`<h1>${esc(titulo)}</h1><p class="sub">${lista.length} preguntas · ${minutos} minutos · cada error resta 1/${pen} de acierto; en blanco no resta.</p>
     <span class="reloj" id="rl"></span><div id="qq">${lista.map((p, i) => htmlPreg(p, i)).join("")}</div>
     <div class="fila" style="margin:20px 0"><button class="btn m" id="ent">Entregar y corregir</button></div>`);
   $$(".preg").forEach(div => $$(".op", div).forEach(b => b.onclick = () => {
@@ -338,12 +364,12 @@ function examenCronometrado(titulo, lista, minutos, tipo) {
       const p = PMAP[div.dataset.id], l = marc[p.id];
       $$(".op", div).forEach(b => b.classList.remove("sel"));
       if (!l) { B++; $$(".op", div).forEach(b => { b.disabled = true; if (b.dataset.l === p.respuesta) b.classList.add("ok"); }); $(".res-preg", div).textContent = `En blanco. Respuesta oficial: ${p.respuesta})`; return; }
-      corregir(div, p, l); if (l === p.respuesta) A++; else F++;
+      corregir(div, p, l); if (l === p.respuesta) A++; else if (p.respuesta && p.respuesta.length === 1) F++;
     });
-    const neta = A - F / 3, nota = Math.max(0, neta / lista.length * 10);
+    const neta = A - F / pen, nota = Math.max(0, neta / lista.length * 10);
     S.simulacros.push({ fecha: hoyISO(), tipo, aciertos: A, fallos: F, blancos: B, nota }); guardar();
     $("#ent").remove();
-    $("#qq").insertAdjacentHTML("beforebegin", `<div class="marcador"><div class="card m"><b>Nota</b><div class="big">${nota.toFixed(2)}</div><span class="muted">sobre 10</span></div><div class="card"><b>Aciertos</b><div class="big">${A}</div></div><div class="card"><b>Fallos</b><div class="big">${F}</div></div><div class="card"><b>En blanco</b><div class="big">${B}</div></div><div class="card l"><b>Puntuación neta</b><div class="big">${neta.toFixed(2)}</div><span class="muted">aciertos − fallos/3</span></div></div>`);
+    $("#qq").insertAdjacentHTML("beforebegin", `<div class="marcador"><div class="card m"><b>Nota</b><div class="big">${nota.toFixed(2)}</div><span class="muted">sobre 10</span></div><div class="card"><b>Aciertos</b><div class="big">${A}</div></div><div class="card"><b>Fallos</b><div class="big">${F}</div></div><div class="card"><b>En blanco</b><div class="big">${B}</div></div><div class="card l"><b>Puntuación neta</b><div class="big">${neta.toFixed(2)}</div><span class="muted">aciertos − fallos/${pen}</span></div></div>`);
     window.scrollTo(0, 0);
   };
   $("#ent").onclick = () => { if (confirm("¿Entregar el examen?")) entregar(); };
@@ -495,6 +521,7 @@ async function router() {
     if (!ruta) return vPortada();
     if (ruta === "age") return vInicio();
     if (ruta === "bib") return vBib();
+    if (ruta === "bibp") return vBibPreg(a[0]);
     if (ruta === "temario") return vTemario(a[0]);
     if (ruta === "tema") return vTema(a[0], a[1], a[2]);
     if (ruta === "repaso") return vRepaso();
@@ -514,6 +541,17 @@ window.OPO = {
   rep(slug, sec, i, v) { const r = rep(slug, sec); if (i === "dom") r.dom = v; else r.r[i] = v; guardar(); },
   planDia(f, v) { S.plan[f] = v; guardar(); },
   sim, examen,
+  async simBib(m) {
+    await baseBib();
+    const ok = PBIB.filter(p => p.respuesta && p.respuesta.length === 1 && !p.reserva);
+    if (m === "TL") examenCronometrado("Simulacro Bibliotecas · turno libre", mezclar(ok).slice(0, 100), 150, "Bibliotecas TL", 3);
+    else examenCronometrado("Simulacro Bibliotecas · promoción interna", mezclar(ok).slice(0, 75), 120, "Bibliotecas PI", 4);
+  },
+  async exBib(k) {
+    await baseBib();
+    const l = PBIB.filter(p => p.examen === k && !p.reserva);
+    examenCronometrado(l[0].lab, l, 120, l[0].lab, 4);
+  },
   exportar() {
     const b = new Blob([JSON.stringify(S, null, 1)], { type: "application/json" });
     const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `progreso-opoage-${hoyISO()}.json`; a.click();
