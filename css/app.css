@@ -170,3 +170,12 @@ input.busca{width:100%;padding:10px 14px;border:1.5px solid var(--lila-b);border
   .reloj{top:96px}
 }
 @media print{.top,.tabs,.secnav,.prog-sec,.btn{display:none!important}}
+
+/* portada */
+.portada{display:grid;gap:22px}
+.opo-bloque{border-radius:18px;padding:18px 18px 14px;border:2px solid var(--lila-b);background:var(--lila-pp)}
+.opo-bloque.bib{border-color:var(--menta-b);background:#F4FBF8}
+.opo-cab h2{margin:0 0 2px;color:var(--lila)}
+.opo-bloque.bib .opo-cab h2{color:var(--menta)}
+.opo-cab p{margin:0 0 12px;color:#6B5F7A}
+.opo-bloque .fila{margin-top:12px;flex-wrap:wrap}

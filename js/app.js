@@ -70,7 +70,7 @@ const due = id => cardState(id).next <= hoyISO();
 
 /* ---------- inicio ---------- */
 async function vInicio() {
-  menu(""); await base();
+  menu("age"); await base();
   const plan = await json("data/plan.json");
   const h = hoyISO();
   let hoy = null;
@@ -81,14 +81,14 @@ async function vInicio() {
   let pend = 0; Object.keys(S.leitner).forEach(k => { if (due(k)) pend++; });
   const CONV = await json("data/convocatorias.json").catch(() => []);
   pintar(`
-  <h1>Hola, Alba</h1>
+  <p class="muted"><a href="#/">← Mis oposiciones</a></p>
+  <h1>AGE · Administrativo y Auxiliar del Estado</h1>
   <p class="sub">Administrativo (C1) y Auxiliar (C2) del Estado · Convocatoria BOE 26/11/2026</p>
-  <div class="grid cuenta">${CONV.map(c => `<div class="card ${c.id === "C1" ? "l" : c.id === "C2" ? "m" : ""}"><h3>${esc(c.nombre)}</h3>
-    ${c.fecha ? `<div class="big" data-cuenta="${c.fecha}T${c.hora || "09:00"}:00"></div>
-      <p><b>${new Date(c.fecha + "T12:00").toLocaleDateString("es-ES", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}</b>${c.hora ? " · " + esc(c.hora) + " h" : " · hora pendiente"}</p>
-      <p>${c.lugar ? "📍 " + esc(c.lugar) : "Lugar pendiente de publicar"}</p>`
-    : `<div class="big">—</div><p class="muted">Fecha pendiente de publicar. ${esc(c.nota)}</p>`}
-    <p class="muted"><a href="${esc(c.boe_url)}" target="_blank" rel="noopener">Convocatoria ${esc(c.boe)}</a> · <a href="${esc(c.web)}" target="_blank" rel="noopener">web del proceso</a></p></div>`).join("")}</div>
+  <div class="grid cuenta">${CONV.filter(c => c.id !== "BIB").map(c => tarjetaCuenta(c, c.id === "C1" ? "l" : "m")).join("")}</div>
+  <div class="grid">
+    <div class="card l link" onclick="location.hash='#/temario/C1'"><h3>Temario C1 · Administrativo</h3><p>45 temas en 6 bloques, con el texto oficial y las preguntas de examen de cada uno.</p></div>
+    <div class="card m link" onclick="location.hash='#/temario/C2'"><h3>Temario C2 · Auxiliar</h3><p>28 temas en 2 bloques, enlazados con su equivalente del C1.</p></div>
+  </div>
   <div class="grid">
     <div class="card l link" onclick="location.hash='#/plan'"><h3>Hoy</h3>${hoy ? `<p class="just"><b>${esc(hoy.dia)}</b>: ${esc(hoy.teoria)}</p><p class="muted">${esc(hoy.test)} · ${esc(hoy.extra)}</p>
       <label class="fila"><input type="checkbox" ${S.plan[h] ? "checked" : ""} onclick="event.stopPropagation();OPO.planDia('${h}',this.checked)"> Hecho</label>` : `<p>El plan empieza el 30 de noviembre de 2026.</p>`}</div>
@@ -105,6 +105,14 @@ async function vInicio() {
   cuentas();
 }
 
+function tarjetaCuenta(c, cls = "") {
+  return `<div class="card ${cls}"><h3>${esc(c.nombre)}</h3>
+    ${c.fecha ? `<div class="big" data-cuenta="${c.fecha}T${c.hora || "09:00"}:00"></div>
+      <p><b>${new Date(c.fecha + "T12:00").toLocaleDateString("es-ES", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}</b>${c.hora ? " · " + esc(c.hora) + " h" : " · hora pendiente"}</p>
+      <p>${c.lugar ? "📍 " + esc(c.lugar) : "Lugar pendiente de publicar"}</p>`
+    : `<div class="big">—</div><p class="muted">Fecha pendiente de publicar. ${esc(c.nota)}</p>`}
+    <p class="muted"><a href="${esc(c.boe_url)}" target="_blank" rel="noopener">Convocatoria ${esc(c.boe)}</a> · <a href="${esc(c.web)}" target="_blank" rel="noopener">web del proceso</a></p></div>`;
+}
 let cuentaInt = null;
 function cuentas() {
   clearInterval(cuentaInt);
@@ -117,12 +125,56 @@ function cuentas() {
   tick(); cuentaInt = setInterval(tick, 30000);
 }
 
+/* ---------- portada ---------- */
+async function vPortada() {
+  menu("portada");
+  const CONV = await json("data/convocatorias.json").catch(() => []);
+  const by = Object.fromEntries(CONV.map(c => [c.id, c]));
+  pintar(`<h1>Hola, Alba</h1><p class="sub">Tus oposiciones. Elige por dónde quieres estudiar hoy.</p>
+  <div class="portada">
+    <section class="opo-bloque age">
+      <div class="opo-cab"><h2>Administración General del Estado</h2><p>Administrativo (C1) y Auxiliar (C2) · BOE de 26/11/2026 · examen en Valladolid</p></div>
+      <div class="grid">${["C1", "C2"].filter(k => by[k]).map(k => tarjetaCuenta(by[k], k === "C1" ? "l" : "m")).join("")}</div>
+      <div class="fila"><a class="btn" href="#/age">Entrar en AGE</a><a class="btn o" href="#/temario/C1">Temario C1</a><a class="btn o" href="#/temario/C2">Temario C2</a><a class="btn o" href="#/simulacro">Simulacro</a><a class="btn o" href="#/examenes">Exámenes</a></div>
+    </section>
+    <section class="opo-bloque bib">
+      <div class="opo-cab"><h2>Bibliotecas · Ministerio de Cultura</h2><p>Escala Auxiliar de Archivos, Bibliotecas y Museos · Sección Bibliotecas (C1) · BOE de 2026</p></div>
+      <div class="grid">${by.BIB ? tarjetaCuenta(by.BIB, "m") : ""}</div>
+      <div class="fila"><a class="btn m" href="#/bib">Entrar en Bibliotecas</a><a class="btn o" href="#/bib">Temario</a></div>
+    </section>
+  </div>`);
+  cuentas();
+}
+
+async function vBib() {
+  menu("bib"); await base();
+  const B = await json("data/bibliotecas.json");
+  const CONV = await json("data/convocatorias.json").catch(() => []);
+  const c = CONV.find(x => x.id === "BIB");
+  const nombres = { constitucion: "Constitución", cortes: "Cortes Generales", gobierno: "Gobierno", poder_judicial: "Poder Judicial", ccaa: "Comunidades Autónomas", local: "Administración local", age: "AGE", transparencia: "Transparencia" };
+  let h = `<p class="muted"><a href="#/">← Mis oposiciones</a></p><h1>Bibliotecas · Ministerio de Cultura</h1><p class="sub">${esc(B.nombre)} (${B.grupo})</p>
+  <div class="grid">${c ? tarjetaCuenta(c, "m") : ""}
+    <div class="card l"><h3>El examen</h3><ul>${B.examen.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
+    <div class="card"><h3>Plazas y solicitudes</h3><p>${esc(B.plazas)}</p><p class="muted">${esc(B.solicitudes)}</p><p><a href="${esc(B.boe_url)}" target="_blank" rel="noopener">Convocatoria ${esc(B.boe)}</a></p></div></div>
+  <h2 style="margin-top:20px">Temario oficial · Sección Bibliotecas</h2>
+  <div class="aviso">Los temas de legislación que comparte con AGE ya enlazan al material completo. El resto del temario se está preparando con el mismo formato (resumen, esquema, Cornell y tarjetas).</div>`;
+  for (const b of B.programa) {
+    h += `<div class="bloque card"><h3>Bloque ${b.bloque}. ${esc(b.nombre)}</h3>`;
+    for (const t of b.temas) {
+      const links = t.ir.map(d => d.doc ? `<a class="btn s" href="#/tema/${d.doc}">${esc(nombres[d.doc] || d.doc)}</a>` : `<a class="btn s o" href="#/tema/${d.auto}">Tema ${d.auto.replace("C1-", "C1 ").replace(/-/g, ".")}</a>`).join(" ");
+      h += `<div class="tema-li"><div class="n">${b.bloque}.${t.n}</div><div class="t">${esc(t.titulo)}<div class="fila" style="margin-top:6px">${links || '<span class="pend">En preparación</span>'}</div></div></div>`;
+    }
+    h += `</div>`;
+  }
+  pintar(h); cuentas();
+}
+
 /* ---------- temario ---------- */
-async function vTemario() {
+async function vTemario(sel) {
   menu("temario"); await base();
   const temasDoc = Object.fromEntries(IND.temas.map(t => [t.slug, t]));
-  const opos = S.opo === "ambas" ? ["C1", "C2"] : [S.opo];
-  let h = `<h1>Temario oficial</h1><p class="sub">Programa del BOE de 26/11/2026. Cada tema enlaza al documento completo (si ya está hecho) o al texto oficial con sus preguntas de examen.</p>`;
+  const opos = sel === "C1" || sel === "C2" ? [sel] : S.opo === "ambas" ? ["C1", "C2"] : [S.opo];
+  let h = `<p class="muted"><a href="#/age">← AGE</a></p><div class="fila"><a class="btn s ${!sel ? "" : "o"}" href="#/temario">C1 y C2</a><a class="btn s ${sel === "C1" ? "" : "o"}" href="#/temario/C1">Temario C1</a><a class="btn s ${sel === "C2" ? "" : "o"}" href="#/temario/C2">Temario C2</a></div><h1>Temario oficial</h1><p class="sub">Programa del BOE de 26/11/2026. Cada tema enlaza al documento completo (si ya está hecho) o al texto oficial con sus preguntas de examen.</p>`;
   for (const c of opos) {
     h += `<h2>${c === "C1" ? "Administrativo del Estado · C1" : "Auxiliar Administrativo del Estado · C2"}</h2>`;
     for (const b of IND.programa[c]) {
@@ -438,8 +490,10 @@ async function router() {
   clearInterval(reloj);
   const [ruta, ...a] = location.hash.replace(/^#\/?/, "").split("/").map(decodeURIComponent);
   try {
-    if (!ruta) return vInicio();
-    if (ruta === "temario") return vTemario();
+    if (!ruta) return vPortada();
+    if (ruta === "age") return vInicio();
+    if (ruta === "bib") return vBib();
+    if (ruta === "temario") return vTemario(a[0]);
     if (ruta === "tema") return vTema(a[0], a[1], a[2]);
     if (ruta === "repaso") return vRepaso();
     if (ruta === "simulacro") return vSimulacro();
@@ -449,7 +503,7 @@ async function router() {
     if (ruta === "boe") return vBoe();
     if (ruta === "ley") return vLey(a.join("/"));
     if (ruta === "buscar") return vBuscar();
-    vInicio();
+    vPortada();
   } catch (e) { console.error(e); pintar(`<p>Ha ocurrido un error al cargar: ${esc(e.message)}</p>`); }
 }
 
