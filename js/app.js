@@ -322,19 +322,50 @@ function vTarjetas(cont, cards, todas) {
   pinta();
 }
 
-async function vRepaso() {
-  menu("repaso"); await base();
-  pintar(`<h1>Repaso de hoy</h1><p class="sub">Tarjetas de todos los temas que te tocan hoy según la repetición espaciada.</p><div id="cont"><p class="muted">Preparando…</p></div>`);
-  const cards = [];
-  for (const t of IND.temas) {
-    const T = await tema(t.slug);
-    T.secciones.forEach(s => s.cornell.filas.forEach((f, i) => cards.push({ id: `${t.slug}/${s.key}/${i}`, q: f.q, a: f.a })));
+const OPOS = [["C1", "AGE · Administrativo C1", "l"], ["C2", "AGE · Auxiliar C2", "m"], ["BIB", "Bibliotecas · Cultura", "bibc"]];
+const BIB_DOCS = ["constitucion", "cortes", "gobierno", "poder_judicial", "ccaa", "local", "age", "transparencia"];
+function opoTabs(ruta, sel) {
+  return `<div class="tabs opo-tabs">${[["", "Las tres"]].concat(OPOS.map(o => [o[0], o[1]])).map(([k, n]) => `<a class="${(sel || "") === k ? "on" : ""} ${k === "BIB" ? "t-bib" : k === "C2" ? "t-c2" : k === "C1" ? "t-c1" : ""}" href="#/${ruta}${k ? "/" + k : ""}">${n}</a>`).join("")}</div>`;
+}
+const opoSel = sel => OPOS.filter(o => !sel || o[0] === sel);
+const tituloOpo = (o) => `<h2 class="opo-h ${o[0] === "BIB" ? "nar-t" : o[0] === "C2" ? "menta-t" : ""}">${esc(o[1])}</h2>`;
+
+async function vRepaso(sel) {
+  menu("repaso"); await base(); await baseBib();
+  let h = `<h1>Repaso</h1><p class="sub">Tarjetas de memoria con repetición espaciada (1, 3, 7, 14 y 30 días) y repaso de tus fallos, por oposición.</p>${opoTabs("repaso", sel)}`;
+  const cardsDe = async (filtro) => {
+    const cards = [];
+    for (const t of IND.temas.filter(filtro)) {
+      const T = await tema(t.slug);
+      T.secciones.forEach(s => s.cornell.filas.forEach((f, i) => cards.push({ id: `${t.slug}/${s.key}/${i}`, q: f.q, a: f.a })));
+    }
+    return cards;
+  };
+  const datos = [];
+  for (const o of opoSel(sel)) {
+    const filtro = o[0] === "BIB" ? (t => BIB_DOCS.includes(t.slug)) : (t => t.cubre?.[o[0]]?.length);
+    const cards = await cardsDe(filtro);
+    const pend = cards.filter(c => S.leitner[c.id] && due(c.id)).length, nuevas = cards.filter(c => !S.leitner[c.id]).length;
+    const fallos = (o[0] === "BIB" ? (PBIB || []) : PREG).filter(p => p.examen.startsWith(o[0]) && S.resp[p.id] && !S.resp[p.id].ok).length;
+    datos.push([o, cards]);
+    h += tituloOpo(o) + `<div class="grid"><div class="card ${o[2]}"><h3>Tarjetas de hoy</h3><div class="big">${pend + Math.min(nuevas, 25)}</div><p class="muted">${pend} pendientes y ${Math.min(nuevas, 25)} nuevas, de ${cards.length} tarjetas${o[0] === "BIB" ? " (de los temas compartidos con AGE; las de los temas propios de Bibliotecas se añadirán al prepararlos)" : ""}.</p><button class="btn ${o[0] === "BIB" ? "nar" : o[0] === "C2" ? "m" : ""}" onclick="OPO.repasar('${o[0]}')">Repasar</button></div>
+      <div class="card ${o[2]}"><h3>Mis fallos</h3><div class="big">${fallos}</div><p class="muted">preguntas de examen que has fallado alguna vez.</p><button class="btn o" onclick="OPO.fallos('${o[0]}')">Repetirlas</button></div></div>`;
   }
+  pintar(h + `<div id="fl"></div>`);
+  window._repaso = Object.fromEntries(datos.map(([o, c]) => [o[0], c]));
+}
+function repasar(k) {
+  const cards = window._repaso?.[k] || [];
   const nuevas = cards.filter(c => !S.leitner[c.id]);
   const dueC = cards.filter(c => S.leitner[c.id] && due(c.id));
   const sesion = dueC.concat(mezclar(nuevas).slice(0, Math.max(0, 25 - dueC.length)));
-  $("#cont").innerHTML = `<p class="muted">${dueC.length} pendientes y ${Math.min(nuevas.length, Math.max(0, 25 - dueC.length))} nuevas (de ${cards.length} tarjetas en total).</p><div id="fl"></div>`;
-  vTarjetas($("#fl"), sesion, true);
+  vTarjetas($("#fl"), sesion, true); $("#fl").scrollIntoView({ behavior: "smooth" });
+}
+async function fallos(k) {
+  if (k === "BIB") await baseBib();
+  const l = (k === "BIB" ? PBIB : PREG).filter(p => p.examen.startsWith(k) && S.resp[p.id] && !S.resp[p.id].ok);
+  if (!l.length) { alert("Todavía no has fallado ninguna pregunta de esta oposición."); return; }
+  examenCronometrado("Mis fallos · " + OPOS.find(o => o[0] === k)[1], mezclar(l).slice(0, 40), 40, "Fallos " + k, k === "BIB" ? 3 : 3);
 }
 
 /* ---------- preguntas (práctica libre) ---------- */
@@ -398,41 +429,57 @@ function examenCronometrado(titulo, lista, minutos, tipo, pen = 3) {
   tick(); reloj = setInterval(tick, 1000);
 }
 
-async function vSimulacro() {
-  menu("simulacro"); await base();
+async function vSimulacro(sel) {
+  menu("simulacro"); await base(); await baseBib();
   const cnt = (c, cat) => PREGA.filter(p => p.examen.startsWith(c) && p.cat === cat).length;
-  pintar(`<h1>Simulacro</h1><p class="sub">Preguntas reales del INAP elegidas al azar, con reloj y corrección oficial.</p>
-  <div class="grid">
-    <div class="card l"><h3>Tipo C1 · primera parte</h3><p>40 preguntas de los bloques I a V + 30 de ofimática, como el examen real. 60 minutos.</p><button class="btn" onclick="OPO.sim('C1')">Empezar</button></div>
-    <div class="card m"><h3>Tipo C2 · teoría y ofimática</h3><p>30 de teoría (bloque I) + 50 de ofimática (bloque II). 80 minutos.</p><button class="btn m" onclick="OPO.sim('C2')">Empezar</button></div>
-    <div class="card"><h3>Rápido</h3><p>20 preguntas de teoría de cualquier año. 15 minutos.</p><button class="btn o" onclick="OPO.sim('rapido')">Empezar</button></div>
-    <div class="card"><h3>Mis fallos</h3><p>Repite las preguntas reales que has fallado alguna vez.</p><button class="btn o" onclick="OPO.sim('fallos')">Empezar</button></div>
-  </div>
-  <p class="muted" style="margin-top:14px">Banco: C1 ${cnt("C1", "teoria")} de teoría y ${cnt("C1", "ofimatica")} de ofimática · C2 ${cnt("C2", "teoria")} de teoría y ${cnt("C2", "ofimatica")} de ofimática. Los psicotécnicos no se incluyen porque dependen de tablas del cuadernillo (están en «Exámenes»).</p>`);
+  let h = `<h1>Simulacro</h1><p class="sub">Preguntas oficiales elegidas al azar, con reloj y corrección con la plantilla oficial.</p>${opoTabs("simulacro", sel)}`;
+  for (const o of opoSel(sel)) {
+    h += tituloOpo(o);
+    if (o[0] === "C1") h += `<div class="grid"><div class="card l"><h3>Simulacro C1 · primera parte</h3><p>40 preguntas de los bloques I a V + 30 de ofimática, como el examen real. 60 minutos · error −1/3.</p><button class="btn" onclick="OPO.sim('C1')">Empezar</button></div>
+      <div class="card l"><h3>Rápido C1</h3><p>20 preguntas de teoría. 15 minutos.</p><button class="btn o" onclick="OPO.sim('rapidoC1')">Empezar</button></div></div>
+      <p class="muted">Banco C1: ${cnt("C1", "teoria")} de teoría y ${cnt("C1", "ofimatica")} de ofimática.</p>`;
+    if (o[0] === "C2") h += `<div class="grid"><div class="card m"><h3>Simulacro C2 · teoría y ofimática</h3><p>30 de teoría (bloque I) + 50 de ofimática (bloque II). 80 minutos · error −1/3.</p><button class="btn m" onclick="OPO.sim('C2')">Empezar</button></div>
+      <div class="card m"><h3>Rápido C2</h3><p>20 preguntas de teoría. 15 minutos.</p><button class="btn o" onclick="OPO.sim('rapidoC2')">Empezar</button></div></div>
+      <p class="muted">Banco C2: ${cnt("C2", "teoria")} de teoría y ${cnt("C2", "ofimatica")} de ofimática. Los psicotécnicos dependen de tablas del cuadernillo y se hacen desde «Exámenes».</p>`;
+    if (o[0] === "BIB") h += `<div class="grid"><div class="card bibc"><h3>Simulacro Bibliotecas · turno libre</h3><p>100 preguntas + 2 supuestos prácticos reales. 150 minutos · error −1/3.</p><button class="btn nar" onclick="OPO.simBib('TL')">Empezar</button></div>
+      <div class="card bibc"><h3>Rápido Bibliotecas</h3><p>20 preguntas de la primera parte. 15 minutos.</p><button class="btn nar o" onclick="OPO.sim('rapidoBIB')">Empezar</button></div></div>
+      <p class="muted">Banco Bibliotecas: ${PBIB.filter(p => p.parte === 1 && !p.reserva).length} preguntas de la primera parte y ${PBIB.filter(p => p.parte > 1 && !p.reserva).length} de supuestos prácticos.</p>`;
+  }
+  pintar(h);
 }
 function sim(tipo) {
   const pick = (c, cat, n) => mezclar(PREGA.filter(p => p.examen.startsWith(c) && p.cat === cat && p.respuesta?.length === 1)).slice(0, n);
   if (tipo === "C1") examenCronometrado("Simulacro C1", mezclar(pick("C1", "teoria", 40)).concat(pick("C1", "ofimatica", 30)), 60, "Simulacro C1");
   if (tipo === "C2") examenCronometrado("Simulacro C2", pick("C2", "teoria", 30).concat(pick("C2", "ofimatica", 50)), 80, "Simulacro C2");
-  if (tipo === "rapido") examenCronometrado("Simulacro rápido", mezclar(PREGA.filter(p => p.cat === "teoria" && pasaOpo(p.examen) && p.respuesta?.length === 1)).slice(0, 20), 15, "Rápido");
-  if (tipo === "fallos") {
-    const l = PREG.filter(p => S.resp[p.id] && !S.resp[p.id].ok);
-    if (!l.length) { alert("Todavía no has fallado ninguna pregunta real."); return; }
-    examenCronometrado("Mis fallos", mezclar(l).slice(0, 40), 40, "Fallos");
-  }
+  if (tipo === "rapidoC1" || tipo === "rapidoC2") { const c = tipo.slice(-2); examenCronometrado("Simulacro rápido " + c, mezclar(PREGA.filter(p => p.cat === "teoria" && p.examen.startsWith(c) && p.respuesta?.length === 1)).slice(0, 20), 15, "Rápido " + c); }
+  if (tipo === "rapidoBIB") examenCronometrado("Simulacro rápido Bibliotecas", mezclar(PBIB.filter(p => p.parte === 1 && !p.reserva && p.respuesta?.length === 1)).slice(0, 20), 15, "Rápido BIB", 3);
+  if (tipo === "fallos") fallos("C1");
 }
 
-async function vExamenes() {
-  menu("examenes"); await base();
-  const ex = Object.entries(IND.examenes).filter(([k]) => pasaOpo(k));
-  pintar(`<h1>Exámenes oficiales del INAP</h1><p class="sub">Haz cada examen con reloj y corrección automática, o descarga el cuadernillo y la plantilla originales. En 2024 y 2026 el INAP publicó dos modelos (A y B): son las mismas preguntas en distinto orden, cada una con su plantilla.</p>
-  <div class="grid">${ex.map(([k, n]) => {
-    const l = PREG.filter(p => p.examen === k && p.cat !== "psico");
-    const ps = PREG.filter(p => p.examen === k && p.cat === "psico").length;
-    return `<div class="card ${k.startsWith("C1") ? "l" : "m"}"><h3>${esc(n)}</h3><p class="muted">${l.length} preguntas corregibles${ps ? ` + ${ps} psicotécnicos (en el PDF)` : ""}</p>
-      <div class="fila"><button class="btn s" onclick="OPO.examen('${k}')">Hacer con reloj</button><a class="btn s o" href="examenes/${k}.pdf" target="_blank">Cuadernillo</a><a class="btn s o" href="examenes/plantilla_${k}.pdf" target="_blank">Plantilla</a></div></div>`;
-  }).join("")}</div>
-  <p class="muted">Los supuestos prácticos del C1 se consultan en el cuadernillo (necesitan el texto del caso).</p>`);
+async function vExamenes(sel) {
+  menu("examenes"); await base(); await baseBib();
+  let h = `<h1>Exámenes oficiales</h1><p class="sub">Haz cada examen con reloj y corrección automática, o abre el cuadernillo y la plantilla originales.</p>${opoTabs("examenes", sel)}`;
+  for (const o of opoSel(sel)) {
+    h += tituloOpo(o);
+    if (o[0] !== "BIB") {
+      const ex = Object.entries(IND.examenes).filter(([k]) => k.startsWith(o[0]));
+      h += `<p class="muted">INAP. En 2024 y 2026 hubo dos modelos (A y B): las mismas preguntas en distinto orden, cada una con su plantilla.</p><div class="grid">${ex.map(([k, n]) => {
+        const l = PREG.filter(p => p.examen === k && p.cat !== "psico");
+        const ps = PREG.filter(p => p.examen === k && p.cat === "psico").length;
+        return `<div class="card ${o[2]}"><h3>${esc(n)}</h3><p class="muted">${l.length} preguntas corregibles${ps ? ` + ${ps} psicotécnicos (en el PDF)` : ""}</p>
+          <div class="fila"><button class="btn s ${o[0] === "C2" ? "m" : ""}" onclick="OPO.examen('${k}')">Hacer con reloj</button><a class="btn s o" href="examenes/${k}.pdf" target="_blank">Cuadernillo</a><a class="btn s o" href="examenes/plantilla_${k}.pdf" target="_blank">Plantilla</a></div></div>`;
+      }).join("")}</div>${o[0] === "C1" ? `<p class="muted">Los supuestos prácticos del C1 se consultan en el cuadernillo.</p>` : ""}`;
+    } else {
+      const PDF = { BIB_2025: ["BIB_2025.pdf", "plantillas_BIB_2025.pdf"], BIB_2024: ["BIB_2024.pdf", "plantilla_BIB_2024_A.pdf"], BIB_2019: ["BIB_2019.pdf", "plantilla_BIB_2019.pdf"], BIB_2017: ["BIB_2017.pdf", "plantilla_BIB_2017.pdf"] };
+      const exB = ["BIB_2025", "BIB_2024", "BIB_2019", "BIB_2017"].filter(k => PBIB.some(p => p.examen === k));
+      h += `<p class="muted">Ministerio de Cultura · Sección Bibliotecas · turno libre.</p><div class="grid">${exB.map(k => {
+        const l = PBIB.filter(p => p.examen === k && !p.reserva), sup = l.filter(p => p.parte > 1).length;
+        return `<div class="card bibc"><h3>${esc(l[0].lab)}</h3><p class="muted">${l.length - sup} preguntas${sup ? ` + ${sup} de 2 supuestos prácticos` : ""}</p>
+          <div class="fila"><button class="btn s nar" onclick="OPO.exBib('${k}')">Hacer con reloj</button><a class="btn s o" href="examenes/bib/${PDF[k][0]}" target="_blank">Cuadernillo</a><a class="btn s o" href="examenes/bib/${PDF[k][1]}" target="_blank">Plantilla</a></div></div>`;
+      }).join("")}</div><p class="fila"><a class="btn s o" href="examenes/bib/supuestos_BIB_2019.pdf" target="_blank">Supuestos 2021</a><a class="btn s o" href="examenes/bib/supuestos_BIB_2017.pdf" target="_blank">Supuestos 2017</a><a class="btn s o" href="examenes/bib/criterios_catalogacion_2025.pdf" target="_blank">Criterios de catalogación del tribunal</a></p>`;
+    }
+  }
+  pintar(h);
 }
 function examen(k) {
   const l = PREG.filter(p => p.examen === k && p.cat !== "psico" && p.respuesta);
@@ -546,9 +593,9 @@ async function router() {
     if (ruta === "bibp") return vBibPreg(a[0]);
     if (ruta === "temario") return vTemario(a[0]);
     if (ruta === "tema") return vTema(a[0], a[1], a[2]);
-    if (ruta === "repaso") return vRepaso();
-    if (ruta === "simulacro") return vSimulacro();
-    if (ruta === "examenes") return vExamenes();
+    if (ruta === "repaso") return vRepaso(a[0]);
+    if (ruta === "simulacro") return vSimulacro(a[0]);
+    if (ruta === "examenes") return vExamenes(a[0]);
     if (ruta === "plan") return vPlan();
     if (ruta === "progreso") return vProgreso();
     if (ruta === "boe") return vBoe();
@@ -562,7 +609,7 @@ async function router() {
 window.OPO = {
   rep(slug, sec, i, v) { const r = rep(slug, sec); if (i === "dom") r.dom = v; else r.r[i] = v; guardar(); },
   planDia(f, v) { S.plan[f] = v; guardar(); },
-  sim, examen,
+  sim, examen, repasar, fallos,
   async simBib(m) {
     await baseBib();
     const ok = PBIB.filter(p => p.parte === 1 && p.respuesta && p.respuesta.length === 1 && !p.reserva);

@@ -197,3 +197,9 @@ input.busca{width:100%;padding:10px 14px;border:1.5px solid var(--lila-b);border
 .card.bibc h3{color:var(--nar)}
 .chip.comp,.chip.parc{white-space:normal}
 .bib-zona{margin-top:26px;padding-top:6px;border-top:3px solid var(--nar-b)}
+.opo-tabs a.t-c1.on{background:var(--lila);color:#fff}
+.opo-tabs a.t-c2.on{background:var(--menta);color:#fff}
+.opo-tabs a.t-bib.on{background:var(--nar);color:#fff}
+.opo-tabs a.t-bib{color:var(--nar)} .opo-tabs a.t-c2{color:var(--menta)}
+.menta-t{color:var(--menta)}
+.opo-h{margin-top:22px;padding-bottom:4px;border-bottom:2px solid currentColor}
