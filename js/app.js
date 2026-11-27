@@ -19,11 +19,12 @@ async function json(url) {
   if (!cache[url]) cache[url] = fetch(url, { cache: "no-cache" }).then(r => { if (!r.ok) throw new Error(url); return r.json(); });
   return cache[url];
 }
-let IND, PREG, PMAP;
+let IND, PREG, PREGA, PMAP;
 async function base() {
   if (!IND) {
     [IND, PREG] = await Promise.all([json("data/indice.json"), json("data/preguntas.json")]);
     PMAP = Object.fromEntries(PREG.map(p => [p.id, p]));
+    PREGA = PREG.filter(p => p.modelo !== "B"); // el modelo B repite las preguntas del A en otro orden
   }
 }
 const tema = slug => json(`data/temas/${slug}.json`);
@@ -93,7 +94,7 @@ async function vInicio() {
     <div class="card l link" onclick="location.hash='#/plan'"><h3>Hoy</h3>${hoy ? `<p class="just"><b>${esc(hoy.dia)}</b>: ${esc(hoy.teoria)}</p><p class="muted">${esc(hoy.test)} · ${esc(hoy.extra)}</p>
       <label class="fila"><input type="checkbox" ${S.plan[h] ? "checked" : ""} onclick="event.stopPropagation();OPO.planDia('${h}',this.checked)"> Hecho</label>` : `<p>El plan empieza el 30 de noviembre de 2026.</p>`}</div>
     <div class="card m link" onclick="location.hash='#/repaso'"><h3>Repaso de hoy</h3><div class="big">${pend}</div><p class="muted">tarjetas pendientes de repasar (Cornell + autoevaluación)</p></div>
-    <div class="card link" onclick="location.hash='#/progreso'"><h3>Preguntas reales</h3><div class="big">${resp.length ? Math.round(ok / resp.length * 100) + "%" : "—"}</div><p class="muted">${ok} aciertos de ${resp.length} respondidas (de ${PREG.length} disponibles)</p></div>
+    <div class="card link" onclick="location.hash='#/progreso'"><h3>Preguntas reales</h3><div class="big">${resp.length ? Math.round(ok / resp.length * 100) + "%" : "—"}</div><p class="muted">${ok} aciertos de ${resp.length} respondidas (de ${PREGA.length} distintas)</p></div>
     <div class="card link" onclick="location.hash='#/simulacro'"><h3>Último simulacro</h3>${ultimos ? `<div class="big">${ultimos.nota.toFixed(1)}</div><p class="muted">${esc(ultimos.tipo)} · ${esc(ultimos.fecha)}</p>` : `<p>Aún no has hecho ninguno.</p>`}<button class="btn s m">Hacer simulacro</button></div>
   </div>
   <h2 style="margin-top:22px">Accesos rápidos</h2>
@@ -350,7 +351,7 @@ function examenCronometrado(titulo, lista, minutos, tipo) {
 
 async function vSimulacro() {
   menu("simulacro"); await base();
-  const cnt = (c, cat) => PREG.filter(p => p.examen.startsWith(c) && p.cat === cat).length;
+  const cnt = (c, cat) => PREGA.filter(p => p.examen.startsWith(c) && p.cat === cat).length;
   pintar(`<h1>Simulacro</h1><p class="sub">Preguntas reales del INAP elegidas al azar, con reloj y corrección oficial.</p>
   <div class="grid">
     <div class="card l"><h3>Tipo C1 · primera parte</h3><p>40 preguntas de los bloques I a V + 30 de ofimática, como el examen real. 60 minutos.</p><button class="btn" onclick="OPO.sim('C1')">Empezar</button></div>
@@ -361,10 +362,10 @@ async function vSimulacro() {
   <p class="muted" style="margin-top:14px">Banco: C1 ${cnt("C1", "teoria")} de teoría y ${cnt("C1", "ofimatica")} de ofimática · C2 ${cnt("C2", "teoria")} de teoría y ${cnt("C2", "ofimatica")} de ofimática. Los psicotécnicos no se incluyen porque dependen de tablas del cuadernillo (están en «Exámenes»).</p>`);
 }
 function sim(tipo) {
-  const pick = (c, cat, n) => mezclar(PREG.filter(p => p.examen.startsWith(c) && p.cat === cat && p.respuesta?.length === 1)).slice(0, n);
+  const pick = (c, cat, n) => mezclar(PREGA.filter(p => p.examen.startsWith(c) && p.cat === cat && p.respuesta?.length === 1)).slice(0, n);
   if (tipo === "C1") examenCronometrado("Simulacro C1", mezclar(pick("C1", "teoria", 40)).concat(pick("C1", "ofimatica", 30)), 60, "Simulacro C1");
   if (tipo === "C2") examenCronometrado("Simulacro C2", pick("C2", "teoria", 30).concat(pick("C2", "ofimatica", 50)), 80, "Simulacro C2");
-  if (tipo === "rapido") examenCronometrado("Simulacro rápido", mezclar(PREG.filter(p => p.cat === "teoria" && pasaOpo(p.examen) && p.respuesta?.length === 1)).slice(0, 20), 15, "Rápido");
+  if (tipo === "rapido") examenCronometrado("Simulacro rápido", mezclar(PREGA.filter(p => p.cat === "teoria" && pasaOpo(p.examen) && p.respuesta?.length === 1)).slice(0, 20), 15, "Rápido");
   if (tipo === "fallos") {
     const l = PREG.filter(p => S.resp[p.id] && !S.resp[p.id].ok);
     if (!l.length) { alert("Todavía no has fallado ninguna pregunta real."); return; }
@@ -375,7 +376,7 @@ function sim(tipo) {
 async function vExamenes() {
   menu("examenes"); await base();
   const ex = Object.entries(IND.examenes).filter(([k]) => pasaOpo(k));
-  pintar(`<h1>Exámenes oficiales del INAP</h1><p class="sub">Haz cada examen con reloj y corrección automática, o descarga el cuadernillo y la plantilla originales.</p>
+  pintar(`<h1>Exámenes oficiales del INAP</h1><p class="sub">Haz cada examen con reloj y corrección automática, o descarga el cuadernillo y la plantilla originales. En 2024 y 2026 el INAP publicó dos modelos (A y B): son las mismas preguntas en distinto orden, cada una con su plantilla.</p>
   <div class="grid">${ex.map(([k, n]) => {
     const l = PREG.filter(p => p.examen === k && p.cat !== "psico");
     const ps = PREG.filter(p => p.examen === k && p.cat === "psico").length;
@@ -478,7 +479,7 @@ async function vBuscar() {
     const q = e.target.value.trim().toLowerCase();
     if (q.length < 3) { $("#rs").innerHTML = ""; return; }
     const r = docs.map(d => { const i = d.txt.toLowerCase().indexOf(q); return i < 0 ? null : { ...d, frag: d.txt.slice(Math.max(0, i - 90), i + 140) }; }).filter(Boolean);
-    const pq = PREG.filter(p => (p.enunciado + " " + Object.values(p.opciones).join(" ")).toLowerCase().includes(q)).slice(0, 15);
+    const pq = PREGA.filter(p => (p.enunciado + " " + Object.values(p.opciones).join(" ")).toLowerCase().includes(q)).slice(0, 15);
     $("#rs").innerHTML = `<p class="muted">${r.length} apartados y ${pq.length} preguntas de examen</p>` +
       r.map(d => `<div class="res-b"><a href="#/tema/${d.s}/${d.sec}/apuntes"><b>${esc(d.tit)}</b></a><div class="muted">…${esc(d.frag).replace(new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi"), m => `<mark class="k-ley">${m}</mark>`)}…</div></div>`).join("") +
       (pq.length ? `<h3>Preguntas de examen</h3>` + pq.map(p => `<div class="res-b"><span class="star">${esc(p.lab)} · p. ${p.n}</span> ${esc(p.enunciado)}</div>`).join("") : "");
