@@ -1,0 +1,993 @@
+{
+"C1": [
+{
+"k": "VI.1",
+"titulo": "Informática básica: conceptos fundamentales sobre el hardware y el software. Sistemas de almacenamiento de datos. Sistemas operativos. Nociones básicas de seguridad de la información.",
+"dif": 1,
+"frec": 3.2,
+"n": 13,
+"comparte": false
+},
+{
+"k": "VI.2",
+"titulo": "Introducción al sistema operativo: el entorno Windows. Fundamentos. Trabajo en el entorno gráfico de Windows: ventanas, iconos, menús contextuales, cuadros de diálogo. El escritorio y sus elementos. El menú inicio.",
+"dif": 1,
+"frec": 2.2,
+"n": 9,
+"comparte": false
+},
+{
+"k": "VI.3",
+"titulo": "El explorador de Windows. Gestión de carpetas y archivos. Operaciones de búsqueda. Herramientas «Este equipo» y «Acceso rápido». Accesorios. Herramientas del sistema.",
+"dif": 1,
+"frec": 2.0,
+"n": 8,
+"comparte": false
+},
+{
+"k": "I.5",
+"titulo": "El Gobierno y la Administración. El Presidente del Gobierno. El Consejo de Ministros. Designación, causas de cese y responsabilidad del Gobierno. Las funciones del Gobierno. Relaciones entre el Gobierno y las Cortes Generales.",
+"dif": 1,
+"frec": 1.5,
+"n": 6,
+"comparte": false
+},
+{
+"k": "VI.8",
+"titulo": "Internet. Funcionalidades básicas de los navegadores web. Asistentes de inteligencia artificial en el puesto de trabajo. Uso responsable y riesgos.",
+"dif": 1,
+"frec": 1.2,
+"n": 5,
+"comparte": false
+},
+{
+"k": "I.2",
+"titulo": "La Jefatura del Estado. La Corona: funciones constitucionales del Rey. Sucesión y regencia.",
+"dif": 1,
+"frec": 1.0,
+"n": 4,
+"comparte": false
+},
+{
+"k": "II.1",
+"titulo": "Atención al público. Atención de personas con discapacidad. Los servicios de información administrativa. Información general y particular al ciudadano. Iniciativas. Reclamaciones. Quejas. Peticiones.",
+"dif": 1,
+"frec": 0.5,
+"n": 2,
+"comparte": false
+},
+{
+"k": "II.2",
+"titulo": "Concepto de documento, registro y archivo. Funciones del registro y del archivo. Clases de archivo y criterios de ordenación.",
+"dif": 1,
+"frec": 0.5,
+"n": 2,
+"comparte": false
+},
+{
+"k": "I.6",
+"titulo": "El Gobierno Abierto: concepto y principios informadores. La Agenda 2030 y los Objetivos de Desarrollo Sostenible.",
+"dif": 1,
+"frec": 0.0,
+"n": 0,
+"comparte": false
+},
+{
+"k": "IV.1",
+"titulo": "El personal al servicio de las Administraciones públicas: concepto y clases. El texto refundido del Estatuto Básico del Empleado Público y demás normativa de aplicación. Las competencias en materia de personal. El Registro Central de Personal.",
+"dif": 1,
+"frec": 0.0,
+"n": 0,
+"comparte": false
+},
+{
+"k": "VI.7",
+"titulo": "Correo electrónico: Outlook 365. Conceptos elementales y funcionamiento. Crear, enviar, recibir, responder y reenviar mensajes. Reglas de mensaje. Libreta de direcciones. Entorno colaborativo: Microsoft Teams y OneDrive.",
+"dif": 2,
+"frec": 5.5,
+"n": 22,
+"comparte": false
+},
+{
+"k": "IV.3",
+"titulo": "El personal funcionario al servicio de las Administraciones públicas: funcionarios de carrera y funcionarios interinos. La selección de los funcionarios.",
+"dif": 2,
+"frec": 4.0,
+"n": 16,
+"comparte": false
+},
+{
+"k": "VI.4",
+"titulo": "Procesadores de texto: Word 365. Principales funciones y utilidades. Creación y estructuración del documento. Gestión, grabación, recuperación e impresión de ficheros. Personalización del entorno de trabajo.",
+"dif": 2,
+"frec": 3.5,
+"n": 14,
+"comparte": false
+},
+{
+"k": "I.1",
+"titulo": "La Constitución Española de 1978: estructura y contenido. Derechos y deberes fundamentales. Su garantía y suspensión. El Tribunal Constitucional. El Defensor del Pueblo. Reforma de la Constitución.",
+"dif": 2,
+"frec": 2.5,
+"n": 10,
+"comparte": false
+},
+{
+"k": "I.3",
+"titulo": "Las Cortes Generales: composición, atribuciones y funcionamiento del Congreso de los Diputados y del Senado.",
+"dif": 2,
+"frec": 2.0,
+"n": 8,
+"comparte": false
+},
+{
+"k": "I.8",
+"titulo": "La Administración General del Estado. Órganos centrales. Órganos superiores y directivos. Órganos territoriales. La Administración del Estado en el Exterior.",
+"dif": 2,
+"frec": 1.5,
+"n": 6,
+"comparte": false
+},
+{
+"k": "I.10",
+"titulo": "La Administración local: entidades que la integran. La provincia, el municipio y la isla.",
+"dif": 2,
+"frec": 1.2,
+"n": 5,
+"comparte": false
+},
+{
+"k": "I.4",
+"titulo": "El Poder Judicial. El Consejo General del Poder Judicial. El Tribunal Supremo. La organización judicial española.",
+"dif": 2,
+"frec": 1.0,
+"n": 4,
+"comparte": false
+},
+{
+"k": "IV.8",
+"titulo": "El personal laboral al servicio de las Administraciones públicas. Selección. Derechos, deberes e incompatibilidades. El IV Convenio colectivo único para el personal laboral de la Administración General del Estado: ámbito de aplicación y sistema de clasificación.",
+"dif": 2,
+"frec": 1.0,
+"n": 4,
+"comparte": false
+},
+{
+"k": "I.7",
+"titulo": "La Ley 19/2013, de 9 de diciembre, de transparencia, acceso a la información pública y buen gobierno.",
+"dif": 2,
+"frec": 0.8,
+"n": 3,
+"comparte": false
+},
+{
+"k": "I.11",
+"titulo": "La organización de la Unión Europea. El Consejo Europeo, el Consejo, el Parlamento Europeo, la Comisión Europea y el Tribunal de Justicia de la Unión Europea. Efectos de la integración europea sobre la organización del Estado español.",
+"dif": 2,
+"frec": 0.8,
+"n": 3,
+"comparte": false
+},
+{
+"k": "III.7",
+"titulo": "Políticas de igualdad y contra la violencia de género. Políticas de igualdad de trato y no discriminación de las personas LGTBI. Discapacidad y dependencia: régimen jurídico.",
+"dif": 2,
+"frec": 0.8,
+"n": 3,
+"comparte": false
+},
+{
+"k": "I.9",
+"titulo": "La organización territorial del Estado: las Comunidades Autónomas. Constitución y distribución de competencias entre el Estado y las Comunidades Autónomas. Estatutos de Autonomía.",
+"dif": 2,
+"frec": 0.5,
+"n": 2,
+"comparte": false
+},
+{
+"k": "III.5",
+"titulo": "Procedimientos y formas de la actividad administrativa. La actividad de limitación, arbitral, de servicio público y de fomento. Formas de gestión de los servicios públicos.",
+"dif": 2,
+"frec": 0.5,
+"n": 2,
+"comparte": false
+},
+{
+"k": "II.3",
+"titulo": "Administración electrónica y servicios al ciudadano. Análisis de principales páginas web de carácter público. Servicios telemáticos. Oficinas integradas de atención al ciudadano. Ventanilla única empresarial. El Punto de Acceso General de la Administración General del Estado.",
+"dif": 2,
+"frec": 0.2,
+"n": 1,
+"comparte": false
+},
+{
+"k": "IV.6",
+"titulo": "Las incompatibilidades. Régimen disciplinario: faltas, sanciones y procedimiento.",
+"dif": 2,
+"frec": 0.2,
+"n": 1,
+"comparte": false
+},
+{
+"k": "III.1",
+"titulo": "Las fuentes del derecho administrativo. La jerarquía de las fuentes. La ley. Las disposiciones del Ejecutivo con fuerza de ley: decreto-ley y decreto legislativo. El reglamento: concepto, clases y límites. Otras fuentes del derecho administrativo.",
+"dif": 2,
+"frec": 0.0,
+"n": 0,
+"comparte": false
+},
+{
+"k": "III.2",
+"titulo": "El acto administrativo: concepto, clases y elementos. Eficacia y validez de los actos administrativos. Su motivación y notificación.",
+"dif": 2,
+"frec": 0.0,
+"n": 0,
+"comparte": false
+},
+{
+"k": "III.6",
+"titulo": "La responsabilidad patrimonial de las Administraciones públicas. Concepto y clases. Requisitos generales. Efectos.",
+"dif": 2,
+"frec": 0.0,
+"n": 0,
+"comparte": false
+},
+{
+"k": "IV.2",
+"titulo": "Selección de personal. Los procesos selectivos en la Administración pública y su conexión con la Oferta de Empleo Público. Principios constitucionales. Acceso al empleo público y provisión de puestos de trabajo de las personas con discapacidad.",
+"dif": 2,
+"frec": 0.0,
+"n": 0,
+"comparte": false
+},
+{
+"k": "IV.4",
+"titulo": "Adquisición y pérdida de la condición de funcionario. Situaciones administrativas de los funcionarios. Supuestos y efectos de cada una de ellas.",
+"dif": 2,
+"frec": 0.0,
+"n": 0,
+"comparte": false
+},
+{
+"k": "V.1",
+"titulo": "El presupuesto: concepto. Los principios presupuestarios. El ciclo presupuestario. El presupuesto por programas: concepto y fases. Terminología y desarrollo del proceso presupuestario.",
+"dif": 2,
+"frec": 0.0,
+"n": 0,
+"comparte": false
+},
+{
+"k": "V.4",
+"titulo": "Las retribuciones e indemnizaciones de los funcionarios públicos y del personal laboral al servicio de la Administración pública. Nóminas: estructura y normas de confección. Altas y bajas: su justificación. Retribuciones básicas: sueldos, trienios, pagas extraordinarias. Retribuciones complementarias y otras remuneraciones. Devengo y liquidación de derechos económicos. El pago de las retribuciones del personal en activo. Formas de pago.",
+"dif": 2,
+"frec": 0.0,
+"n": 0,
+"comparte": false
+},
+{
+"k": "VI.6",
+"titulo": "Bases de datos: Access 365. Principales funciones y utilidades. Tablas. Consultas. Formularios. Informes. Relaciones.",
+"dif": 3,
+"frec": 4.2,
+"n": 17,
+"comparte": false
+},
+{
+"k": "VI.5",
+"titulo": "Hojas de cálculo: Excel 365. Principales funciones y utilidades. Libros, hojas y celdas. Configuración. Introducción y edición de datos. Fórmulas y funciones. Gráficos. Gestión de datos. Personalización del entorno de trabajo.",
+"dif": 3,
+"frec": 3.5,
+"n": 14,
+"comparte": false
+},
+{
+"k": "III.3",
+"titulo": "Las leyes del Procedimiento Administrativo Común de las Administraciones Públicas y del Régimen Jurídico del Sector Público. Procedimiento administrativo común y su alcance: iniciación, ordenación, instrucción y terminación. La revisión de los actos en vía administrativa: revisión de oficio y recursos administrativos. El recurso contencioso-administrativo. Actividad administrativa impugnable. Las partes: capacidad, legitimación, representación y defensa.",
+"dif": 3,
+"frec": 2.8,
+"n": 11,
+"comparte": false
+},
+{
+"k": "III.4",
+"titulo": "Los contratos del sector público: concepto y clases. Preparación, adjudicación, efectos, cumplimiento y extinción. La revisión de precios y otras alteraciones contractuales. Régimen de invalidez y recursos.",
+"dif": 3,
+"frec": 1.5,
+"n": 6,
+"comparte": false
+},
+{
+"k": "V.2",
+"titulo": "El presupuesto del Estado en España: concepto y estructura. Los créditos presupuestarios: clasificación. Gastos plurianuales. Las modificaciones presupuestarias: créditos extraordinarios y suplementos de crédito. Ampliaciones de crédito. Generaciones de crédito. Transferencias de crédito. Incorporaciones de crédito. Anticipos de tesorería.",
+"dif": 3,
+"frec": 1.5,
+"n": 6,
+"comparte": false
+},
+{
+"k": "IV.5",
+"titulo": "Provisión de puestos de trabajo en la función pública. Los deberes y derechos de los funcionarios. La carrera administrativa. Promoción interna.",
+"dif": 3,
+"frec": 1.2,
+"n": 5,
+"comparte": false
+},
+{
+"k": "II.4",
+"titulo": "La protección de datos personales y su régimen jurídico: principios, derechos, responsable y encargado del tratamiento, delegado y autoridades de protección de datos. Derechos digitales.",
+"dif": 3,
+"frec": 1.0,
+"n": 4,
+"comparte": false
+},
+{
+"k": "IV.9",
+"titulo": "El régimen de la Seguridad Social del personal laboral. La acción protectora. Tipos y características de las prestaciones.",
+"dif": 3,
+"frec": 1.0,
+"n": 4,
+"comparte": false
+},
+{
+"k": "V.6",
+"titulo": "Gestión económica y financiera de los contratos del sector público. Gestión económica y financiera de subvenciones.",
+"dif": 3,
+"frec": 0.5,
+"n": 2,
+"comparte": false
+},
+{
+"k": "IV.7",
+"titulo": "El régimen de la Seguridad Social de los funcionarios. La MUFACE y las clases pasivas.",
+"dif": 3,
+"frec": 0.2,
+"n": 1,
+"comparte": false
+},
+{
+"k": "V.3",
+"titulo": "El procedimiento administrativo de ejecución del presupuesto de gasto. Órganos competentes. Fases del procedimiento y sus documentos contables. Compromisos de gasto para ejercicios posteriores. La ordenación del pago: concepto y competencia. Realización del pago: modos y perceptores. Control del gasto público. Clases. Especial referencia al control de legalidad. El Tribunal de Cuentas.",
+"dif": 3,
+"frec": 0.0,
+"n": 0,
+"comparte": false
+},
+{
+"k": "V.5",
+"titulo": "Gastos para la compra de bienes y servicios. Gastos de inversión. Gastos de transferencias: corrientes y de capital. Pagos: concepto y tipos. Pagos por obligaciones presupuestarias. Anticipos de caja fija. Pagos «a justificar». Justificación de libramientos.",
+"dif": 3,
+"frec": 0.0,
+"n": 0,
+"comparte": false
+}
+],
+"C2": [
+{
+"k": "II.12",
+"titulo": "Internet. Funcionalidades básicas de los navegadores web. Asistentes de inteligencia artificial en el puesto de trabajo. Uso responsable y riesgos.",
+"dif": 1,
+"frec": 3.5,
+"n": 14,
+"comparte": false
+},
+{
+"k": "II.7",
+"titulo": "El explorador de Windows. Gestión de carpetas y archivos. Operaciones de búsqueda. Herramientas «Este equipo» y «Acceso rápido». Accesorios. Herramientas del sistema.",
+"dif": 1,
+"frec": 3.0,
+"n": 12,
+"comparte": false
+},
+{
+"k": "II.5",
+"titulo": "Informática básica: conceptos fundamentales sobre el hardware y el software. Sistemas de almacenamiento de datos. Sistemas operativos. Nociones básicas de seguridad de la información.",
+"dif": 1,
+"frec": 2.8,
+"n": 11,
+"comparte": false
+},
+{
+"k": "I.5",
+"titulo": "El Gobierno y la Administración. El Presidente del Gobierno. El Consejo de Ministros. Designación, causas de cese y responsabilidad del Gobierno.",
+"dif": 1,
+"frec": 2.0,
+"n": 8,
+"comparte": false
+},
+{
+"k": "II.6",
+"titulo": "Introducción al sistema operativo: el entorno Windows. Fundamentos. Trabajo en el entorno gráfico de Windows: ventanas, iconos, menús contextuales, cuadros de diálogo. El escritorio y sus elementos. El menú inicio.",
+"dif": 1,
+"frec": 2.0,
+"n": 8,
+"comparte": false
+},
+{
+"k": "I.6",
+"titulo": "El Gobierno Abierto: concepto y principios informadores. La Agenda 2030 y los Objetivos de Desarrollo Sostenible.",
+"dif": 1,
+"frec": 0.0,
+"n": 0,
+"comparte": false
+},
+{
+"k": "II.1",
+"titulo": "Atención al público: acogida e información al ciudadano. Atención de personas con discapacidad.",
+"dif": 1,
+"frec": 0.0,
+"n": 0,
+"comparte": false
+},
+{
+"k": "II.2",
+"titulo": "Los servicios de información administrativa. Información general y particular al ciudadano. Iniciativas. Reclamaciones. Quejas. Peticiones.",
+"dif": 1,
+"frec": 0.0,
+"n": 0,
+"comparte": false
+},
+{
+"k": "II.3",
+"titulo": "Concepto de documento, registro y archivo. Funciones del registro y del archivo. Clases de archivo y criterios de ordenación.",
+"dif": 1,
+"frec": 0.0,
+"n": 0,
+"comparte": false
+},
+{
+"k": "II.11",
+"titulo": "Correo electrónico: Outlook 365. Conceptos elementales y funcionamiento. Crear, enviar, recibir, responder y reenviar mensajes. Reglas de mensaje. Libreta de direcciones. Entorno colaborativo: Microsoft Teams y OneDrive.",
+"dif": 2,
+"frec": 5.5,
+"n": 22,
+"comparte": false
+},
+{
+"k": "II.8",
+"titulo": "Procesadores de texto: Word 365. Principales funciones y utilidades. Creación y estructuración del documento. Gestión, grabación, recuperación e impresión de ficheros. Personalización del entorno de trabajo.",
+"dif": 2,
+"frec": 5.0,
+"n": 20,
+"comparte": false
+},
+{
+"k": "I.1",
+"titulo": "La Constitución Española de 1978. Características. Los principios constitucionales y los valores superiores. Derechos y deberes fundamentales. Su garantía y suspensión.",
+"dif": 2,
+"frec": 4.0,
+"n": 16,
+"comparte": false
+},
+{
+"k": "I.13",
+"titulo": "El personal funcionario al servicio de las Administraciones públicas: concepto y clases. Régimen jurídico. El Registro Central de Personal. Programación de efectivos y Oferta de Empleo Público. Selección. Provisión de puestos de trabajo. Situaciones administrativas de los funcionarios.",
+"dif": 2,
+"frec": 3.0,
+"n": 12,
+"comparte": false
+},
+{
+"k": "I.8",
+"titulo": "La Administración General del Estado. Órganos centrales. Órganos superiores y órganos directivos. Órganos territoriales. Otros órganos administrativos. La Administración del Estado en el exterior.",
+"dif": 2,
+"frec": 2.5,
+"n": 10,
+"comparte": false
+},
+{
+"k": "I.7",
+"titulo": "La Ley 19/2013, de 9 de diciembre, de transparencia, acceso a la información pública y buen gobierno.",
+"dif": 2,
+"frec": 1.8,
+"n": 7,
+"comparte": false
+},
+{
+"k": "I.15",
+"titulo": "El presupuesto del Estado en España. Contenido, elaboración y estructura. Fases del ciclo presupuestario.",
+"dif": 2,
+"frec": 1.8,
+"n": 7,
+"comparte": false
+},
+{
+"k": "I.16",
+"titulo": "Políticas de igualdad y contra la violencia de género. Políticas de igualdad de trato y no discriminación de las personas LGTBI. Discapacidad y dependencia: régimen jurídico.",
+"dif": 2,
+"frec": 1.8,
+"n": 7,
+"comparte": false
+},
+{
+"k": "I.2",
+"titulo": "El Tribunal Constitucional. La reforma de la Constitución. La Corona: funciones constitucionales del Rey. Sucesión y regencia.",
+"dif": 2,
+"frec": 1.5,
+"n": 6,
+"comparte": false
+},
+{
+"k": "I.9",
+"titulo": "La organización territorial del Estado. Las Comunidades Autónomas: Constitución y distribución de competencias entre el Estado y las Comunidades Autónomas. La Administración local: entidades que la integran. La provincia, el municipio y la isla.",
+"dif": 2,
+"frec": 1.2,
+"n": 5,
+"comparte": false
+},
+{
+"k": "I.3",
+"titulo": "Las Cortes Generales: composición, atribuciones y funcionamiento del Congreso de los Diputados y del Senado. El Defensor del Pueblo.",
+"dif": 2,
+"frec": 1.0,
+"n": 4,
+"comparte": false
+},
+{
+"k": "I.4",
+"titulo": "El Poder Judicial. El Consejo General del Poder Judicial. El Tribunal Supremo. La organización judicial española.",
+"dif": 2,
+"frec": 0.8,
+"n": 3,
+"comparte": false
+},
+{
+"k": "I.10",
+"titulo": "La organización de la Unión Europea. El Consejo Europeo, el Consejo, el Parlamento Europeo, la Comisión Europea y el Tribunal de Justicia de la Unión Europea.",
+"dif": 2,
+"frec": 0.8,
+"n": 3,
+"comparte": false
+},
+{
+"k": "II.4",
+"titulo": "Administración electrónica y servicios al ciudadano. La información administrativa. Análisis de principales páginas web de carácter público. Servicios telemáticos. Oficinas integradas de atención al ciudadano. Ventanilla única empresarial. El Punto de Acceso General de la Administración General del Estado.",
+"dif": 2,
+"frec": 0.0,
+"n": 0,
+"comparte": false
+},
+{
+"k": "II.9",
+"titulo": "Hojas de cálculo: Excel 365. Principales funciones y utilidades. Libros, hojas y celdas. Configuración. Introducción y edición de datos. Fórmulas y funciones. Gráficos. Gestión de datos. Personalización del entorno de trabajo.",
+"dif": 3,
+"frec": 5.2,
+"n": 21,
+"comparte": false
+},
+{
+"k": "II.10",
+"titulo": "Bases de datos: Access 365. Principales funciones y utilidades. Tablas. Consultas. Formularios. Informes. Relaciones.",
+"dif": 3,
+"frec": 5.0,
+"n": 20,
+"comparte": false
+},
+{
+"k": "I.11",
+"titulo": "Las Leyes del Procedimiento Administrativo Común de las Administraciones Públicas y del Régimen Jurídico del Sector Público. El procedimiento administrativo común y sus fases. La revisión de los actos en vía administrativa: revisión de oficio y recursos administrativos. El recurso contencioso-administrativo. Actividad administrativa impugnable. Las partes: capacidad, legitimación, representación y defensa.",
+"dif": 3,
+"frec": 3.2,
+"n": 13,
+"comparte": false
+},
+{
+"k": "I.12",
+"titulo": "La protección de datos personales y su régimen jurídico: principios, derechos y obligaciones.",
+"dif": 3,
+"frec": 0.5,
+"n": 2,
+"comparte": false
+},
+{
+"k": "I.14",
+"titulo": "Derechos y deberes de los funcionarios. La carrera administrativa. Promoción interna. El sistema de retribuciones e indemnizaciones. Régimen disciplinario. El régimen de la Seguridad Social de los funcionarios.",
+"dif": 3,
+"frec": 0.2,
+"n": 1,
+"comparte": false
+}
+],
+"BIB": [
+{
+"k": "I.1",
+"titulo": "La Constitución Española de 1978: estructura y contenido. Los derechos y libertades públicas. La Corona. Funciones constitucionales del Rey. Sucesión y Regencia.",
+"dif": 1,
+"frec": 5.8,
+"n": 23,
+"comparte": true
+},
+{
+"k": "III.3",
+"titulo": "Bibliotecas públicas: concepto, funciones y servicios.",
+"dif": 1,
+"frec": 4.5,
+"n": 18,
+"comparte": false
+},
+{
+"k": "III.4",
+"titulo": "Bibliotecas universitarias: concepto, funciones y servicios.",
+"dif": 1,
+"frec": 2.8,
+"n": 11,
+"comparte": false
+},
+{
+"k": "I.2",
+"titulo": "Las Cortes Generales. El Congreso de los Diputados. El Senado. Funciones de las Cámaras. El Gobierno y la Administración Pública. El Poder Judicial.",
+"dif": 1,
+"frec": 2.2,
+"n": 9,
+"comparte": true
+},
+{
+"k": "III.5",
+"titulo": "Bibliotecas especializadas: concepto, funciones y servicios.",
+"dif": 1,
+"frec": 2.2,
+"n": 9,
+"comparte": false
+},
+{
+"k": "III.14",
+"titulo": "Proceso técnico de los fondos bibliográficos: registro, sellado, etc.",
+"dif": 1,
+"frec": 2.2,
+"n": 9,
+"comparte": false
+},
+{
+"k": "I.6",
+"titulo": "El Real Decreto Legislativo 5/2015, de 30 de octubre, por el que se aprueba el texto refundido de la Ley del Estatuto Básico del Empleado Público: Clases de personal al servicio de las Administraciones Públicas. Adquisición y pérdida de la condición de funcionario. Situaciones administrativas. Régimen disciplinario.",
+"dif": 1,
+"frec": 2.0,
+"n": 8,
+"comparte": true
+},
+{
+"k": "III.6",
+"titulo": "Las hemerotecas.",
+"dif": 1,
+"frec": 2.0,
+"n": 8,
+"comparte": false
+},
+{
+"k": "III.22",
+"titulo": "Tipos de préstamos. El préstamo interbibliotecario.",
+"dif": 1,
+"frec": 2.0,
+"n": 8,
+"comparte": false
+},
+{
+"k": "I.5",
+"titulo": "Disposiciones administrativas y actos administrativos. El procedimiento administrativo. Revisión de oficio. Recursos administrativos.",
+"dif": 1,
+"frec": 1.8,
+"n": 7,
+"comparte": true
+},
+{
+"k": "III.2",
+"titulo": "Bibliotecas nacionales: concepto, funciones y servicios.",
+"dif": 1,
+"frec": 1.8,
+"n": 7,
+"comparte": false
+},
+{
+"k": "III.20",
+"titulo": "Servicios a los lectores: referencia e información bibliográfica. Alfabetización informacional.",
+"dif": 1,
+"frec": 1.8,
+"n": 7,
+"comparte": false
+},
+{
+"k": "I.3",
+"titulo": "Organización territorial del Estado. Las Comunidades Autónomas. Los Estatutos de Autonomía. La distribución de competencias entre Estado y Comunidades Autónomas. La Administración local.",
+"dif": 1,
+"frec": 1.5,
+"n": 6,
+"comparte": true
+},
+{
+"k": "I.4",
+"titulo": "La Administración General del Estado. Órganos superiores. Órganos directivos. Delegados y Subdelegados del Gobierno. La administración del Estado en el exterior.",
+"dif": 1,
+"frec": 1.5,
+"n": 6,
+"comparte": true
+},
+{
+"k": "I.8",
+"titulo": "La Ley 19/2013, de 9 de diciembre, de transparencia, acceso a la información pública y buen gobierno. El Consejo de Transparencia y Buen Gobierno: funciones. Las Unidades de Información y Transparencia (UITS): funciones.",
+"dif": 1,
+"frec": 1.5,
+"n": 6,
+"comparte": true
+},
+{
+"k": "III.9",
+"titulo": "Instalaciones y equipamiento de las bibliotecas.",
+"dif": 1,
+"frec": 1.5,
+"n": 6,
+"comparte": false
+},
+{
+"k": "III.15",
+"titulo": "Proceso técnico: ordenación de los fondos y gestión de los depósitos. Recuentos.",
+"dif": 1,
+"frec": 1.2,
+"n": 5,
+"comparte": false
+},
+{
+"k": "III.25",
+"titulo": "OPAC. Herramientas de descubrimiento.",
+"dif": 1,
+"frec": 1.2,
+"n": 5,
+"comparte": false
+},
+{
+"k": "III.12",
+"titulo": "Selección y adquisición de fondos bibliográficos.",
+"dif": 1,
+"frec": 1.0,
+"n": 4,
+"comparte": false
+},
+{
+"k": "III.7",
+"titulo": "Los documentos y sus clases. Documentos primarios. Documentos secundarios. Documentos terciarios.",
+"dif": 1,
+"frec": 0.2,
+"n": 1,
+"comparte": false
+},
+{
+"k": "III.21",
+"titulo": "Servicios a los lectores: lectura en sala y libre acceso.",
+"dif": 1,
+"frec": 0.2,
+"n": 1,
+"comparte": false
+},
+{
+"k": "III.30",
+"titulo": "Agentes de la producción y difusión del libro.",
+"dif": 1,
+"frec": 0.2,
+"n": 1,
+"comparte": false
+},
+{
+"k": "III.1",
+"titulo": "El concepto de bibliotecas. Clases de bibliotecas.",
+"dif": 1,
+"frec": 0.0,
+"n": 0,
+"comparte": false
+},
+{
+"k": "I.9",
+"titulo": "El Ministerio de Cultura. Organismos Autónomos adscritos a este Ministerio. Archivos, Bibliotecas y Museos Estatales.",
+"dif": 2,
+"frec": 8.2,
+"n": 33,
+"comparte": false
+},
+{
+"k": "III.27",
+"titulo": "Cooperación bibliotecaria: organismos y proyectos.",
+"dif": 2,
+"frec": 3.2,
+"n": 13,
+"comparte": false
+},
+{
+"k": "III.10",
+"titulo": "Preservación y conservación del fondo bibliográfico y documental.",
+"dif": 2,
+"frec": 3.0,
+"n": 12,
+"comparte": false
+},
+{
+"k": "III.23",
+"titulo": "Bibliografías. Bibliografías nacionales.",
+"dif": 2,
+"frec": 2.5,
+"n": 10,
+"comparte": false
+},
+{
+"k": "III.24",
+"titulo": "Sistemas integrados de gestión bibliotecaria.",
+"dif": 2,
+"frec": 2.5,
+"n": 10,
+"comparte": false
+},
+{
+"k": "III.8",
+"titulo": "Colecciones especiales: fondo antiguo, material gráfico, soportes audiovisuales, etc.",
+"dif": 2,
+"frec": 2.2,
+"n": 9,
+"comparte": false
+},
+{
+"k": "III.18",
+"titulo": "Números de identificación bibliográfica: el ISBN, el ISSN y otros sistemas nacionales e internacionales. Identificadores permanentes en Internet.",
+"dif": 2,
+"frec": 2.2,
+"n": 9,
+"comparte": false
+},
+{
+"k": "III.26",
+"titulo": "Internet: historia y gobernanza de Internet, W3C.",
+"dif": 2,
+"frec": 2.2,
+"n": 9,
+"comparte": true
+},
+{
+"k": "II.1",
+"titulo": "La invención y difusión de la imprenta. Los incunables.",
+"dif": 2,
+"frec": 2.0,
+"n": 8,
+"comparte": false
+},
+{
+"k": "III.13",
+"titulo": "El depósito legal. El depósito legal de publicaciones en línea.",
+"dif": 2,
+"frec": 1.8,
+"n": 7,
+"comparte": false
+},
+{
+"k": "I.7",
+"titulo": "Políticas de Igualdad de Género. La Ley Orgánica 3/2007, de 22 de marzo, para la igualdad efectiva de mujeres y hombres. IV Plan para la Igualdad de género en la Administración General del Estado y los Organismos Públicos vinculados o dependientes de ella. La Ley 15/2022, de 12 de julio, integral para la igualdad de trato y la no discriminación. La Ley 4/2023, de 28 de febrero, para la igualdad real y efectiva de las personas trans y para la garantía de los derechos de las personas LGTBI. Las Unidades de Igualdad. Políticas contra la Violencia de Género. La Ley Orgánica 1/2004, de 28 de diciembre, de Medidas de Protección Integral contra la Violencia de Género. Políticas sociales dirigidas a la atención a personas con discapacidad y/o dependientes.",
+"dif": 2,
+"frec": 1.5,
+"n": 6,
+"comparte": true
+},
+{
+"k": "II.2",
+"titulo": "El libro y las bibliotecas durante los siglos XVI y XVII.",
+"dif": 2,
+"frec": 1.2,
+"n": 5,
+"comparte": false
+},
+{
+"k": "III.28",
+"titulo": "Principales catálogos colectivos.",
+"dif": 2,
+"frec": 1.2,
+"n": 5,
+"comparte": false
+},
+{
+"k": "II.4",
+"titulo": "El libro y las bibliotecas durante el siglo XX. La industria del libro y la edición en la actualidad.",
+"dif": 2,
+"frec": 1.0,
+"n": 4,
+"comparte": false
+},
+{
+"k": "I.11",
+"titulo": "Legislación bibliotecaria española. Ley 10/2007 de la lectura, del libro y las bibliotecas. Ley 1/2015 reguladora de la Biblioteca Nacional de España.",
+"dif": 2,
+"frec": 0.8,
+"n": 3,
+"comparte": false
+},
+{
+"k": "III.11",
+"titulo": "Digitalización. Preservación digital.",
+"dif": 2,
+"frec": 0.8,
+"n": 3,
+"comparte": false
+},
+{
+"k": "II.3",
+"titulo": "El libro y las bibliotecas durante los siglos XVIII y XIX. Avances tecnológicos.",
+"dif": 2,
+"frec": 0.5,
+"n": 2,
+"comparte": false
+},
+{
+"k": "IV.2",
+"titulo": "Atención a investigadores y usuarios.",
+"dif": 2,
+"frec": 0.0,
+"n": 0,
+"comparte": false
+},
+{
+"k": "IV.1",
+"titulo": "Ordenación y conservación de fondos.",
+"dif": 3,
+"frec": 15.0,
+"n": 60,
+"comparte": false
+},
+{
+"k": "III.16",
+"titulo": "La descripción bibliográfica y el control de autoridades.",
+"dif": 3,
+"frec": 3.2,
+"n": 13,
+"comparte": false
+},
+{
+"k": "I.10",
+"titulo": "La legislación española sobre el Patrimonio Histórico Español. Ley de Propiedad intelectual y su reflejo en la gestión de bibliotecas.",
+"dif": 3,
+"frec": 3.0,
+"n": 12,
+"comparte": false
+},
+{
+"k": "III.17",
+"titulo": "El formato MARC 21.",
+"dif": 3,
+"frec": 3.0,
+"n": 12,
+"comparte": false
+},
+{
+"k": "III.19",
+"titulo": "Clasificación. Clasificaciones sistemáticas y alfabéticas. La CDU.",
+"dif": 3,
+"frec": 1.8,
+"n": 7,
+"comparte": false
+},
+{
+"k": "III.29",
+"titulo": "Bibliotecas digitales y recolectores OAI-PMH.",
+"dif": 3,
+"frec": 1.2,
+"n": 5,
+"comparte": false
+},
+{
+"k": "IV.3",
+"titulo": "Apoyo a procesos técnicos.",
+"dif": 3,
+"frec": 0.0,
+"n": 0,
+"comparte": false
+}
+],
+"criterios": {
+"C1": [
+"Primera parte: 70 preguntas, de ellas unas 40 de los bloques I a V (teoría) y 30 de ofimática (bloque VI). Cada fallo resta 1/3.",
+"Segunda parte: supuesto práctico de gestión sobre los bloques II a V (personal, presupuesto, procedimiento).",
+"En los 4 exámenes oficiales lo que más ha caído: ofimática (Outlook, Access, Word, Excel), Constitución, TREBEP y procedimiento (Ley 39/2015)."
+],
+"C2": [
+"Primera parte: 30 preguntas de teoría (bloque I) + 30 psicotécnicos. Segunda parte: 50 de ofimática (bloque II). Cada fallo resta 1/3.",
+"La ofimática pesa casi la mitad del examen: Outlook, Excel, Word y Access son lo que más entra.",
+"En teoría: Constitución, procedimiento administrativo, empleado público y AGE."
+],
+"BIB": [
+"Primera parte: 100 preguntas de los bloques I, II y III. Segunda parte: 2 supuestos prácticos de 15 preguntas del bloque IV (catalogación, CDU, MARC, atención al usuario). 150 minutos; cada fallo resta 1/3.",
+"Los temas de legislación compartidos con AGE cuentan como «fáciles» porque ya los estudias para C1 y C2.",
+"En los 4 exámenes oficiales lo que más entra: Patrimonio y Propiedad Intelectual, Ley del libro y BNE, catalogación, conservación y bibliotecas públicas; y los supuestos (30 de 130 preguntas)."
+]
+}
+}

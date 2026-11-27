@@ -37,7 +37,7 @@ const nube = {
     const R = data.datos || {};
     const remotoMasNuevo = (R._ts || 0) > (S._ts || 0);
     const mezcla = (a, b) => Object.assign({}, a || {}, b || {});   // b gana
-    for (const k of ["repasos", "leitner", "resp", "notas", "plan"]) S[k] = remotoMasNuevo ? mezcla(S[k], R[k]) : mezcla(R[k], S[k]);
+    for (const k of ["repasos", "leitner", "resp", "notas", "plan", "orden"]) S[k] = remotoMasNuevo ? mezcla(S[k], R[k]) : mezcla(R[k], S[k]);
     const sims = [...(R.simulacros || []), ...(S.simulacros || [])]; const vistos = new Set();
     S.simulacros = sims.filter(x => { const k = x.fecha + x.tipo + x.nota; if (vistos.has(k)) return false; vistos.add(k); return true; });
     if (remotoMasNuevo) { S.opo = R.opo ?? S.opo; S.colores = R.colores ?? S.colores; }
@@ -528,6 +528,7 @@ async function vPlan() {
   const plan = await json("data/plan.json"); const h = hoyISO();
   const hechos = Object.values(S.plan).filter(Boolean).length, total = plan.reduce((a, w) => a + w.dias.length, 0);
   let html = `<h1>Plan de estudio</h1><p class="sub">26 semanas · 2 horas al día · fines de semana incluidos. Marca cada día al terminar.</p>
+    <p class="fila"><a class="btn s" href="#/orden/C1">Orden de estudio C1</a><a class="btn s m" href="#/orden/C2">Orden de estudio C2</a><a class="btn s nar" href="#/orden/BIB">Orden de estudio Bibliotecas</a></p>
     <div class="card l" style="margin-bottom:14px"><b>${hechos} de ${total} días hechos</b>${barra(hechos / total)}</div>
     <div class="fila" style="margin-bottom:8px"><button class="btn s o" onclick="document.getElementById('hoy')?.scrollIntoView({behavior:'smooth',block:'center'})">Ir a hoy</button></div>`;
   plan.forEach(w => {
@@ -541,6 +542,32 @@ async function vPlan() {
     html += `</div>`;
   });
   pintar(html);
+}
+
+/* ---------- orden de estudio ---------- */
+async function vOrden(sel) {
+  menu("orden"); await base();
+  const O = await json("data/orden.json");
+  sel = sel || (S.opo === "C2" ? "C2" : "C1");
+  S.orden = S.orden || {};
+  const DIF = { 1: ["Fácil", "dif1"], 2: ["Media", "dif2"], 3: ["Difícil", "dif3"] };
+  const enlace = (c, k) => c === "BIB" ? "#/temario/BIB" : `#/tema/${c}-${k.replace(".", "-")}`;
+  const rows = O[sel], hechos = rows.filter(r => S.orden[sel + r.k]).length;
+  let h = `<h1>Orden de estudio</h1><p class="sub">De fácil a difícil y, dentro de cada nivel, primero lo que más entra en los exámenes oficiales. Marca cada tema cuando lo tengas estudiado.</p>
+  <div class="tabs opo-tabs">${OPOS.map(o => `<a class="${sel === o[0] ? "on" : ""} ${o[0] === "BIB" ? "t-bib" : o[0] === "C2" ? "t-c2" : "t-c1"}" href="#/orden/${o[0]}">${o[1]}</a>`).join("")}</div>
+  <div class="card ${OPOS.find(o => o[0] === sel)[2]}"><h3>Cómo es el examen y qué entra más</h3><ul>${O.criterios[sel].map(x => `<li>${esc(x)}</li>`).join("")}</ul>
+  <p><b>${hechos} de ${rows.length} temas estudiados</b></p>${barra(hechos / rows.length)}</div>
+  <p class="muted">★ = media de preguntas por examen en los 4 exámenes oficiales (estimación a partir de la ley o el tema de cada pregunta). La dificultad depende de la extensión del texto oficial y de cuántos plazos, cifras o técnica hay que memorizar.</p>`;
+  let fase = 0, i = 0;
+  for (const r of rows) {
+    if (r.dif !== fase) { fase = r.dif; h += `<h2 class="fase-h ${DIF[fase][1]}">Fase ${fase} · temas de dificultad ${DIF[fase][0].toLowerCase()}</h2>`; }
+    i++;
+    const ok = !!S.orden[sel + r.k];
+    h += `<div class="orden-li ${ok ? "hecho" : ""}"><div class="n">${i}</div><div class="t"><a href="${enlace(sel, r.k)}"><b>${esc(r.k)}</b> ${esc(r.titulo)}</a>
+      <div class="fila" style="margin-top:4px"><span class="chip ${DIF[r.dif][1]}">${DIF[r.dif][0]}</span><span class="chip">★ ${r.frec} por examen</span>${r.comparte ? `<span class="chip comp">Ya lo estudias en AGE</span>` : ""}</div></div>
+      <input type="checkbox" ${ok ? "checked" : ""} onchange="OPO.orden('${sel}','${r.k}',this.checked);this.closest('.orden-li').classList.toggle('hecho',this.checked)"></div>`;
+  }
+  pintar(h);
 }
 
 /* ---------- progreso ---------- */
@@ -636,6 +663,7 @@ async function router() {
     if (ruta === "simulacro") return vSimulacro(a[0]);
     if (ruta === "examenes") return vExamenes(a[0]);
     if (ruta === "plan") return vPlan();
+    if (ruta === "orden") return vOrden(a[0]);
     if (ruta === "progreso") return vProgreso();
     if (ruta === "boe") return vBoe();
     if (ruta === "ley") return vLey(a.join("/"));
@@ -649,6 +677,7 @@ window.OPO = {
   rep(slug, sec, i, v) { const r = rep(slug, sec); if (i === "dom") r.dom = v; else r.r[i] = v; guardar(); },
   planDia(f, v) { S.plan[f] = v; guardar(); },
   sim, examen, repasar, fallos,
+  orden(c, k, v) { S.orden = S.orden || {}; S.orden[c + k] = v; guardar(); },
   async entrar() { const e = $("#em").value.trim(), p = $("#pw").value; if (!e || !p) return; $("#msg").textContent = "Entrando…"; const err = await nube.entrar(e, p); $("#msg").textContent = err ? "No se ha podido entrar: " + err : "Sesión iniciada. Sincronizando…"; if (!err) setTimeout(router, 800); },
   async salir() { await nube.salir(); router(); },
   async simBib(m) {
