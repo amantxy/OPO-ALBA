@@ -203,3 +203,4 @@ input.busca{width:100%;padding:10px 14px;border:1.5px solid var(--lila-b);border
 .opo-tabs a.t-bib{color:var(--nar)} .opo-tabs a.t-c2{color:var(--menta)}
 .menta-t{color:var(--menta)}
 .opo-h{margin-top:22px;padding-bottom:4px;border-bottom:2px solid currentColor}
+.ico.nube.on{color:var(--menta);border-color:var(--menta-b)}

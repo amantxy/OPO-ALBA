@@ -11,7 +11,43 @@ const hoyISO = () => new Date().toISOString().slice(0, 10);
 const KEY = "opoage.v1";
 const S = Object.assign({ opo: "ambas", colores: true, repasos: {}, leitner: {}, resp: {}, notas: {}, plan: {}, simulacros: [] },
   JSON.parse(localStorage.getItem(KEY) || "{}"));
-const guardar = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { } };
+const guardar = () => { S._ts = Date.now(); try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { } nube.programar(); };
+
+/* ---------------- nube (Supabase) ---------------- */
+const SB_URL = "https://ooagxaekxswwrhpsxpjd.supabase.co", SB_KEY = "sb_publishable_K--8YrlDhcpG4TAm5sokEw_xYlcJtS1", PAGINA = "opo-alba";
+const nube = {
+  sb: null, user: null, t: null, estado: "sin sesión",
+  init() {
+    try { if (!window.supabase) return; this.sb = window.supabase.createClient(SB_URL, SB_KEY, { auth: { persistSession: true, autoRefreshToken: true } }); } catch (e) { return; }
+    this.sb.auth.getSession().then(({ data }) => { this.user = data.session?.user || null; this.pintar(); if (this.user) this.bajar(); });
+    this.sb.auth.onAuthStateChange((_e, ses) => { const antes = this.user?.id; this.user = ses?.user || null; this.pintar(); if (this.user && this.user.id !== antes) this.bajar(); });
+  },
+  pintar() { const b = document.getElementById("nube"); if (b) { b.textContent = this.user ? "☁ Guardado" : "☁ Entrar"; b.title = this.user ? "Progreso sincronizado con tu cuenta (" + this.user.email + ")" : "Entra para guardar tu progreso en la nube"; b.classList.toggle("on", !!this.user); } },
+  programar() { if (!this.user) return; clearTimeout(this.t); this.t = setTimeout(() => this.subir(), 2500); this.marcar("☁ Guardando…"); },
+  marcar(txt) { const b = document.getElementById("nube"); if (b) b.textContent = txt; },
+  async subir() {
+    if (!this.user) return;
+    const { error } = await this.sb.from("progreso").upsert({ user_id: this.user.id, pagina: PAGINA, datos: S, updated_at: new Date().toISOString() });
+    this.marcar(error ? "☁ Error al guardar" : "☁ Guardado");
+  },
+  async bajar() {
+    const { data, error } = await this.sb.from("progreso").select("datos,updated_at").eq("user_id", this.user.id).eq("pagina", PAGINA).maybeSingle();
+    if (error) { this.marcar("☁ Error"); return; }
+    if (!data) { await this.subir(); return; }                     // primera vez: sube lo que hay en este navegador
+    const R = data.datos || {};
+    const remotoMasNuevo = (R._ts || 0) > (S._ts || 0);
+    const mezcla = (a, b) => Object.assign({}, a || {}, b || {});   // b gana
+    for (const k of ["repasos", "leitner", "resp", "notas", "plan"]) S[k] = remotoMasNuevo ? mezcla(S[k], R[k]) : mezcla(R[k], S[k]);
+    const sims = [...(R.simulacros || []), ...(S.simulacros || [])]; const vistos = new Set();
+    S.simulacros = sims.filter(x => { const k = x.fecha + x.tipo + x.nota; if (vistos.has(k)) return false; vistos.add(k); return true; });
+    if (remotoMasNuevo) { S.opo = R.opo ?? S.opo; S.colores = R.colores ?? S.colores; }
+    S._ts = Math.max(R._ts || 0, S._ts || 0);
+    try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { }
+    await this.subir(); router();
+  },
+  async entrar(email, pass) { const { error } = await this.sb.auth.signInWithPassword({ email, password: pass }); return error?.message; },
+  async salir() { await this.sb.auth.signOut(); }
+};
 
 /* ---------------- datos ---------------- */
 const cache = {};
@@ -524,6 +560,9 @@ async function vProgreso() {
   h += `<h2>Simulacros</h2>` + (S.simulacros.length ? `<table class="t"><tr><th>Fecha</th><th>Tipo</th><th>Aciertos</th><th>Fallos</th><th>Blanco</th><th>Nota</th></tr>${S.simulacros.slice().reverse().map(s => `<tr><td>${s.fecha}</td><td>${esc(s.tipo)}</td><td>${s.aciertos}</td><td>${s.fallos}</td><td>${s.blancos}</td><td><b>${s.nota.toFixed(2)}</b></td></tr>`).join("")}</table>` : `<p class="muted">Sin simulacros todavía.</p>`);
   const cajas = [0, 0, 0, 0, 0, 0]; Object.values(S.leitner).forEach(c => cajas[c.box]++);
   h += `<h2>Tarjetas de memoria</h2><p>${cajas.map((n, i) => `<span class="chip ${i >= 4 ? "c2" : "c1"}">Caja ${i}: ${n}</span>`).join("")}</p>`;
+  h += `<h2>Guardar en la nube</h2>` + (nube.user ? `<div class="card m"><p>☁ Tu progreso se guarda automáticamente en tu cuenta de Supabase (<b>${esc(nube.user.email)}</b>) y se sincroniza entre el ordenador y el móvil.</p><button class="btn o" onclick="OPO.salir()">Cerrar sesión</button></div>`
+    : `<div class="card l"><p>Entra con tu cuenta (la misma de tu web de DAW) para guardar el progreso en la nube y tenerlo igual en todos tus dispositivos.</p>
+      <div class="fila"><input class="busca" id="em" type="email" placeholder="Correo" autocomplete="email" style="max-width:260px"><input class="busca" id="pw" type="password" placeholder="Contraseña" autocomplete="current-password" style="max-width:200px"><button class="btn" onclick="OPO.entrar()">Entrar</button></div><p class="muted" id="msg"></p></div>`);
   h += `<h2>Copia de seguridad</h2><p class="muted">Tu progreso se guarda en este navegador. Exporta el archivo para llevarlo a otro dispositivo o no perderlo.</p>
     <div class="fila"><button class="btn" onclick="OPO.exportar()">Exportar progreso</button><label class="btn o">Importar progreso<input type="file" accept=".json" class="oculto" onchange="OPO.importar(this.files[0])"></label>
     <button class="btn o" onclick="if(confirm('¿Borrar todo tu progreso de este navegador?')){localStorage.removeItem('${KEY}');location.reload()}">Borrar progreso</button></div>`;
@@ -610,6 +649,8 @@ window.OPO = {
   rep(slug, sec, i, v) { const r = rep(slug, sec); if (i === "dom") r.dom = v; else r.r[i] = v; guardar(); },
   planDia(f, v) { S.plan[f] = v; guardar(); },
   sim, examen, repasar, fallos,
+  async entrar() { const e = $("#em").value.trim(), p = $("#pw").value; if (!e || !p) return; $("#msg").textContent = "Entrando…"; const err = await nube.entrar(e, p); $("#msg").textContent = err ? "No se ha podido entrar: " + err : "Sesión iniciada. Sincronizando…"; if (!err) setTimeout(router, 800); },
+  async salir() { await nube.salir(); router(); },
   async simBib(m) {
     await baseBib();
     const ok = PBIB.filter(p => p.parte === 1 && p.respuesta && p.respuesta.length === 1 && !p.reserva);
@@ -638,5 +679,7 @@ $("#opo").onchange = e => { S.opo = e.target.value; guardar(); router(); };
 document.body.classList.toggle("sin-colores", !S.colores);
 $("#colores").onclick = () => { S.colores = !S.colores; guardar(); document.body.classList.toggle("sin-colores", !S.colores); };
 window.addEventListener("hashchange", router);
+document.getElementById("nube")?.addEventListener("click", () => { location.hash = "#/progreso"; });
+nube.init();
 router();
 })();
