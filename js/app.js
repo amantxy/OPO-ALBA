@@ -155,9 +155,10 @@ async function vBib() {
   const nombres = { constitucion: "Constitución", cortes: "Cortes Generales", gobierno: "Gobierno", poder_judicial: "Poder Judicial", ccaa: "Comunidades Autónomas", local: "Administración local", age: "AGE", transparencia: "Transparencia" };
   let h = `<p class="muted"><a href="#/">← Mis oposiciones</a></p><h1>Bibliotecas · Ministerio de Cultura</h1><p class="sub">${esc(B.nombre)} (${B.grupo})</p>
   <div class="grid">${c ? tarjetaCuenta(c, "m") : ""}
-    <div class="card l"><h3>El examen</h3><ul>${B.examen.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
+    ${B.modalidades.map((m, i) => `<div class="card ${i ? "m" : "l"}"><h3>${esc(m.nombre)} · ${esc(m.grupo)}</h3><p class="muted">${esc(m.para)}</p><p>${esc(m.plazas)}</p><ul>${m.examen.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("")}
     <div class="card"><h3>Plazas y solicitudes</h3><p>${esc(B.plazas)}</p><p class="muted">${esc(B.solicitudes)}</p><p><a href="${esc(B.boe_url)}" target="_blank" rel="noopener">Convocatoria ${esc(B.boe)}</a></p></div></div>
-  <h2 style="margin-top:20px">Temario oficial · Sección Bibliotecas</h2>
+  <div class="aviso">${esc(B.nota_grupos)}</div>
+  <h2 style="margin-top:20px">Temario oficial · Sección Bibliotecas (turno libre y promoción interna)</h2>
   <div class="aviso">Los temas de legislación que comparte con AGE ya enlazan al material completo. El resto del temario se está preparando con el mismo formato (resumen, esquema, Cornell y tarjetas).</div>`;
   for (const b of B.programa) {
     h += `<div class="bloque card"><h3>Bloque ${b.bloque}. ${esc(b.nombre)}</h3>`;
