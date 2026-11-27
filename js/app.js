@@ -168,19 +168,19 @@ async function vBib() {
   <div class="aviso">${esc(B.nota_grupos)}</div>
   <h2 style="margin-top:18px">Practicar</h2>
   <div class="grid">
-    <div class="card l"><h3>Simulacro turno libre</h3><p>100 preguntas reales al azar · 150 min · error −1/3.</p><button class="btn" onclick="OPO.simBib('TL')">Empezar</button></div>
-    ${exB.map(([k, n]) => `<div class="card"><h3>${esc(n)}</h3><p>Examen oficial completo con su plantilla.</p><button class="btn o" onclick="OPO.exBib('${k}')">Hacer con reloj</button></div>`).join("")}
+    <div class="card l"><h3>Simulacro turno libre</h3><p>100 preguntas oficiales al azar + 2 supuestos prácticos reales · 150 min · error −1/3.</p><button class="btn" onclick="OPO.simBib('TL')">Empezar</button></div>
+    ${exB.map(([k, n]) => `<div class="card"><h3>${esc(n)}</h3><p>Examen oficial completo con su plantilla${["BIB_2024", "BIB_2025"].includes(k) ? " (100 preguntas + 2 supuestos prácticos)" : ""}.</p><button class="btn o" onclick="OPO.exBib('${k}')">Hacer con reloj</button></div>`).join("")}
   </div>
-  <p class="fila"><a class="btn s o" href="examenes/bib/BIB_2019.pdf" target="_blank">Cuadernillo 2021</a><a class="btn s o" href="examenes/bib/supuestos_BIB_2019.pdf" target="_blank">Supuestos 2021</a><a class="btn s o" href="examenes/bib/BIB_2017.pdf" target="_blank">Cuadernillo 2017</a><a class="btn s o" href="examenes/bib/supuestos_BIB_2017.pdf" target="_blank">Supuestos 2017</a><a class="btn s o" href="examenes/bib/plantilla_BIB_2024_A.pdf" target="_blank">Plantilla 2024</a><a class="btn s o" href="examenes/bib/plantillas_BIB_2025.pdf" target="_blank">Plantillas 2025</a><a class="btn s o" href="examenes/bib/criterios_catalogacion_2025.pdf" target="_blank">Criterios de catalogación del tribunal (2025)</a></p>
-  <p class="muted">Banco: ${PBIB.length} preguntas reales de la Sección Bibliotecas (turno libre) con la respuesta oficial. La clasificación por tema es orientativa. Los cuadernillos de 2024 y 2025 se añadirán en cuanto estén.</p>
+  <p class="fila"><a class="btn s o" href="examenes/bib/BIB_2025.pdf" target="_blank">Cuadernillo 2026</a><a class="btn s o" href="examenes/bib/BIB_2024.pdf" target="_blank">Cuadernillo 2024</a><a class="btn s o" href="examenes/bib/BIB_2019.pdf" target="_blank">Cuadernillo 2021</a><a class="btn s o" href="examenes/bib/supuestos_BIB_2019.pdf" target="_blank">Supuestos 2021</a><a class="btn s o" href="examenes/bib/BIB_2017.pdf" target="_blank">Cuadernillo 2017</a><a class="btn s o" href="examenes/bib/supuestos_BIB_2017.pdf" target="_blank">Supuestos 2017</a><a class="btn s o" href="examenes/bib/plantilla_BIB_2024_A.pdf" target="_blank">Plantilla 2024</a><a class="btn s o" href="examenes/bib/plantillas_BIB_2025.pdf" target="_blank">Plantillas 2025</a><a class="btn s o" href="examenes/bib/criterios_catalogacion_2025.pdf" target="_blank">Criterios de catalogación del tribunal (2025)</a></p>
+  <p class="muted">Banco: ${PBIB.length} preguntas oficiales de la Sección Bibliotecas (turno libre) con la respuesta oficial. La clasificación por tema es orientativa. Los supuestos prácticos de 2024 y 2026 se pueden hacer completos con su caso.</p>
   <h2 style="margin-top:20px">Temario oficial · Sección Bibliotecas · turno libre</h2>
   <div class="aviso">Los temas de legislación que comparte con AGE ya enlazan al material completo. El resto del temario se está preparando con el mismo formato (resumen, esquema, Cornell y tarjetas).</div>`;
   for (const b of B.programa) {
     h += `<div class="bloque card"><h3>Bloque ${b.bloque}. ${esc(b.nombre)}</h3>`;
     for (const t of b.temas) {
       const links = t.ir.map(d => d.doc ? `<a class="btn s" href="#/tema/${d.doc}">${esc(nombres[d.doc] || d.doc)}</a>` : `<a class="btn s o" href="#/tema/${d.auto}">Tema ${d.auto.replace("C1-", "C1 ").replace(/-/g, ".")}</a>`).join(" ");
-      const nq = porTema[b.bloque + "." + t.n] || 0;
-      const qlink = nq ? `<a class="btn s o" href="#/bibp/${b.bloque}.${t.n}">★ ${nq} preguntas de examen</a>` : "";
+      const nq = b.bloque === "IV" ? PBIB.filter(p => p.parte > 1).length : (porTema[b.bloque + "." + t.n] || 0);
+      const qlink = nq ? (b.bloque === "IV" ? (t.n === 1 ? `<a class="btn s o" href="#/bibp/IV">★ ${nq} preguntas de supuestos prácticos oficiales</a>` : "") : `<a class="btn s o" href="#/bibp/${b.bloque}.${t.n}">★ ${nq} preguntas de examen</a>`) : "";
       h += `<div class="tema-li"><div class="n">${b.bloque}.${t.n}</div><div class="t">${esc(t.titulo)}<div class="fila" style="margin-top:6px">${links || '<span class="pend">En preparación</span>'} ${qlink}</div></div></div>`;
     }
     h += `</div>`;
@@ -191,9 +191,9 @@ async function vBibPreg(t) {
   menu("bib"); await baseBib();
   const B = await json("data/bibliotecas.json");
   const [bl, n] = t.split(".");
-  const tit = B.programa.find(b => b.bloque === bl)?.temas.find(x => String(x.n) === n)?.titulo || "";
+  const tit = t === "IV" ? "Supuestos prácticos de los exámenes de 2024 y 2026, con el enunciado de cada caso." : (B.programa.find(b => b.bloque === bl)?.temas.find(x => String(x.n) === n)?.titulo || "");
   pintar(`<p class="muted"><a href="#/bib">← Bibliotecas</a></p><h1>Tema ${esc(t)} · preguntas de examen</h1><p class="sub">${esc(tit)}</p><div id="cont"></div>`);
-  vPreguntas($("#cont"), PBIB.filter(p => p.tema === t), true);
+  vPreguntas($("#cont"), t === "IV" ? PBIB.filter(p => p.parte > 1).sort((a, b) => a.examen.localeCompare(b.examen) || a.parte - b.parte || a.reserva - b.reserva || a.n - b.n) : PBIB.filter(p => p.tema === t), true);
 }
 
 /* ---------- temario ---------- */
@@ -317,7 +317,8 @@ async function vRepaso() {
 
 /* ---------- preguntas (práctica libre) ---------- */
 function htmlPreg(p, i, modo) {
-  return `<div class="preg" data-id="${p.id}"><div class="cab">★ ${esc(p.lab)} · pregunta ${p.n}${p.parte > 1 ? " (2.ª parte)" : ""}</div>
+  return `<div class="preg" data-id="${p.id}"><div class="cab">★ ${esc(p.lab)} · ${p.supuesto ? esc(p.supuesto) + " · " : ""}pregunta ${p.reserva ? "de reserva " : ""}${p.n}${p.parte > 1 && !p.supuesto ? " (2.ª parte)" : ""}</div>
+    ${p.contexto ? `<details class="notas" ${p.n === 1 && !p.reserva ? "open" : ""}><summary>${esc(p.supuesto || "Supuesto práctico")} · enunciado del caso</summary><p>${esc(p.contexto)}</p></details>` : ""}
     <div class="en">${i != null ? (i + 1) + ". " : ""}${esc(p.enunciado)}</div>
     ${["a", "b", "c", "d"].map(l => `<button class="op" data-l="${l}"><b>${l})</b>${esc(p.opciones[l] || "")}</button>`).join("")}
     <div class="res-preg"></div></div>`;
@@ -542,14 +543,16 @@ window.OPO = {
   sim, examen,
   async simBib(m) {
     await baseBib();
-    const ok = PBIB.filter(p => p.respuesta && p.respuesta.length === 1 && !p.reserva);
-    if (m === "TL") examenCronometrado("Simulacro Bibliotecas · turno libre", mezclar(ok).slice(0, 100), 150, "Bibliotecas TL", 3);
-    else examenCronometrado("Simulacro Bibliotecas · promoción interna", mezclar(ok).slice(0, 75), 120, "Bibliotecas PI", 4);
+    const ok = PBIB.filter(p => p.parte === 1 && p.respuesta && p.respuesta.length === 1 && !p.reserva);
+    const sets = {}; PBIB.filter(p => p.parte > 1 && !p.reserva).forEach(p => { const k = p.examen + p.parte; (sets[k] = sets[k] || []).push(p); });
+    const sup = mezclar(Object.values(sets)).slice(0, 2).flatMap(l => l.sort((a, b) => a.n - b.n));
+    examenCronometrado("Simulacro Bibliotecas · turno libre", mezclar(ok).slice(0, 100).concat(sup), 150, "Bibliotecas TL", 3);
   },
   async exBib(k) {
     await baseBib();
-    const l = PBIB.filter(p => p.examen === k && !p.reserva);
-    examenCronometrado(l[0].lab, l, 120, l[0].lab, 4);
+    const l = PBIB.filter(p => p.examen === k && !p.reserva).sort((a, b) => a.parte - b.parte || a.n - b.n);
+    const nuevo = l.some(p => p.parte > 1);
+    examenCronometrado(l[0].lab, l, nuevo ? 150 : 120, l[0].lab, nuevo ? 3 : 4);
   },
   exportar() {
     const b = new Blob([JSON.stringify(S, null, 1)], { type: "application/json" });
