@@ -180,15 +180,15 @@ async function vPortada() {
       <div class="grid">${["C1", "C2"].filter(k => by[k]).map(k => tarjetaCuenta(by[k], k === "C1" ? "l" : "m")).join("")}</div>
       <div class="fila"><a class="btn" href="#/age">Entrar en AGE</a><a class="btn o" href="#/temario/C1">Temario C1</a><a class="btn o" href="#/temario/C2">Temario C2</a><a class="btn o" href="#/simulacro">Simulacro</a><a class="btn o" href="#/examenes">Exámenes</a></div>
     </section>
-    <section class="opo-bloque bib">
-      <div class="opo-cab"><h2>Bibliotecas · Ministerio de Cultura</h2><p>Escala Auxiliar de Archivos, Bibliotecas y Museos · Sección Bibliotecas (C1) · BOE de 2026</p></div>
-      <div class="grid">${by.BIB ? tarjetaCuenta(by.BIB, "bibc") : ""}</div>
-      <div class="fila"><a class="btn nar" href="#/bib">Entrar en Bibliotecas</a><a class="btn nar o" href="#/temario/BIB">Temario Bibliotecas</a></div>
-    </section>
     <section class="opo-bloque ss">
       <div class="opo-cab"><h2>Seguridad Social · Administrativo (C1)</h2><p>Pendiente de nueva convocatoria · temario de la última (BOE 31/12/2025)</p></div>
       <div class="grid">${by.SS ? tarjetaCuenta(by.SS, "ssc") : ""}</div>
       <div class="fila"><a class="btn azul" href="#/ss">Entrar en Seguridad Social</a><a class="btn azul o" href="#/temario/SS">Temario Seguridad Social</a></div>
+    </section>
+    <section class="opo-bloque bib">
+      <div class="opo-cab"><h2>Bibliotecas · Ministerio de Cultura</h2><p>Escala Auxiliar de Archivos, Bibliotecas y Museos · Sección Bibliotecas (C1) · BOE de 2026</p></div>
+      <div class="grid">${by.BIB ? tarjetaCuenta(by.BIB, "bibc") : ""}</div>
+      <div class="fila"><a class="btn nar" href="#/bib">Entrar en Bibliotecas</a><a class="btn nar o" href="#/temario/BIB">Temario Bibliotecas</a></div>
     </section>
   </div>`);
   cuentas();
