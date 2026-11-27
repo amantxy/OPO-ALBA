@@ -231,3 +231,6 @@ input.busca{width:100%;padding:10px 14px;border:1.5px solid var(--lila-b);border
 .azul-zona{margin-top:26px;padding-top:6px;border-top:3px solid var(--azul-b)}
 .nar-zona{margin-top:26px;padding-top:6px;border-top:3px solid var(--nar-b)}
 .nar-t{color:var(--nar)}
+.bloque.card.nar{border-color:var(--nar-b);background:var(--nar-p)}
+.bloque.card.nar h3{color:var(--nar)}
+.bloque.card.nar .tema-li .n{color:var(--nar);border-color:var(--nar-b)}
