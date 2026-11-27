@@ -3,7 +3,7 @@
  "grupo": "C1",
  "boe": "BOE-A-2026-24535",
  "boe_url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-24535",
- "plazas": "Sección Bibliotecas: 39 plazas de turno libre y 38 de promoción interna. Solo puedes presentarte a una sección (Archivos, Bibliotecas o Museos) y a una forma de acceso.",
+ "plazas": "Sección Bibliotecas, turno libre: 39 plazas (36 de acceso general y 3 de reserva para personas con discapacidad).",
  "examen": [
   "Ejercicio único con dos partes obligatorias y eliminatorias que se hacen juntas.",
   "Primera parte: test de 100 preguntas (más 10 de reserva) de los bloques I, II y III.",
@@ -344,24 +344,7 @@
    "n_sup": 2,
    "min": 150,
    "pen": 3
-  },
-  {
-   "id": "PI",
-   "nombre": "Promoción interna (desde C2)",
-   "grupo": "C2 → C1",
-   "para": "Funcionarios de carrera de un cuerpo o escala C2 de la AGE con al menos 2 años de servicio activo (o personal laboral fijo del grupo G3 de Archivos, Bibliotecas y Museos).",
-   "plazas": "38 plazas en Bibliotecas (35 + 3 de reserva por discapacidad).",
-   "examen": [
-    "Concurso-oposición: además del examen, se valoran méritos (antigüedad, grado, cursos…).",
-    "Primera parte: test de 75 preguntas (más 7 de reserva) de los bloques I, II y III.",
-    "Segunda parte: 1 supuesto práctico del bloque IV, de 15 preguntas.",
-    "120 minutos en total. Cada error resta 1/4; en blanco no resta."
-   ],
-   "n_test": 75,
-   "n_sup": 1,
-   "min": 120,
-   "pen": 4
   }
  ],
- "nota_grupos": "Solo hay una escala y es C1. El «C2» viene de la promoción interna, que es la vía para funcionarios C2. El temario de Bibliotecas es el mismo en las dos modalidades; cambian el examen y la forma de puntuar."
+ "nota_grupos": "Preparas el turno libre (C1): la escala es C1 y pide Bachiller o Técnico. Solo puedes presentarte a una sección (Bibliotecas)."
 }

@@ -169,12 +169,11 @@ async function vBib() {
   <h2 style="margin-top:18px">Practicar</h2>
   <div class="grid">
     <div class="card l"><h3>Simulacro turno libre</h3><p>100 preguntas reales al azar · 150 min · error −1/3.</p><button class="btn" onclick="OPO.simBib('TL')">Empezar</button></div>
-    <div class="card m"><h3>Simulacro promoción interna</h3><p>75 preguntas reales al azar · 120 min · error −1/4.</p><button class="btn m" onclick="OPO.simBib('PI')">Empezar</button></div>
     ${exB.map(([k, n]) => `<div class="card"><h3>${esc(n)}</h3><p>Examen oficial completo con su plantilla.</p><button class="btn o" onclick="OPO.exBib('${k}')">Hacer con reloj</button></div>`).join("")}
   </div>
   <p class="fila"><a class="btn s o" href="examenes/bib/BIB_2019.pdf" target="_blank">Cuadernillo 2021</a><a class="btn s o" href="examenes/bib/supuestos_BIB_2019.pdf" target="_blank">Supuestos 2021</a><a class="btn s o" href="examenes/bib/BIB_2017.pdf" target="_blank">Cuadernillo 2017</a><a class="btn s o" href="examenes/bib/supuestos_BIB_2017.pdf" target="_blank">Supuestos 2017</a><a class="btn s o" href="examenes/bib/plantilla_BIB_2024_A.pdf" target="_blank">Plantilla 2024</a><a class="btn s o" href="examenes/bib/plantillas_BIB_2025.pdf" target="_blank">Plantillas 2025</a><a class="btn s o" href="examenes/bib/criterios_catalogacion_2025.pdf" target="_blank">Criterios de catalogación del tribunal (2025)</a></p>
   <p class="muted">Banco: ${PBIB.length} preguntas reales de la Sección Bibliotecas (turno libre) con la respuesta oficial. La clasificación por tema es orientativa. Los cuadernillos de 2024 y 2025 se añadirán en cuanto estén.</p>
-  <h2 style="margin-top:20px">Temario oficial · Sección Bibliotecas (turno libre y promoción interna)</h2>
+  <h2 style="margin-top:20px">Temario oficial · Sección Bibliotecas · turno libre</h2>
   <div class="aviso">Los temas de legislación que comparte con AGE ya enlazan al material completo. El resto del temario se está preparando con el mismo formato (resumen, esquema, Cornell y tarjetas).</div>`;
   for (const b of B.programa) {
     h += `<div class="bloque card"><h3>Bloque ${b.bloque}. ${esc(b.nombre)}</h3>`;
