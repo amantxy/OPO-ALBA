@@ -146,8 +146,8 @@ async function vPortada() {
     </section>
     <section class="opo-bloque bib">
       <div class="opo-cab"><h2>Bibliotecas · Ministerio de Cultura</h2><p>Escala Auxiliar de Archivos, Bibliotecas y Museos · Sección Bibliotecas (C1) · BOE de 2026</p></div>
-      <div class="grid">${by.BIB ? tarjetaCuenta(by.BIB, "m") : ""}</div>
-      <div class="fila"><a class="btn m" href="#/bib">Entrar en Bibliotecas</a><a class="btn o" href="#/bib">Temario</a></div>
+      <div class="grid">${by.BIB ? tarjetaCuenta(by.BIB, "bibc") : ""}</div>
+      <div class="fila"><a class="btn nar" href="#/bib">Entrar en Bibliotecas</a><a class="btn nar o" href="#/temario/BIB">Temario Bibliotecas</a></div>
     </section>
   </div>`);
   cuentas();
@@ -161,27 +161,27 @@ async function vBib() {
   const CONV = await json("data/convocatorias.json").catch(() => []);
   const c = CONV.find(x => x.id === "BIB");
   const nombres = { constitucion: "Constitución", cortes: "Cortes Generales", gobierno: "Gobierno", poder_judicial: "Poder Judicial", ccaa: "Comunidades Autónomas", local: "Administración local", age: "AGE", transparencia: "Transparencia" };
-  let h = `<p class="muted"><a href="#/">← Mis oposiciones</a></p><h1>Bibliotecas · Ministerio de Cultura</h1><p class="sub">${esc(B.nombre)} (${B.grupo})</p>
+  let h = `<p class="muted"><a href="#/">← Mis oposiciones</a></p><h1 class="nar-t">Bibliotecas · Ministerio de Cultura</h1><p class="sub">${esc(B.nombre)} (${B.grupo})</p>
   <div class="grid">${c ? tarjetaCuenta(c, "m") : ""}
     ${B.modalidades.map((m, i) => `<div class="card ${i ? "m" : "l"}"><h3>${esc(m.nombre)} · ${esc(m.grupo)}</h3><p class="muted">${esc(m.para)}</p><p>${esc(m.plazas)}</p><ul>${m.examen.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("")}
     <div class="card"><h3>Plazas y solicitudes</h3><p>${esc(B.plazas)}</p><p class="muted">${esc(B.solicitudes)}</p><p><a href="${esc(B.boe_url)}" target="_blank" rel="noopener">Convocatoria ${esc(B.boe)}</a></p></div></div>
   <div class="aviso">${esc(B.nota_grupos)}</div>
-  <h2 style="margin-top:18px">Practicar</h2>
+  <h2 class="nar-t" style="margin-top:18px">Practicar</h2>
   <div class="grid">
-    <div class="card l"><h3>Simulacro turno libre</h3><p>100 preguntas oficiales al azar + 2 supuestos prácticos reales · 150 min · error −1/3.</p><button class="btn" onclick="OPO.simBib('TL')">Empezar</button></div>
+    <div class="card l"><h3>Simulacro turno libre</h3><p>100 preguntas oficiales al azar + 2 supuestos prácticos reales · 150 min · error −1/3.</p><button class="btn nar" onclick="OPO.simBib('TL')">Empezar</button></div>
     ${exB.map(([k, n]) => `<div class="card"><h3>${esc(n)}</h3><p>Examen oficial completo con su plantilla${["BIB_2024", "BIB_2025"].includes(k) ? " (100 preguntas + 2 supuestos prácticos)" : ""}.</p><button class="btn o" onclick="OPO.exBib('${k}')">Hacer con reloj</button></div>`).join("")}
   </div>
   <p class="fila"><a class="btn s o" href="examenes/bib/BIB_2025.pdf" target="_blank">Cuadernillo 2026</a><a class="btn s o" href="examenes/bib/BIB_2024.pdf" target="_blank">Cuadernillo 2024</a><a class="btn s o" href="examenes/bib/BIB_2019.pdf" target="_blank">Cuadernillo 2021</a><a class="btn s o" href="examenes/bib/supuestos_BIB_2019.pdf" target="_blank">Supuestos 2021</a><a class="btn s o" href="examenes/bib/BIB_2017.pdf" target="_blank">Cuadernillo 2017</a><a class="btn s o" href="examenes/bib/supuestos_BIB_2017.pdf" target="_blank">Supuestos 2017</a><a class="btn s o" href="examenes/bib/plantilla_BIB_2024_A.pdf" target="_blank">Plantilla 2024</a><a class="btn s o" href="examenes/bib/plantillas_BIB_2025.pdf" target="_blank">Plantillas 2025</a><a class="btn s o" href="examenes/bib/criterios_catalogacion_2025.pdf" target="_blank">Criterios de catalogación del tribunal (2025)</a></p>
   <p class="muted">Banco: ${PBIB.length} preguntas oficiales de la Sección Bibliotecas (turno libre) con la respuesta oficial. La clasificación por tema es orientativa. Los supuestos prácticos de 2024 y 2026 se pueden hacer completos con su caso.</p>
-  <h2 style="margin-top:20px">Temario oficial · Sección Bibliotecas · turno libre</h2>
+  <h2 class="nar-t" style="margin-top:20px">Temario oficial · Sección Bibliotecas · turno libre</h2>
   <div class="aviso">Los temas de legislación que comparte con AGE ya enlazan al material completo. El resto del temario se está preparando con el mismo formato (resumen, esquema, Cornell y tarjetas).</div>`;
   for (const b of B.programa) {
-    h += `<div class="bloque card"><h3>Bloque ${b.bloque}. ${esc(b.nombre)}</h3>`;
+    h += `<div class="bloque card bib"><h3>Bloque ${b.bloque}. ${esc(b.nombre)}</h3>`;
     for (const t of b.temas) {
       const links = t.ir.map(d => d.doc ? `<a class="btn s" href="#/tema/${d.doc}">${esc(nombres[d.doc] || d.doc)}</a>` : `<a class="btn s o" href="#/tema/${d.auto}">Tema ${d.auto.replace("C1-", "C1 ").replace(/-/g, ".")}</a>`).join(" ");
       const nq = b.bloque === "IV" ? PBIB.filter(p => p.parte > 1).length : (porTema[b.bloque + "." + t.n] || 0);
       const qlink = nq ? (b.bloque === "IV" ? (t.n === 1 ? `<a class="btn s o" href="#/bibp/IV">★ ${nq} preguntas de supuestos prácticos oficiales</a>` : "") : `<a class="btn s o" href="#/bibp/${b.bloque}.${t.n}">★ ${nq} preguntas de examen</a>`) : "";
-      h += `<div class="tema-li"><div class="n">${b.bloque}.${t.n}</div><div class="t">${esc(t.titulo)}<div class="fila" style="margin-top:6px">${links || '<span class="pend">En preparación</span>'} ${qlink}</div></div></div>`;
+      h += `<div class="tema-li"><div class="n">${b.bloque}.${t.n}</div><div class="t">${esc(t.titulo)}<div class="fila" style="margin-top:6px">${t.comparte ? `<span class="chip ${t.comparte.tipo === "total" ? "comp" : "parc"}">${t.comparte.tipo === "total" ? "Compartido" : "En parte"} · ${t.comparte.C1.join(", ")} · ${t.comparte.C2.join(", ")}</span>` : `<span class="chip nuevo">Nuevo</span>`}</div><div class="fila" style="margin-top:6px">${links || '<span class="pend">En preparación</span>'} ${qlink}</div></div></div>`;
     }
     h += `</div>`;
   }
@@ -200,8 +200,8 @@ async function vBibPreg(t) {
 async function vTemario(sel) {
   menu("temario"); await base();
   const temasDoc = Object.fromEntries(IND.temas.map(t => [t.slug, t]));
-  const opos = sel === "C1" || sel === "C2" ? [sel] : S.opo === "ambas" ? ["C1", "C2"] : [S.opo];
-  let h = `<p class="muted"><a href="#/age">← AGE</a></p><div class="fila"><a class="btn s ${!sel ? "" : "o"}" href="#/temario">C1 y C2</a><a class="btn s ${sel === "C1" ? "" : "o"}" href="#/temario/C1">Temario C1</a><a class="btn s ${sel === "C2" ? "" : "o"}" href="#/temario/C2">Temario C2</a></div><h1>Temario oficial</h1><p class="sub">Programa del BOE de 26/11/2026. Cada tema enlaza al documento completo (si ya está hecho) o al texto oficial con sus preguntas de examen.</p>`;
+  const opos = sel === "BIB" ? [] : sel === "C1" || sel === "C2" ? [sel] : S.opo === "ambas" ? ["C1", "C2"] : [S.opo];
+  let h = `<p class="muted"><a href="#/">← Mis oposiciones</a></p><div class="fila"><a class="btn s ${!sel ? "" : "o"}" href="#/temario">Todo</a><a class="btn s ${sel === "C1" ? "" : "o"}" href="#/temario/C1">Temario C1</a><a class="btn s ${sel === "C2" ? "" : "o"}" href="#/temario/C2">Temario C2</a><a class="btn s nar ${sel === "BIB" ? "" : "o"}" href="#/temario/BIB">Temario Bibliotecas</a></div><h1>Temario oficial</h1><p class="sub">Programas oficiales: AGE (BOE 26/11/2026) y Bibliotecas del Ministerio de Cultura (BOE 23/11/2026). Cada tema enlaza al documento completo (si ya está hecho) o al texto oficial con sus preguntas de examen.</p>`;
   for (const c of opos) {
     h += `<h2>${c === "C1" ? "Administrativo del Estado · C1" : "Auxiliar Administrativo del Estado · C2"}</h2>`;
     for (const b of IND.programa[c]) {
@@ -216,7 +216,29 @@ async function vTemario(sel) {
       h += `</div>`;
     }
   }
+  if (!sel || sel === "BIB") h += await temarioBib();
   pintar(h);
+}
+
+async function temarioBib() {
+  const B = await json("data/bibliotecas.json");
+  const nombres = { constitucion: "Constitución", cortes: "Cortes Generales", gobierno: "Gobierno", poder_judicial: "Poder Judicial", ccaa: "Comunidades Autónomas", local: "Administración local", age: "AGE", transparencia: "Transparencia" };
+  let nT = 0, nC = 0, nP = 0;
+  B.programa.forEach(b => b.temas.forEach(t => { nT++; if (t.comparte?.tipo === "total") nC++; else if (t.comparte) nP++; }));
+  let h = `<section class="bib-zona"><h2 class="nar-t">Bibliotecas · Ministerio de Cultura · turno libre (C1)</h2>
+    <div class="leyenda"><span class="chip comp">Compartido con AGE</span><span class="chip parc">Compartido en parte</span><span class="chip nuevo">Nuevo · solo Bibliotecas</span></div>
+    <p class="sub">${nT} temas: <b>${nC}</b> ya los tienes de AGE, <b>${nP}</b> en parte y <b>${nT - nC - nP}</b> son nuevos (los propios de Bibliotecas).</p>`;
+  for (const b of B.programa) {
+    h += `<div class="bloque card bib"><h3>Bloque ${b.bloque}. ${esc(b.nombre)}</h3>`;
+    for (const t of b.temas) {
+      const c = t.comparte;
+      const chip = c ? `<span class="chip ${c.tipo === "total" ? "comp" : "parc"}">${c.tipo === "total" ? "Compartido" : "En parte"} · ${c.C1.join(", ")} · ${c.C2.join(", ")}</span>${c.nota ? `<span class="muted"> ${esc(c.nota)}</span>` : ""}` : `<span class="chip nuevo">Nuevo</span>`;
+      const links = t.ir.map(d => d.doc ? `<a class="btn s" href="#/tema/${d.doc}">${esc(nombres[d.doc] || d.doc)}</a>` : `<a class="btn s o" href="#/tema/${d.auto}">Tema ${d.auto.replace("C1-", "C1 ").replace(/-/g, ".")}</a>`).join(" ");
+      h += `<div class="tema-li"><div class="n">${b.bloque}.${t.n}</div><div class="t">${esc(t.titulo)}<div class="fila" style="margin-top:6px">${chip}</div><div class="fila" style="margin-top:6px">${links || '<span class="pend">En preparación</span>'}</div></div></div>`;
+    }
+    h += `</div>`;
+  }
+  return h + `<p><a class="btn nar" href="#/bib">Ir a Bibliotecas (simulacros y preguntas por tema)</a></p></section>`;
 }
 
 /* ---------- tema ---------- */

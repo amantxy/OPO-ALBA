@@ -24,7 +24,19 @@
       {
        "doc": "constitucion"
       }
-     ]
+     ],
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 I.1",
+       "C1 I.2"
+      ],
+      "C2": [
+       "C2 I.1",
+       "C2 I.2"
+      ],
+      "nota": ""
+     }
     },
     {
      "n": 2,
@@ -39,7 +51,21 @@
       {
        "doc": "poder_judicial"
       }
-     ]
+     ],
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 I.3",
+       "C1 I.4",
+       "C1 I.5"
+      ],
+      "C2": [
+       "C2 I.3",
+       "C2 I.4",
+       "C2 I.5"
+      ],
+      "nota": ""
+     }
     },
     {
      "n": 3,
@@ -51,7 +77,18 @@
       {
        "doc": "local"
       }
-     ]
+     ],
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 I.9",
+       "C1 I.10"
+      ],
+      "C2": [
+       "C2 I.9"
+      ],
+      "nota": ""
+     }
     },
     {
      "n": 4,
@@ -60,7 +97,17 @@
       {
        "doc": "age"
       }
-     ]
+     ],
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 I.8"
+      ],
+      "C2": [
+       "C2 I.8"
+      ],
+      "nota": ""
+     }
     },
     {
      "n": 5,
@@ -72,7 +119,18 @@
       {
        "auto": "C1-III-3"
       }
-     ]
+     ],
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 III.2",
+       "C1 III.3"
+      ],
+      "C2": [
+       "C2 I.11"
+      ],
+      "nota": ""
+     }
     },
     {
      "n": 6,
@@ -87,7 +145,19 @@
       {
        "auto": "C1-IV-4"
       }
-     ]
+     ],
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 IV.1",
+       "C1 IV.3",
+       "C1 IV.4"
+      ],
+      "C2": [
+       "C2 I.13"
+      ],
+      "nota": ""
+     }
     },
     {
      "n": 7,
@@ -96,7 +166,17 @@
       {
        "auto": "C1-III-7"
       }
-     ]
+     ],
+     "comparte": {
+      "tipo": "parcial",
+      "C1": [
+       "C1 III.7"
+      ],
+      "C2": [
+       "C2 I.16"
+      ],
+      "nota": "Comparte la LO 3/2007 y la Ley 15/2022; el IV Plan de Igualdad de la AGE es nuevo."
+     }
     },
     {
      "n": 8,
@@ -105,22 +185,35 @@
       {
        "doc": "transparencia"
       }
-     ]
+     ],
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 I.7"
+      ],
+      "C2": [
+       "C2 I.7"
+      ],
+      "nota": "En Bibliotecas se añaden las Unidades de Información y Transparencia (UITS)."
+     }
     },
     {
      "n": 9,
      "titulo": "El Ministerio de Cultura. Organismos Autónomos adscritos a este Ministerio. Archivos, Bibliotecas y Museos Estatales.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 10,
      "titulo": "La legislación española sobre el Patrimonio Histórico Español. Ley de Propiedad intelectual y su reflejo en la gestión de bibliotecas.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 11,
      "titulo": "Legislación bibliotecaria española. Ley 10/2007 de la lectura, del libro y las bibliotecas. Ley 1/2015 reguladora de la Biblioteca Nacional de España.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     }
    ]
   },
@@ -131,22 +224,26 @@
     {
      "n": 1,
      "titulo": "La invención y difusión de la imprenta. Los incunables.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 2,
      "titulo": "El libro y las bibliotecas durante los siglos XVI y XVII.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 3,
      "titulo": "El libro y las bibliotecas durante los siglos XVIII y XIX. Avances tecnológicos.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 4,
      "titulo": "El libro y las bibliotecas durante el siglo XX. La industria del libro y la edición en la actualidad.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     }
    ]
   },
@@ -157,152 +254,191 @@
     {
      "n": 1,
      "titulo": "El concepto de bibliotecas. Clases de bibliotecas.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 2,
      "titulo": "Bibliotecas nacionales: concepto, funciones y servicios.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 3,
      "titulo": "Bibliotecas públicas: concepto, funciones y servicios.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 4,
      "titulo": "Bibliotecas universitarias: concepto, funciones y servicios.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 5,
      "titulo": "Bibliotecas especializadas: concepto, funciones y servicios.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 6,
      "titulo": "Las hemerotecas.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 7,
      "titulo": "Los documentos y sus clases. Documentos primarios. Documentos secundarios. Documentos terciarios.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 8,
      "titulo": "Colecciones especiales: fondo antiguo, material gráfico, soportes audiovisuales, etc.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 9,
      "titulo": "Instalaciones y equipamiento de las bibliotecas.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 10,
      "titulo": "Preservación y conservación del fondo bibliográfico y documental.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 11,
      "titulo": "Digitalización. Preservación digital.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 12,
      "titulo": "Selección y adquisición de fondos bibliográficos.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 13,
      "titulo": "El depósito legal. El depósito legal de publicaciones en línea.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 14,
      "titulo": "Proceso técnico de los fondos bibliográficos: registro, sellado, etc.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 15,
      "titulo": "Proceso técnico: ordenación de los fondos y gestión de los depósitos. Recuentos.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 16,
      "titulo": "La descripción bibliográfica y el control de autoridades.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 17,
      "titulo": "El formato MARC 21.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 18,
      "titulo": "Números de identificación bibliográfica: el ISBN, el ISSN y otros sistemas nacionales e internacionales. Identificadores permanentes en Internet.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 19,
      "titulo": "Clasificación. Clasificaciones sistemáticas y alfabéticas. La CDU.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 20,
      "titulo": "Servicios a los lectores: referencia e información bibliográfica. Alfabetización informacional.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 21,
      "titulo": "Servicios a los lectores: lectura en sala y libre acceso.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 22,
      "titulo": "Tipos de préstamos. El préstamo interbibliotecario.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 23,
      "titulo": "Bibliografías. Bibliografías nacionales.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 24,
      "titulo": "Sistemas integrados de gestión bibliotecaria.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 25,
      "titulo": "OPAC. Herramientas de descubrimiento.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 26,
      "titulo": "Internet: historia y gobernanza de Internet, W3C.",
-     "ir": []
+     "ir": [],
+     "comparte": {
+      "tipo": "parcial",
+      "C1": [
+       "C1 VI.8"
+      ],
+      "C2": [
+       "C2 II.12"
+      ],
+      "nota": "Solo la parte de Internet; historia, gobernanza y W3C son nuevos."
+     }
     },
     {
      "n": 27,
      "titulo": "Cooperación bibliotecaria: organismos y proyectos.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 28,
      "titulo": "Principales catálogos colectivos.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 29,
      "titulo": "Bibliotecas digitales y recolectores OAI-PMH.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 30,
      "titulo": "Agentes de la producción y difusión del libro.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     }
    ]
   },
@@ -313,17 +449,20 @@
     {
      "n": 1,
      "titulo": "Ordenación y conservación de fondos.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 2,
      "titulo": "Atención a investigadores y usuarios.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     },
     {
      "n": 3,
      "titulo": "Apoyo a procesos técnicos.",
-     "ir": []
+     "ir": [],
+     "comparte": null
     }
    ]
   }

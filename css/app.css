@@ -179,3 +179,21 @@ input.busca{width:100%;padding:10px 14px;border:1.5px solid var(--lila-b);border
 .opo-bloque.bib .opo-cab h2{color:var(--menta)}
 .opo-cab p{margin:0 0 12px;color:#6B5F7A}
 .opo-bloque .fila{margin-top:12px;flex-wrap:wrap}
+
+/* Bibliotecas en naranja */
+:root{--nar:#B4531A;--nar-m:#D9773A;--nar-b:#F2B98F;--nar-p:#FDF0E6}
+.nar-t,.bib-zona h2{color:var(--nar)}
+.bloque.card.bib{border-color:var(--nar-b);background:var(--nar-p)}
+.bloque.card.bib h3{color:var(--nar)}
+.bloque.card.bib .tema-li .n{color:var(--nar);border-color:var(--nar-b)}
+.btn.nar{background:var(--nar);border-color:var(--nar);color:#fff}
+.btn.nar.o{background:#fff;color:var(--nar);border-color:var(--nar-b)}
+.chip.comp{background:#E6F5EF;color:#1D6B57;border:1px solid #8ECFB9}
+.chip.parc{background:#FFF4D6;color:#8A5A00;border:1px solid #F0CF7A}
+.chip.nuevo{background:var(--nar-p);color:var(--nar);border:1px solid var(--nar-b);font-weight:bold}
+.opo-bloque.bib{border-color:var(--nar-b);background:var(--nar-p)}
+.opo-bloque.bib .opo-cab h2{color:var(--nar)}
+.card.bibc{border-top:4px solid var(--nar)}
+.card.bibc h3{color:var(--nar)}
+.chip.comp,.chip.parc{white-space:normal}
+.bib-zona{margin-top:26px;padding-top:6px;border-top:3px solid var(--nar-b)}
