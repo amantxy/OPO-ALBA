@@ -1,0 +1,563 @@
+{
+ "nombre": "Cuerpo Administrativo de la Administración de la Seguridad Social",
+ "grupo": "C1",
+ "boe": "BOE-A-2025-27158",
+ "boe_url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2025-27158",
+ "estado": "Temario de la última convocatoria (Resolución de 22/12/2025, OEP 2025). La convocatoria siguiente aún no se ha publicado.",
+ "plazas": "Última convocatoria: 1.056 plazas de acceso libre y 400 de promoción interna.",
+ "examen": [
+  "Ejercicio único con dos partes, ambas eliminatorias, en 120 minutos.",
+  "Primera parte: 70 preguntas tipo test del temario general y específico (anexos I.A y I.B), más 3 de reserva. De 0 a 50 puntos; hay que sacar 25.",
+  "Segunda parte: un supuesto práctico de 15 preguntas sobre el temario específico de Seguridad Social (anexo I.B). De 0 a 50 puntos; hay que sacar 25.",
+  "Cada error resta 1/4 de acierto; en blanco no resta."
+ ],
+ "programa": [
+  {
+   "bloque": "A",
+   "nombre": "Temario general",
+   "temas": [
+    {
+     "n": 1,
+     "titulo": "La Constitución Española de 1978: Estructura y contenido. La reforma de la Constitución.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 I.1"
+      ],
+      "C2": [
+       "C2 I.1",
+       "C2 I.2"
+      ],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "doc": "constitucion"
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "titulo": "Derechos y deberes fundamentales. Su garantía y suspensión.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 I.1"
+      ],
+      "C2": [
+       "C2 I.1"
+      ],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "doc": "constitucion"
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "titulo": "El Tribunal Constitucional. Organización, composición y atribuciones.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 I.1"
+      ],
+      "C2": [
+       "C2 I.2"
+      ],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "doc": "constitucion"
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "titulo": "La Corona. Funciones constitucionales del Rey. Sucesión y regencia. El refrendo.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 I.2"
+      ],
+      "C2": [
+       "C2 I.2"
+      ],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "doc": "constitucion"
+      }
+     ]
+    },
+    {
+     "n": 5,
+     "titulo": "El poder legislativo. Las Cortes Generales: Composición, atribuciones y funcionamiento. El Defensor del Pueblo.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 I.3"
+      ],
+      "C2": [
+       "C2 I.3"
+      ],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "doc": "cortes"
+      }
+     ]
+    },
+    {
+     "n": 6,
+     "titulo": "El Poder Judicial. El principio de unidad jurisdiccional. El Consejo General del Poder Judicial. La organización judicial española.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 I.4"
+      ],
+      "C2": [
+       "C2 I.4"
+      ],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "doc": "poder_judicial"
+      }
+     ]
+    },
+    {
+     "n": 7,
+     "titulo": "El poder ejecutivo. El presidente del Gobierno y el Consejo de Ministros. Relaciones entre el Gobierno y las Cortes Generales. Designación, causas de cese y responsabilidad del Gobierno. El Consejo de Estado.",
+     "comparte": {
+      "tipo": "parcial",
+      "C1": [
+       "C1 I.5"
+      ],
+      "C2": [
+       "C2 I.5"
+      ],
+      "nota": "El Consejo de Estado no está en el programa de AGE."
+     },
+     "ir": [
+      {
+       "doc": "gobierno"
+      }
+     ]
+    },
+    {
+     "n": 8,
+     "titulo": "La Administración General del Estado. Principios de organización y funcionamiento. Órganos centrales. Órganos superiores y órganos directivos: creación, nombramiento, cese y funciones. Los servicios comunes de los ministerios. Órganos territoriales. La Administración del Estado en el Exterior.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 I.8"
+      ],
+      "C2": [
+       "C2 I.8"
+      ],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "doc": "age"
+      }
+     ]
+    },
+    {
+     "n": 9,
+     "titulo": "La organización territorial del Estado. Las Comunidades Autónomas. Los Estatutos de Autonomía. La delimitación de competencias entre el Estado y las Comunidades Autónomas en la Constitución y en los Estatutos de Autonomía. La Administración local: El municipio. La provincia.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 I.9",
+       "C1 I.10"
+      ],
+      "C2": [
+       "C2 I.9"
+      ],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "doc": "ccaa"
+      },
+      {
+       "doc": "local"
+      }
+     ]
+    },
+    {
+     "n": 10,
+     "titulo": "Las Instituciones de la Unión Europea: El Consejo, el Parlamento Europeo, la Comisión, el Tribunal de Justicia.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 I.11"
+      ],
+      "C2": [
+       "C2 I.10"
+      ],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "doc": "ue"
+      }
+     ]
+    },
+    {
+     "n": 11,
+     "titulo": "Las fuentes del derecho de la Unión Europea. Derecho originario. Derecho derivado: Reglamentos, directivas y decisiones. Otras fuentes. Las relaciones entre el Derecho de la Unión Europea y el ordenamiento jurídico de los Estados miembros.",
+     "comparte": {
+      "tipo": "parcial",
+      "C1": [
+       "C1 I.11"
+      ],
+      "C2": [
+       "C2 I.10"
+      ],
+      "nota": "Las fuentes del Derecho de la UE (reglamentos, directivas, decisiones) son nuevas."
+     },
+     "ir": [
+      {
+       "doc": "ue"
+      }
+     ]
+    },
+    {
+     "n": 12,
+     "titulo": "El Ministerio de Inclusión, Seguridad Social y Migraciones. Organización. Estructura y funciones.",
+     "comparte": null,
+     "ir": []
+    },
+    {
+     "n": 13,
+     "titulo": "Las fuentes del Derecho Administrativo. Concepto y clases. La jerarquía de las fuentes.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 III.1"
+      ],
+      "C2": [],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "auto": "C1-III-1"
+      }
+     ]
+    },
+    {
+     "n": 14,
+     "titulo": "La Ley. Tipos de leyes. Disposiciones del Gobierno con fuerza de ley: decreto-ley y decreto legislativo. El Reglamento: concepto, clases y límites. Los principios generales del Derecho.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 III.1"
+      ],
+      "C2": [],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "auto": "C1-III-1"
+      }
+     ]
+    },
+    {
+     "n": 15,
+     "titulo": "Los actos administrativos. Concepto y clases. Motivación, forma y eficacia de los actos administrativos. Notificación y publicación. Nulidad y anulabilidad. La revisión de oficio.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 III.2"
+      ],
+      "C2": [
+       "C2 I.11"
+      ],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "auto": "C1-III-2"
+      }
+     ]
+    },
+    {
+     "n": 16,
+     "titulo": "El procedimiento administrativo común. La capacidad de obrar y el concepto de interesado. Representación. Identificación y firma de los interesados. Derechos del interesado en el procedimiento administrativo. Obligación de resolver y silencio administrativo. Términos y plazos.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 III.3"
+      ],
+      "C2": [
+       "C2 I.11"
+      ],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "auto": "C1-III-3"
+      }
+     ]
+    },
+    {
+     "n": 17,
+     "titulo": "Las fases del procedimiento administrativo: Iniciación, ordenación, instrucción y finalización. La ejecución de los actos y resoluciones administrativas.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 III.3"
+      ],
+      "C2": [
+       "C2 I.11"
+      ],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "auto": "C1-III-3"
+      }
+     ]
+    },
+    {
+     "n": 18,
+     "titulo": "Los recursos administrativos: concepto y clases. Recurso de alzada. Recurso potestativo de reposición. Recurso extraordinario de revisión. La jurisdicción contencioso-administrativa: objeto y plazos de interposición del recurso contencioso administrativo.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 III.3"
+      ],
+      "C2": [
+       "C2 I.11"
+      ],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "auto": "C1-III-3"
+      }
+     ]
+    },
+    {
+     "n": 19,
+     "titulo": "El personal al servicio de las Administraciones Públicas: concepto y clases. Derechos y deberes de los funcionarios. La carrera administrativa. Las incompatibilidades. Régimen disciplinario: faltas, sanciones y procedimiento.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 IV.1",
+       "C1 IV.5",
+       "C1 IV.6"
+      ],
+      "C2": [
+       "C2 I.13",
+       "C2 I.14"
+      ],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "auto": "C1-IV-1"
+      },
+      {
+       "auto": "C1-IV-5"
+      },
+      {
+       "auto": "C1-IV-6"
+      }
+     ]
+    },
+    {
+     "n": 20,
+     "titulo": "Atención al público. Atención de personas con discapacidad. Los servicios de información administrativa. Información general y particular al ciudadano. Iniciativas. Reclamaciones. Quejas. Peticiones.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 II.1"
+      ],
+      "C2": [
+       "C2 II.1",
+       "C2 II.2"
+      ],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "auto": "C1-II-1"
+      }
+     ]
+    },
+    {
+     "n": 21,
+     "titulo": "Políticas de igualdad y contra la violencia de género. Discapacidad y dependencia: régimen jurídico. La Ley 4/2023, de 28 de febrero, para la igualdad real y efectiva de las personas trans y para la garantía de los derechos de las personas LGTBI.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 III.7"
+      ],
+      "C2": [
+       "C2 I.16"
+      ],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "auto": "C1-III-7"
+      }
+     ]
+    },
+    {
+     "n": 22,
+     "titulo": "Normativa reguladora de la protección de datos personales: principios, derechos de las personas y ejercicios de los derechos.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 II.4"
+      ],
+      "C2": [
+       "C2 I.12"
+      ],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "auto": "C1-II-4"
+      }
+     ]
+    },
+    {
+     "n": 23,
+     "titulo": "El funcionamiento electrónico del sector público. Derecho y obligación de relacionarse electrónicamente con las Administraciones Públicas, registros y archivo electrónico.",
+     "comparte": {
+      "tipo": "total",
+      "C1": [
+       "C1 II.3"
+      ],
+      "C2": [
+       "C2 II.4"
+      ],
+      "nota": ""
+     },
+     "ir": [
+      {
+       "auto": "C1-II-3"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "bloque": "B",
+   "nombre": "Temario específico de Seguridad Social",
+   "temas": [
+    {
+     "n": 1,
+     "titulo": "La Seguridad Social en la Constitución española de 1978. El texto refundido de la Ley General de la Seguridad Social.",
+     "comparte": {
+      "tipo": "parcial",
+      "C1": [
+       "C1 IV.9"
+      ],
+      "C2": [],
+      "nota": "En AGE solo se ve por encima (régimen del personal laboral); aquí es la base de toda la parte específica."
+     },
+     "ir": [
+      {
+       "auto": "C1-IV-9"
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "titulo": "Campo de aplicación y composición del sistema de la Seguridad Social. Régimen general: ámbito subjetivo de aplicación, inclusiones y exclusiones. Regímenes especiales: enumeración, características generales, altas, bajas y cotización. Particularidades de la acción protectora. Sistemas especiales: enumeración y características generales. Altas, bajas y cotización. Particularidades de la acción protectora.",
+     "comparte": null,
+     "ir": []
+    },
+    {
+     "n": 3,
+     "titulo": "Normas sobre afiliación. Altas y bajas en el régimen general. Procedimiento y efectos. El convenio especial y otras situaciones asimiladas a la del alta. Encuadramiento e inscripción.",
+     "comparte": null,
+     "ir": []
+    },
+    {
+     "n": 4,
+     "titulo": "La cotización a la Seguridad Social: normas comunes del sistema. La liquidación de cuotas. El régimen general de la Seguridad Social. Supuestos especiales. Bases y tipos de cotización. Liquidación de otras deudas.",
+     "comparte": null,
+     "ir": []
+    },
+    {
+     "n": 5,
+     "titulo": "La gestión recaudatoria: concepto, competencia y objeto. Responsables del pago. Requisitos para el pago. Medios de pago. Control de recaudación. Revisión de los actos de gestión recaudatoria. La recaudación en periodo voluntario. Efectos de la falta de cotización en período reglamentario. Recaudación de otros recursos. Aplazamientos. Devolución de ingresos indebidos. Capital coste de pensiones.",
+     "comparte": null,
+     "ir": []
+    },
+    {
+     "n": 6,
+     "titulo": "La recaudación en vía ejecutiva. Normas generales. Iniciación y título ejecutivo. La providencia de apremio. Oposición y efectos. El embargo de bienes. Enajenación de bienes: modalidades. Créditos incobrables. Tercerías.",
+     "comparte": null,
+     "ir": []
+    },
+    {
+     "n": 7,
+     "titulo": "Acción protectora. Contenido y clasificación de las prestaciones. Caracteres de las prestaciones. Incompatibilidades. Reintegro de las prestaciones indebidas. Requisitos generales del derecho a las prestaciones. Responsabilidades en orden a las prestaciones por incumplimiento de las obligaciones de afiliación, altas, bajas y cotización. Automaticidad y anticipo de prestaciones. Riesgo protegido: contingencias comunes y profesionales.",
+     "comparte": {
+      "tipo": "parcial",
+      "C1": [
+       "C1 IV.9"
+      ],
+      "C2": [],
+      "nota": "La acción protectora aparece de forma general en C1 IV.9."
+     },
+     "ir": [
+      {
+       "auto": "C1-IV-9"
+      }
+     ]
+    },
+    {
+     "n": 8,
+     "titulo": "Incapacidad temporal: concepto y causas que motivan esta situación. Beneficiarios. Prestación económica: determinación y cuantía. Nacimiento, duración y extinción del derecho al subsidio. Reconocimiento y pago. Control de la incapacidad. Incapacidad permanente contributiva: concepto. Grados de incapacidad. Prestaciones. Determinación y cuantía. Beneficiarios. Nacimiento, duración y extinción del derecho. Lesiones permanentes no incapacitantes. La calificación y revisión de la incapacidad permanente.",
+     "comparte": null,
+     "ir": []
+    },
+    {
+     "n": 9,
+     "titulo": "Nacimiento y cuidado de menor. Ejercicio corresponsable del cuidado del lactante. Prestación por riesgo durante el embarazo. Prestación por riesgo durante la lactancia natural. Asignación económica por hijo o menor acogido a cargo. Prestación económica por nacimiento o adopción de hijo en supuestos de familias numerosas o monoparentales y en los casos de madres o padres con discapacidad. Prestación por parto o adopción Subsidio por cuidado de menores afectados por cáncer u otra enfermedad grave.",
+     "comparte": null,
+     "ir": []
+    },
+    {
+     "n": 10,
+     "titulo": "Jubilación en la modalidad contributiva: concepto. Jubilación ordinaria: requisitos: especial referencia a la edad de jubilación. Determinación de la cuantía de la prestación: base reguladora y porcentaje. Jubilación anticipada, jubilación parcial y jubilación flexible. Compatibilidad de la pensión de jubilación y el trabajo. Suspensión y extinción de la prestación. Especial referencia a la aplicación de la normativa anterior a la Ley 27/2011.",
+     "comparte": null,
+     "ir": []
+    },
+    {
+     "n": 11,
+     "titulo": "La protección por muerte y supervivencia. Hecho causante. Requisitos para las prestaciones de viudedad, orfandad y en favor de familiares. Cuantía de las prestaciones. Compatibilidad. Suspensión y Extinción. Normas específicas en caso de muerte derivada de accidente de trabajo o enfermedad profesional. Efectividad económica de las prestaciones. El auxilio por defunción.",
+     "comparte": null,
+     "ir": []
+    },
+    {
+     "n": 12,
+     "titulo": "Prestaciones no contributivas y asistenciales. El ingreso mínimo vital: beneficiarios, requisitos y duración. Obligaciones de las personas beneficiarias. Cuantía, pago, reintegro de prestaciones indebidas. Prestaciones familiares múltiples. Prestaciones familiares en la modalidad contributiva. Las pensiones no contributivas: Invalidez no contributiva: Jubilación no contributiva.",
+     "comparte": null,
+     "ir": []
+    },
+    {
+     "n": 13,
+     "titulo": "Recursos generales del sistema de la Seguridad Social. El patrimonio único de la seguridad social: titularidad, adscripción, administración y custodia. Los negocios jurídicos patrimoniales: adquisición, enajenación, arrendamiento y cesión. El Fondo de Reserva de la Seguridad Social: constitución, dotación y disposición. Gestión de los recursos financieros: atribución de funciones. Pago de prestaciones de la Seguridad Social.",
+     "comparte": null,
+     "ir": []
+    }
+   ]
+  }
+ ]
+}

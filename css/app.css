@@ -213,3 +213,21 @@ input.busca{width:100%;padding:10px 14px;border:1.5px solid var(--lila-b);border
 .orden-li .t{flex:1}.orden-li .t a{text-decoration:none}
 .orden-li input{width:20px;height:20px;margin-top:4px}
 .orden-li.hecho{opacity:.55}
+
+/* Seguridad Social en azul */
+:root{--azul:#1F4E8C;--azul-b:#9DBDE6;--azul-p:#EAF2FC}
+.azul-t{color:var(--azul)}
+.bloque.card.azul{border-color:var(--azul-b);background:var(--azul-p)}
+.bloque.card.azul h3{color:var(--azul)}
+.bloque.card.azul .tema-li .n{color:var(--azul);border-color:var(--azul-b)}
+.btn.azul{background:var(--azul);border-color:var(--azul);color:#fff}
+.btn.azul.o{background:#fff;color:var(--azul);border-color:var(--azul-b)}
+.btn.nar.o,.btn.nar{}
+.chip.nuevo-azul{background:var(--azul-p);color:var(--azul);border:1px solid var(--azul-b);font-weight:bold}
+.chip.nuevo-nar{background:var(--nar-p);color:var(--nar);border:1px solid var(--nar-b);font-weight:bold}
+.opo-bloque.ss{border-color:var(--azul-b);background:var(--azul-p)}
+.opo-bloque.ss .opo-cab h2{color:var(--azul)}
+.card.ssc{border-top:4px solid var(--azul)}.card.ssc h3{color:var(--azul)}
+.azul-zona{margin-top:26px;padding-top:6px;border-top:3px solid var(--azul-b)}
+.nar-zona{margin-top:26px;padding-top:6px;border-top:3px solid var(--nar-b)}
+.nar-t{color:var(--nar)}

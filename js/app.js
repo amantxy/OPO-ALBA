@@ -185,6 +185,11 @@ async function vPortada() {
       <div class="grid">${by.BIB ? tarjetaCuenta(by.BIB, "bibc") : ""}</div>
       <div class="fila"><a class="btn nar" href="#/bib">Entrar en Bibliotecas</a><a class="btn nar o" href="#/temario/BIB">Temario Bibliotecas</a></div>
     </section>
+    <section class="opo-bloque ss">
+      <div class="opo-cab"><h2>Seguridad Social · Administrativo (C1)</h2><p>Pendiente de nueva convocatoria · temario de la última (BOE 31/12/2025)</p></div>
+      <div class="grid">${by.SS ? tarjetaCuenta(by.SS, "ssc") : ""}</div>
+      <div class="fila"><a class="btn azul" href="#/ss">Entrar en Seguridad Social</a><a class="btn azul o" href="#/temario/SS">Temario Seguridad Social</a></div>
+    </section>
   </div>`);
   cuentas();
 }
@@ -236,8 +241,8 @@ async function vBibPreg(t) {
 async function vTemario(sel) {
   menu("temario"); await base();
   const temasDoc = Object.fromEntries(IND.temas.map(t => [t.slug, t]));
-  const opos = sel === "BIB" ? [] : sel === "C1" || sel === "C2" ? [sel] : S.opo === "ambas" ? ["C1", "C2"] : [S.opo];
-  let h = `<p class="muted"><a href="#/">← Mis oposiciones</a></p><div class="fila"><a class="btn s ${!sel ? "" : "o"}" href="#/temario">Todo</a><a class="btn s ${sel === "C1" ? "" : "o"}" href="#/temario/C1">Temario C1</a><a class="btn s ${sel === "C2" ? "" : "o"}" href="#/temario/C2">Temario C2</a><a class="btn s nar ${sel === "BIB" ? "" : "o"}" href="#/temario/BIB">Temario Bibliotecas</a></div><h1>Temario oficial</h1><p class="sub">Programas oficiales: AGE (BOE 26/11/2026) y Bibliotecas del Ministerio de Cultura (BOE 23/11/2026). Cada tema enlaza al documento completo (si ya está hecho) o al texto oficial con sus preguntas de examen.</p>`;
+  const opos = sel === "BIB" || sel === "SS" ? [] : sel === "C1" || sel === "C2" ? [sel] : S.opo === "ambas" ? ["C1", "C2"] : [S.opo];
+  let h = `<p class="muted"><a href="#/">← Mis oposiciones</a></p><div class="fila"><a class="btn s ${!sel ? "" : "o"}" href="#/temario">Todo</a><a class="btn s ${sel === "C1" ? "" : "o"}" href="#/temario/C1">Temario C1</a><a class="btn s ${sel === "C2" ? "" : "o"}" href="#/temario/C2">Temario C2</a><a class="btn s nar ${sel === "BIB" ? "" : "o"}" href="#/temario/BIB">Temario Bibliotecas</a><a class="btn s azul ${sel === "SS" ? "" : "o"}" href="#/temario/SS">Temario Seguridad Social</a></div><h1>Temario oficial</h1><p class="sub">Programas oficiales: AGE (BOE 26/11/2026), Bibliotecas del Ministerio de Cultura (BOE 23/11/2026) y Seguridad Social (última convocatoria, BOE 31/12/2025). Cada tema enlaza al documento completo (si ya está hecho) o al texto oficial con sus preguntas de examen.</p>`;
   for (const c of opos) {
     h += `<h2>${c === "C1" ? "Administrativo del Estado · C1" : "Auxiliar Administrativo del Estado · C2"}</h2>`;
     for (const b of IND.programa[c]) {
@@ -253,28 +258,41 @@ async function vTemario(sel) {
     }
   }
   if (!sel || sel === "BIB") h += await temarioBib();
+  if (!sel || sel === "SS") h += await temarioSS();
   pintar(h);
 }
 
-async function temarioBib() {
-  const B = await json("data/bibliotecas.json");
-  const nombres = { constitucion: "Constitución", cortes: "Cortes Generales", gobierno: "Gobierno", poder_judicial: "Poder Judicial", ccaa: "Comunidades Autónomas", local: "Administración local", age: "AGE", transparencia: "Transparencia" };
+async function temarioOtro(file, titulo, cls, linkTxt, linkHref) {
+  const B = await json(file);
+  const nombres = { constitucion: "Constitución", cortes: "Cortes Generales", gobierno: "Gobierno", poder_judicial: "Poder Judicial", ccaa: "Comunidades Autónomas", local: "Administración local", age: "AGE", transparencia: "Transparencia", ue: "Unión Europea" };
   let nT = 0, nC = 0, nP = 0;
   B.programa.forEach(b => b.temas.forEach(t => { nT++; if (t.comparte?.tipo === "total") nC++; else if (t.comparte) nP++; }));
-  let h = `<section class="bib-zona"><h2 class="nar-t">Bibliotecas · Ministerio de Cultura · turno libre (C1)</h2>
-    <div class="leyenda"><span class="chip comp">Compartido con AGE</span><span class="chip parc">Compartido en parte</span><span class="chip nuevo">Nuevo · solo Bibliotecas</span></div>
-    <p class="sub">${nT} temas: <b>${nC}</b> ya los tienes de AGE, <b>${nP}</b> en parte y <b>${nT - nC - nP}</b> son nuevos (los propios de Bibliotecas).</p>`;
+  let h = `<section class="${cls}-zona"><h2 class="${cls}-t">${esc(titulo)}</h2>${B.estado ? `<p class="aviso">${esc(B.estado)}</p>` : ""}
+    <div class="leyenda"><span class="chip comp">Compartido con AGE</span><span class="chip parc">Compartido en parte</span><span class="chip nuevo-${cls}">Nuevo · solo esta oposición</span></div>
+    <p class="sub">${nT} temas: <b>${nC}</b> ya los tienes de AGE, <b>${nP}</b> en parte y <b>${nT - nC - nP}</b> son nuevos.</p>`;
   for (const b of B.programa) {
-    h += `<div class="bloque card bib"><h3>Bloque ${b.bloque}. ${esc(b.nombre)}</h3>`;
+    h += `<div class="bloque card ${cls}"><h3>Bloque ${b.bloque}. ${esc(b.nombre)}</h3>`;
     for (const t of b.temas) {
       const c = t.comparte;
-      const chip = c ? `<span class="chip ${c.tipo === "total" ? "comp" : "parc"}">${c.tipo === "total" ? "Compartido" : "En parte"} · ${c.C1.join(", ")} · ${c.C2.join(", ")}</span>${c.nota ? `<span class="muted"> ${esc(c.nota)}</span>` : ""}` : `<span class="chip nuevo">Nuevo</span>`;
-      const links = t.ir.map(d => d.doc ? `<a class="btn s" href="#/tema/${d.doc}">${esc(nombres[d.doc] || d.doc)}</a>` : `<a class="btn s o" href="#/tema/${d.auto}">Tema ${d.auto.replace("C1-", "C1 ").replace(/-/g, ".")}</a>`).join(" ");
+      const chip = c ? `<span class="chip ${c.tipo === "total" ? "comp" : "parc"}">${c.tipo === "total" ? "Compartido" : "En parte"} · ${c.C1.concat(c.C2).join(", ")}</span>${c.nota ? `<span class="muted"> ${esc(c.nota)}</span>` : ""}` : `<span class="chip nuevo-${cls}">Nuevo</span>`;
+      const links = (t.ir || []).map(d => d.doc ? `<a class="btn s" href="#/tema/${d.doc}">${esc(nombres[d.doc] || d.doc)}</a>` : `<a class="btn s o" href="#/tema/${d.auto}">Tema ${d.auto.replace("C1-", "C1 ").replace(/-/g, ".")}</a>`).join(" ");
       h += `<div class="tema-li"><div class="n">${b.bloque}.${t.n}</div><div class="t">${esc(t.titulo)}<div class="fila" style="margin-top:6px">${chip}</div><div class="fila" style="margin-top:6px">${links || '<span class="pend">En preparación</span>'}</div></div></div>`;
     }
     h += `</div>`;
   }
-  return h + `<p><a class="btn nar" href="#/bib">Ir a Bibliotecas (simulacros y preguntas por tema)</a></p></section>`;
+  return h + (linkHref ? `<p><a class="btn ${cls}" href="${linkHref}">${esc(linkTxt)}</a></p>` : "") + `</section>`;
+}
+const temarioBib = () => temarioOtro("data/bibliotecas.json", "Bibliotecas · Ministerio de Cultura · turno libre (C1)", "nar", "Ir a Bibliotecas (simulacros y preguntas por tema)", "#/bib");
+const temarioSS = () => temarioOtro("data/seguridad_social.json", "Seguridad Social · Cuerpo Administrativo (C1)", "azul", "Ir a Seguridad Social", "#/ss");
+
+async function vSS() {
+  menu("ss");
+  const B = await json("data/seguridad_social.json"); const CONV = await json("data/convocatorias.json").catch(() => []);
+  const c = CONV.find(x => x.id === "SS");
+  pintar(`<p class="muted"><a href="#/">← Mis oposiciones</a></p><h1 class="azul-t">Seguridad Social · Administrativo (C1)</h1><p class="sub">${esc(B.nombre)}</p>
+  <div class="grid">${c ? tarjetaCuenta(c, "ssc") : ""}<div class="card ssc"><h3>El examen (última convocatoria)</h3><ul>${B.examen.map(x => `<li>${esc(x)}</li>`).join("")}</ul><p class="muted">${esc(B.plazas)}</p><p><a href="${esc(B.boe_url)}" target="_blank" rel="noopener">Convocatoria ${esc(B.boe)}</a></p></div></div>`
+    + await temarioOtro("data/seguridad_social.json", "Temario oficial", "azul"));
+  cuentas();
 }
 
 /* ---------- tema ---------- */
@@ -660,6 +678,7 @@ async function router() {
     if (!ruta) return vPortada();
     if (ruta === "age") return vInicio();
     if (ruta === "bib") return vBib();
+    if (ruta === "ss") return vSS();
     if (ruta === "bibp") return vBibPreg(a[0]);
     if (ruta === "temario") return vTemario(a[0]);
     if (ruta === "tema") return vTema(a[0], a[1], a[2]);
