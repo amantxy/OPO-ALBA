@@ -376,5 +376,77 @@
   "ref": "UE-TFUE",
   "txt": "boe/42-UE-TFUE.txt",
   "url": "https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:12016E/TXT"
+ },
+ {
+  "num": "43",
+  "nombre": "Ley 10/2007 de la lectura, del libro y de las bibliotecas",
+  "tag": "BIB",
+  "act": "2021-10-12",
+  "ref": "BOE-A-2007-12351",
+  "txt": "boe/43-BOE-A-2007-12351.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-12351"
+ },
+ {
+  "num": "44",
+  "nombre": "Ley 1/2015 reguladora de la Biblioteca Nacional de Espana",
+  "tag": "BIB",
+  "act": "2022-05-05",
+  "ref": "BOE-A-2015-3178",
+  "txt": "boe/44-BOE-A-2015-3178.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-3178"
+ },
+ {
+  "num": "45",
+  "nombre": "Ley 16/1985 Patrimonio Historico Espanol",
+  "tag": "BIB",
+  "act": "2026-10-03",
+  "ref": "BOE-A-1985-12534",
+  "txt": "boe/45-BOE-A-1985-12534.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1985-12534"
+ },
+ {
+  "num": "46",
+  "nombre": "RDLeg 1/1996 Ley de Propiedad Intelectual",
+  "tag": "BIB",
+  "act": "2022-03-30",
+  "ref": "BOE-A-1996-8930",
+  "txt": "boe/46-BOE-A-1996-8930.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1996-8930"
+ },
+ {
+  "num": "47",
+  "nombre": "Ley 23/2011 de deposito legal",
+  "tag": "BIB",
+  "act": "2022-05-05",
+  "ref": "BOE-A-2011-13114",
+  "txt": "boe/47-BOE-A-2011-13114.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2011-13114"
+ },
+ {
+  "num": "48",
+  "nombre": "RD 635/2015 deposito legal de publicaciones en linea",
+  "tag": "BIB",
+  "act": null,
+  "ref": "BOE-A-2015-8338",
+  "txt": "boe/48-BOE-A-2015-8338.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-8338"
+ },
+ {
+  "num": "49",
+  "nombre": "RD 582/1989 Reglamento de Bibliotecas Publicas del Estado",
+  "tag": "BIB",
+  "act": "2008-01-01",
+  "ref": "BOE-A-1989-12304",
+  "txt": "boe/49-BOE-A-1989-12304.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1989-12304"
+ },
+ {
+  "num": "50",
+  "nombre": "RD 1638/2009 Estatuto de la Biblioteca Nacional de Espana",
+  "tag": "BIB",
+  "act": "2016-12-19",
+  "ref": "BOE-A-2009-17893",
+  "txt": "boe/50-BOE-A-2009-17893.txt",
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2009-17893"
  }
 ]
