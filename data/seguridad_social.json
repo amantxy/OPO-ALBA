@@ -285,7 +285,7 @@
      },
      "ir": [
       {
-       "auto": "C1-III-2"
+       "doc": "acto"
       }
      ]
     },
@@ -304,7 +304,7 @@
      },
      "ir": [
       {
-       "auto": "C1-III-3"
+       "doc": "procedimiento"
       }
      ]
     },
@@ -323,7 +323,7 @@
      },
      "ir": [
       {
-       "auto": "C1-III-3"
+       "doc": "procedimiento"
       }
      ]
     },
@@ -342,7 +342,7 @@
      },
      "ir": [
       {
-       "auto": "C1-III-3"
+       "doc": "procedimiento"
       }
      ]
     },
@@ -364,7 +364,7 @@
      },
      "ir": [
       {
-       "auto": "C1-IV-1"
+       "doc": "empleado"
       },
       {
        "auto": "C1-IV-5"

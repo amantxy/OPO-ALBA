@@ -114,10 +114,10 @@
      "titulo": "Disposiciones administrativas y actos administrativos. El procedimiento administrativo. Revisión de oficio. Recursos administrativos.",
      "ir": [
       {
-       "auto": "C1-III-2"
+       "doc": "acto"
       },
       {
-       "auto": "C1-III-3"
+       "doc": "procedimiento"
       }
      ],
      "comparte": {
@@ -137,13 +137,15 @@
      "titulo": "El Real Decreto Legislativo 5/2015, de 30 de octubre, por el que se aprueba el texto refundido de la Ley del Estatuto Básico del Empleado Público: Clases de personal al servicio de las Administraciones Públicas. Adquisición y pérdida de la condición de funcionario. Situaciones administrativas. Régimen disciplinario.",
      "ir": [
       {
-       "auto": "C1-IV-1"
+       "doc": "empleado"
       },
       {
-       "auto": "C1-IV-3"
+       "doc": "empleado",
+       "sec": "acceso"
       },
       {
-       "auto": "C1-IV-4"
+       "doc": "empleado",
+       "sec": "situaciones"
       }
      ],
      "comparte": {

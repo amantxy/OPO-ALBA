@@ -206,7 +206,7 @@ async function vBib() {
   const B = await json("data/bibliotecas.json");
   const CONV = await json("data/convocatorias.json").catch(() => []);
   const c = CONV.find(x => x.id === "BIB");
-  const nombres = { constitucion: "Constitución", cortes: "Cortes Generales", gobierno: "Gobierno", poder_judicial: "Poder Judicial", ccaa: "Comunidades Autónomas", local: "Administración local", age: "AGE", transparencia: "Transparencia" };
+  const nombres = { constitucion: "Constitución", cortes: "Cortes Generales", gobierno: "Gobierno", poder_judicial: "Poder Judicial", ccaa: "Comunidades Autónomas", local: "Administración local", age: "AGE", transparencia: "Transparencia", acto: "Acto administrativo", procedimiento: "Procedimiento", empleado: "Empleado público" };
   let h = `<p class="muted"><a href="#/">← Mis oposiciones</a></p><h1 class="nar-t">Bibliotecas · Ministerio de Cultura</h1><p class="sub">${esc(B.nombre)} (${B.grupo})</p>
   <div class="grid">${c ? tarjetaCuenta(c, "m") : ""}
     ${B.modalidades.map((m, i) => `<div class="card ${i ? "m" : "l"}"><h3>${esc(m.nombre)} · ${esc(m.grupo)}</h3><p class="muted">${esc(m.para)}</p><p>${esc(m.plazas)}</p><ul>${m.examen.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("")}
@@ -224,7 +224,7 @@ async function vBib() {
   for (const b of B.programa) {
     h += `<div class="bloque card bib"><h3>Bloque ${b.bloque}. ${esc(b.nombre)}</h3>`;
     for (const t of b.temas) {
-      const links = t.ir.map(d => d.doc ? `<a class="btn s" href="#/tema/${d.doc}">${esc(nombres[d.doc] || d.doc)}</a>` : `<a class="btn s o" href="#/tema/${d.auto}">Tema ${d.auto.replace("C1-", "C1 ").replace(/-/g, ".")}</a>`).join(" ");
+      const links = t.ir.map(d => d.doc ? `<a class="btn s" href="#/tema/${d.doc}${d.sec ? "/" + d.sec : ""}">${esc(nombres[d.doc] || d.doc)}</a>` : `<a class="btn s o" href="#/tema/${d.auto}">Tema ${d.auto.replace("C1-", "C1 ").replace(/-/g, ".")}</a>`).join(" ");
       const nq = b.bloque === "IV" ? PBIB.filter(p => p.parte > 1).length : (porTema[b.bloque + "." + t.n] || 0);
       const qlink = nq ? (b.bloque === "IV" ? (t.n === 1 ? `<a class="btn s o" href="#/bibp/IV">★ ${nq} preguntas de supuestos prácticos oficiales</a>` : "") : `<a class="btn s o" href="#/bibp/${b.bloque}.${t.n}">★ ${nq} preguntas de examen</a>`) : "";
       h += `<div class="tema-li"><div class="n">${b.bloque}.${t.n}</div><div class="t">${esc(t.titulo)}<div class="fila" style="margin-top:6px">${t.comparte ? `<span class="chip ${t.comparte.tipo === "total" ? "comp" : "parc"}">${t.comparte.tipo === "total" ? "Compartido" : "En parte"} · ${t.comparte.C1.join(", ")} · ${t.comparte.C2.join(", ")}</span>` : `<span class="chip nuevo">Nuevo</span>`}</div><div class="fila" style="margin-top:6px">${links || '<span class="pend">En preparación</span>'} ${qlink}</div></div></div>`;
@@ -270,7 +270,7 @@ async function vTemario(sel) {
 async function temarioOtro(file, titulo, cls, linkTxt, linkHref, banco, ruta) {
   const porTema = {}; (banco || []).forEach(p => { if (p.tema) porTema[p.tema] = (porTema[p.tema] || 0) + 1; });
   const B = await json(file);
-  const nombres = { constitucion: "Constitución", cortes: "Cortes Generales", gobierno: "Gobierno", poder_judicial: "Poder Judicial", ccaa: "Comunidades Autónomas", local: "Administración local", age: "AGE", transparencia: "Transparencia", ue: "Unión Europea" };
+  const nombres = { constitucion: "Constitución", cortes: "Cortes Generales", gobierno: "Gobierno", poder_judicial: "Poder Judicial", ccaa: "Comunidades Autónomas", local: "Administración local", age: "AGE", transparencia: "Transparencia", ue: "Unión Europea", acto: "Acto administrativo", procedimiento: "Procedimiento", empleado: "Empleado público" };
   let nT = 0, nC = 0, nP = 0;
   B.programa.forEach(b => b.temas.forEach(t => { nT++; if (t.comparte?.tipo === "total") nC++; else if (t.comparte) nP++; }));
   let h = `<section class="${cls}-zona"><h2 class="${cls}-t">${esc(titulo)}</h2>${B.estado ? `<p class="aviso">${esc(B.estado)}</p>` : ""}
@@ -281,7 +281,7 @@ async function temarioOtro(file, titulo, cls, linkTxt, linkHref, banco, ruta) {
     for (const t of b.temas) {
       const c = t.comparte;
       const chip = c ? `<span class="chip ${c.tipo === "total" ? "comp" : "parc"}">${c.tipo === "total" ? "Compartido" : "En parte"} · ${c.C1.concat(c.C2).join(", ")}</span>${c.nota ? `<span class="muted"> ${esc(c.nota)}</span>` : ""}` : `<span class="chip nuevo-${cls}">Nuevo</span>`;
-      const links = (t.ir || []).map(d => d.doc ? `<a class="btn s" href="#/tema/${d.doc}">${esc(nombres[d.doc] || d.doc)}</a>` : `<a class="btn s o" href="#/tema/${d.auto}">Tema ${d.auto.replace("C1-", "C1 ").replace(/-/g, ".")}</a>`).join(" ");
+      const links = (t.ir || []).map(d => d.doc ? `<a class="btn s" href="#/tema/${d.doc}${d.sec ? "/" + d.sec : ""}">${esc(nombres[d.doc] || d.doc)}</a>` : `<a class="btn s o" href="#/tema/${d.auto}">Tema ${d.auto.replace("C1-", "C1 ").replace(/-/g, ".")}</a>`).join(" ");
       const nq = porTema[b.bloque + "." + t.n] || 0;
       const ql = nq && ruta ? ` <a class="btn s o" href="#/${ruta}/${b.bloque}.${t.n}">★ ${nq} preguntas de examen</a>` : "";
       h += `<div class="tema-li"><div class="n">${b.bloque}.${t.n}</div><div class="t">${esc(t.titulo)}<div class="fila" style="margin-top:6px">${chip}</div><div class="fila" style="margin-top:6px">${links || '<span class="pend">En preparación</span>'}${ql}</div></div></div>`;
@@ -396,11 +396,11 @@ function vTarjetas(cont, cards, todas) {
 }
 
 const OPOS = [["C1", "AGE · Administrativo C1", "l"], ["C2", "AGE · Auxiliar C2", "m"], ["SS", "Seguridad Social", "ssc"], ["BIB", "Bibliotecas · Cultura", "bibc"]];
-const SS_DOCS = ["constitucion", "cortes", "poder_judicial", "gobierno", "age", "ccaa", "local", "ue"];
+const SS_DOCS = ["constitucion", "cortes", "poder_judicial", "gobierno", "age", "ccaa", "local", "ue", "acto", "procedimiento", "empleado"];
 const tabCls = k => k === "BIB" ? "t-bib" : k === "C2" ? "t-c2" : k === "SS" ? "t-ss" : k === "C1" ? "t-c1" : "";
 const btnCls = k => k === "BIB" ? "nar" : k === "C2" ? "m" : k === "SS" ? "azul" : "";
 const bancoDe = k => k === "BIB" ? (PBIB || []) : k === "SS" ? (PSS || []) : PREG;
-const BIB_DOCS = ["constitucion", "cortes", "gobierno", "poder_judicial", "ccaa", "local", "age", "transparencia"];
+const BIB_DOCS = ["constitucion", "cortes", "gobierno", "poder_judicial", "ccaa", "local", "age", "transparencia", "procedimiento", "acto", "empleado"];
 function opoTabs(ruta, sel) {
   return `<div class="tabs opo-tabs">${[["", "Todas"]].concat(OPOS.map(o => [o[0], o[1]])).map(([k, n]) => `<a class="${(sel || "") === k ? "on" : ""} ${tabCls(k)}" href="#/${ruta}${k ? "/" + k : ""}">${n}</a>`).join("")}</div>`;
 }
